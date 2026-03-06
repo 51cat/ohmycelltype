@@ -1,0 +1,91 @@
+# --- 1. Python 运行环境与编译文件 ---
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- 2. 虚拟环境 (强烈建议排除) ---
+.venv/
+venv/
+ENV/
+env/
+# Conda 环境目录
+.conda/
+conda-env/
+
+# --- 3. 单元测试与覆盖率 ---
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.pyo
+.hypothesis/
+.pytest_cache/
+pytestdebug.log
+
+# --- 4. Jupyter Notebook 缓存 ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+# 自动保存的临时文件
+.virtual_documents/
+
+# --- 5. IDE 配置 (VS Code, PyCharm, MobaXterm) ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.MobaXterm/
+.DS_Store
+
+# --- 6. 生信分析与大数据 (针对你的场景) ---
+# 排除大型测序数据和中间文件
+*.fastq
+*.fq
+*.bam
+*.sam
+*.vcf
+*.gz
+# 排除 R 语言分析产生的 RData/RDS (如果你在 Python 中调用 R)
+*.RData
+*.Rhistory
+*.rds
+
+# --- 7. AI/RAG 项目相关 ---
+# 排除本地向量数据库（如 Chroma, FAISS）
+vector_db/
+chroma_db/
+# 排除本地下载的模型权重文件
+models/
+weights/
+*.bin
+*.pt
+*.pth
+*.onnx
+
+# --- 8. 敏感信息与配置 ---
+.env
+*.log
+config.yaml.local
+credentials.json
