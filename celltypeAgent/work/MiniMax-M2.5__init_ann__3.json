@@ -1,0 +1,11 @@
+{
+    "cluster_name": "3",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "该cluster的marker基因来自多个不相关的细胞谱系，缺乏典型的PBMC免疫细胞特征。S100B和LRRN3主要表达于神经细胞（星形胶质细胞、神经元）；KRT73-AS1属于角蛋白家族，主要表达于上皮细胞；REG4和CA6分别表达于肠道和唾液腺上皮；ADTRP和EPHX2主要在心血管和肝脏/肾脏中表达。这些marker的组合无法归类于任何单一合理的PBMC细胞类型。",
+        "subtype_refinement": "由于marker跨越神经细胞(S100B, LRRN3)、上皮细胞(KRT73, REG4, CA6)、心血管细胞(ADTRP)等多个谱系，无法精细分亚型，符合doublet或multiplets的特征。ANKRD55虽然与免疫相关，但在整个marker列表中占比极低，不足以支撑免疫细胞判断。",
+        "functional_state": "该cluster很可能代表实验过程中形成的双细胞或多细胞 doublet，或存在严重的细胞污染。建议复查该cluster的细胞质量，排除低质量或混杂样本。"
+    },
+    "model": "MiniMax-M2.5"
+}

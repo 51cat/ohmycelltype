@@ -1,0 +1,11 @@
+{
+    "cluster_name": "2",
+    "cell_type": "单核细胞",
+    "cell_subtype": "经典单核细胞",
+    "reasoning": {
+        "lineage_determination": "关键 marker 基因 S100A8、S100A12 和 CCL2 强烈提示髓系谱系。S100A8/A12 是钙卫蛋白复合物的组成部分，主要在髓系细胞中高表达；CCL2 是单核细胞的典型趋化因子 marker。",
+        "subtype_refinement": "缺乏非经典单核细胞 marker（如 FCGR3A）或中性粒细胞特异性 marker（如 CEACAM8、LCN2），且 CCL2 与 S100A12 共表达是经典 CD14+ 单核细胞的特征。CLEC4E 和 SERPINB2 进一步支持单核/巨噬细胞身份。",
+        "functional_state": "CXCL1、CCL2 和 SERPINB2 的高表达表明细胞处于炎症激活状态，参与趋化因子信号传导和免疫调节。ALDH1A1 可能反映特定的代谢状态或应激反应。"
+    },
+    "model": "qwen3.5-397b-a17b"
+}

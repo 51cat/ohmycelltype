@@ -1,0 +1,11 @@
+{
+    "cluster_name": "0",
+    "cell_type": "CD8+ T 细胞",
+    "cell_subtype": "细胞毒性 / 效应记忆",
+    "reasoning": {
+        "lineage_determination": "DEGs 中包含 T 细胞受体基因 TRAJ61 和 TRAV23DV6，明确指示该群细胞属于 T 细胞谱系，排除了 NK 细胞或其他非 T 淋巴细胞的可能性。",
+        "subtype_refinement": "GZMH 是典型的细胞毒性分子，通常在 CD8+ T 细胞或 NK 细胞中表达；结合 TCR 基因的存在，指向 CD8+ 细胞毒性 T 细胞。ZNF683 (Hobit) 和 B3GAT1 的表达进一步支持其为效应记忆或终末分化亚型。",
+        "functional_state": "高表达 GZMH 表明细胞具备强烈的细胞毒性功能潜力。未检测到明显的细胞周期或应激相关基因，表明细胞处于非增殖的功能效应状态。"
+    },
+    "model": "qwen3.5-397b-a17b"
+}

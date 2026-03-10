@@ -1,0 +1,11 @@
+{
+    "cluster_name": "3",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "DEGs 包含免疫相关基因（LRRN3, ANKRD55）以及严格的上皮/组织特异性基因（KRT73-AS1, CA6, REG4, S100B）。在 PBMC 样本中，角蛋白和唾液腺/肠道标记物的出现表明存在非血液细胞谱系信号。",
+        "subtype_refinement": "由于单一免疫细胞不应表达角蛋白或 CA6/REG4 等组织特异性基因，这种多谱系 marker 共存无法归类为特定免疫亚型，符合多谱系混合特征。",
+        "functional_state": "该 cluster 极可能代表实验过程中的细胞双连体（Doublet）或外源组织污染，而非具有特定生物学功能的真实细胞群体。"
+    },
+    "model": "qwen3.5-397b-a17b"
+}

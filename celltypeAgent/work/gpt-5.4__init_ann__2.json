@@ -1,0 +1,11 @@
+{
+    "cluster_name": "2",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "Inflammatory classical monocytes",
+    "reasoning": {
+        "lineage_determination": "该群细胞高表达 CXCL1、CCL2、CLEC4E、S100A12、S100A8、SERPINB2，均为典型髓系/单核-粒细胞相关炎症标志。其中 S100A8 和 S100A12 是外周血炎症性髓系细胞常见 marker，CLEC4E 也支持单核/髓系谱系归属。未见明确 T 细胞、B 细胞、NK 细胞或浆细胞的经典 marker，因此首先判断为髓系细胞。",
+        "subtype_refinement": "在髓系细胞中，该群更符合炎症性单核细胞特征。CCL2、CXCL1、SERPINB2、CLEC4E 反映活化单核细胞的趋化和先天免疫应答程序；S100A8/S100A12 也常见于经典单核细胞及炎症单核样群。虽然缺少 LST1、FCN1、CTSS、TYMP 等更常见 PBMC 单核 marker，但当前基因组合明显偏向炎症性经典单核细胞，而非树突细胞或成熟中性粒细胞。由于 PBMC 样本中真正中性粒细胞通常较少，且该群伴随较强单核样炎症基因表达，因此更倾向注释为 inflammatory classical monocytes。",
+        "functional_state": "该群细胞呈现明显炎症激活状态。CXCL1 和 CCL2 提示其具有强趋化因子分泌能力，可募集其他免疫细胞；CLEC4E 与先天免疫受体激活相关；SERPINB2、S100A8、S100A12 指向急性炎症和抗菌反应。整体上符合 PBMC 中处于活化/炎症应答状态的单核细胞。"
+    },
+    "model": "gpt-5.4"
+}

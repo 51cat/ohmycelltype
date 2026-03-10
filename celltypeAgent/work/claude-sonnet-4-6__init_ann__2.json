@@ -1,0 +1,11 @@
+{
+    "cluster_name": "2",
+    "cell_type": "Monocyte",
+    "cell_subtype": "Classical Monocyte (Inflammatory)",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达S100A8和S100A12，这两个基因是单核细胞/髓系细胞的经典标志物，在PBMC中强烈指向单核细胞谱系。CLEC4E（也称Mincle）是C型凝集素受体，在髓系细胞（单核细胞/巨噬细胞）中特异性表达，进一步支持髓系谱系判断。CCL2（MCP-1）也是单核细胞的重要趋化因子标志。",
+        "subtype_refinement": "CXCL1和CCL2的高表达提示该群细胞具有促炎趋化因子分泌能力，与经典单核细胞（CD14+）在炎症激活状态下的表型一致。SERPINB2（PAI-2）在激活的单核细胞中上调，进一步支持经典炎症型单核细胞亚型。S100A8/S100A12的共同高表达与经典单核细胞（而非非经典单核细胞）表型更为吻合。ALDH1A1的表达可能反映一定的代谢活跃状态。",
+        "functional_state": "该cluster整体呈现促炎激活状态。CXCL1、CCL2等趋化因子的高表达表明这群单核细胞正在积极参与炎症信号传导和免疫细胞募集；SERPINB2的表达与炎症应答及纤溶调控相关；CLEC4E参与病原体识别和炎症激活。综合来看，该群细胞处于促炎激活的功能状态，可能响应某种炎症刺激而被活化。"
+    },
+    "model": "claude-sonnet-4-6"
+}

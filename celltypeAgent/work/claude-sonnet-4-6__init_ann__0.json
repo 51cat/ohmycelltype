@@ -1,0 +1,11 @@
+{
+    "cluster_name": "0",
+    "cell_type": "T cells",
+    "cell_subtype": "CD8+ Effector Memory T cells (Tem) / NK-like T cells",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达TRAJ61和TRAV23DV6，均为T细胞受体（TCR）α链相关基因，明确指向T细胞谱系。ZNF683（又称HOBIT）是组织驻留记忆T细胞和NK/T细胞的重要转录因子。B3GAT1（CD57）是T细胞和NK细胞终末分化的经典marker。GZMH（Granzyme H）是细胞毒性T细胞和NK细胞的效应分子。综合判断该cluster属于T细胞（CD8+ T细胞）谱系。",
+        "subtype_refinement": "ZNF683/HOBIT的高表达提示该群细胞具有组织驻留记忆（Trm）或终末效应（Teff）特征；B3GAT1/CD57高表达是CD8+ T细胞终末分化（terminal differentiation）和效应记忆（Tem）亚型的标志，常见于衰老或高度分化的效应T细胞；GZMH高表达进一步支持细胞毒性效应功能。PROK2（Prokineticin 2）在NK细胞及某些效应T细胞中有表达，提示该群细胞可能具有NK样细胞毒性特征。综合推断为CD8+ 终末效应记忆T细胞（Temra/Tem）或具有NK样表型的细胞毒性T细胞。",
+        "functional_state": "该cluster细胞表现出高度细胞毒性的效应状态：GZMH高表达提示强烈的细胞毒性颗粒释放能力；CD57（B3GAT1）阳性提示细胞处于终末分化状态，增殖能力较低但细胞毒杀伤功能强；ZNF683的表达可能还提示一定的组织驻留记忆特征。整体功能状态为高度分化、具有强细胞毒性的效应T细胞，在PBMC中常见于慢性感染、肿瘤免疫或衰老相关的免疫应答背景下。"
+    },
+    "model": "claude-sonnet-4-6"
+}

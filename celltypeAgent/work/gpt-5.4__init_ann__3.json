@@ -1,0 +1,11 @@
+{
+    "cluster_name": "3",
+    "cell_type": "T cells",
+    "cell_subtype": "Activated / memory-like T cells",
+    "reasoning": {
+        "lineage_determination": "LRRN3 和 ANKRD55 支持该群属于 T 细胞谱系。LRRN3 常见于外周血 T 细胞，尤其与活化/记忆相关 T 细胞有关；ANKRD55 也常见于 CD4 T 细胞相关群体。该群缺乏典型髓系、B 细胞或 NK 细胞核心 marker，因此更符合 T 细胞。",
+        "subtype_refinement": "在 T 细胞大类内，LRRN3 提示偏向外周成熟 T 细胞并具有活化或记忆表型。ANKRD55 更支持 CD4 T 细胞相关特征，但当前 marker 不足以可靠区分明确的 CD4 naive、Treg 或 Th 亚群，因此采用较保守的“Activated / memory-like T cells”注释。NOG、REG4、CA6、S100B 等并非常规 PBMC T 细胞 marker，提示该群可能存在少量异常转录信号或背景污染，但不足以定义为另一稳定谱系。",
+        "functional_state": "该群未见明显细胞周期基因，故不支持增殖细胞；也不以线粒体、核糖体或应激基因为主，故不支持低质量细胞。结合 LRRN3 表达，推测其处于活化或记忆相关状态。由于同时存在多种非典型 PBMC 基因，需保守看待，可能伴有环境 RNA 污染或轻度异常表达。"
+    },
+    "model": "gpt-5.4"
+}

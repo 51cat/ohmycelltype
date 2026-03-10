@@ -1,0 +1,11 @@
+{
+    "cluster_name": "1",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "差异表达基因显示多种互斥的细胞谱系特征：KRT1 为上皮细胞标记，NEFL 为神经元标记，TPO 为甲状腺特异性标记，ZP1 为卵细胞标记。这些均非 PBMC 样本中应有的免疫细胞标记。",
+        "subtype_refinement": "由于同一聚类中同时存在来自上皮、神经、生殖及内分泌系统的特异性标记，无法归类为单一细胞亚型，符合 Doublet 或 Multiplet 的定义。",
+        "functional_state": "在 PBMC 背景下出现非血液组织特异性基因，推测为细胞双聚体（Doublet）或外源污染导致的技术 artifact，不具备明确的生物学功能状态。"
+    },
+    "model": "qwen3.5-397b-a17b"
+}

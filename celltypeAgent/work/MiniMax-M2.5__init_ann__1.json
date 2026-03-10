@@ -1,0 +1,11 @@
+{
+    "cluster_name": "1",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达基因涉及多个不相关的细胞谱系：KRT1和IL17RB为上皮细胞/角质形成细胞marker；NEFL和ADAM23为神经元marker；TPO为甲状腺滤泡细胞marker；ZP1为卵母细胞marker；GATA3-AS1和IL17RB与免疫细胞(Th2)相关；HLF与肝脏相关。这些marker跨越上皮、神经、甲状腺、生殖和免疫等多个谱系，无法归类于单一细胞类型。",
+        "subtype_refinement": "由于marker基因来自多种细胞类型的组合，不存在明确的细胞亚型特征。这些基因的表达模式在正常PBMC中不应共存，提示可能为两个或多个不同类型细胞的混合。",
+        "functional_state": "该cluster表现出典型的doublet特征：多个不相关细胞类型的marker同时高表达，缺乏清晰的功能通路富集。在PBMC中同时检测到神经元(KRT1、NEFL)、甲状腺(TPO)、生殖细胞(ZP1)等marker是不符合生理学预期的，很可能是技术性混杂。"
+    },
+    "model": "MiniMax-M2.5"
+}

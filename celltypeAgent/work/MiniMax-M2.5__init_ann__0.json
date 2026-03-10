@@ -1,0 +1,11 @@
+{
+    "cluster_name": "0",
+    "cell_type": "Cytotoxic T cells",
+    "cell_subtype": "CD8+ T cells (Memory/Effector)",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达T细胞受体相关基因TRAJ61和TRAV23DV6，明确指向T细胞谱系。ZNF683是CD8+ T细胞的典型转录因子marker，GZMH（颗粒酶H）和B3GAT1（CD49b）在细胞毒性T淋巴细胞中特异性表达。综合判断该cluster属于T细胞中的细胞毒性T细胞亚群。",
+        "subtype_refinement": "基于GZMH（颗粒酶H）的表达，该cluster很可能为CD8+ 细胞毒性T细胞。GZMH是细胞毒性T细胞活化后表达的特征基因，提示这些细胞可能处于效应或记忆T细胞状态。结合PBMC组织背景，判定为CD8+记忆/效应T细胞。",
+        "functional_state": "该cluster表达细胞毒性相关基因（GZMH）和T细胞活化相关基因，提示这些CD8+ T细胞可能处于活化状态或具有细胞毒性功能。无明显增殖marker（如MKI67），也未检测到应激或低质量细胞特征基因，细胞状态良好。"
+    },
+    "model": "MiniMax-M2.5"
+}

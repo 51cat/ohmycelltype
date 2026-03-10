@@ -1,0 +1,11 @@
+{
+    "cluster_name": "2",
+    "cell_type": "Monocytes",
+    "cell_subtype": "Inflammatory/Activated Classical Monocytes",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达S100A8、S100A12、CXCL1和CCL2等经典marker，均为髓系细胞（myeloid lineage）的标志性基因。S100A8/A12（钙卫蛋白）是单核细胞和中性粒细胞的特征性marker；CXCL1和CCL2是单核细胞/巨噬细胞分泌的趋化因子；CLEC4E是单核细胞/巨噬细胞特异性的C型凝集素受体；SERPINB2也在单核细胞/巨噬细胞中高表达。这些marker共同指向单核细胞谱系。",
+        "subtype_refinement": "根据DEGs特征，该cluster倾向于经典单核细胞（classical monocytes, CD14+）的炎症/激活状态。S100A8和S100A12的高表达表明单核细胞处于活化状态；CXCL1和CCL2的强表达是炎症单核细胞的典型特征；CLEC4E参与病原体识别，进一步支持单核细胞的免疫激活状态。ALDH1A1在此可能反映单核细胞的前体特性或代谢状态改变，但不改变主要的细胞类型判定。",
+        "functional_state": "该cluster表现出典型的炎症激活状态：大量分泌CCL2（单核细胞趋化因子）和CXCL1（中性粒细胞趋化因子），表明这些细胞正在积极参与炎症反应；S100A8/A12的上调常见于炎症状态下的单核细胞；CLEC4E的表达提示这些细胞具有病原体识别功能。结合PBMC的组织背景，这些细胞可能是血液循环中处于激活状态的经典单核细胞，正在准备迁移至炎症组织部位。"
+    },
+    "model": "MiniMax-M2.5"
+}

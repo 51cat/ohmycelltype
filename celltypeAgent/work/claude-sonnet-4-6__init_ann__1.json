@@ -1,0 +1,11 @@
+{
+    "cluster_name": "1",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "该cluster的marker基因来自多个截然不同的细胞谱系，无法归属于单一细胞类型。GATA3-AS1和IL17RB提示T细胞（Th2）或上皮细胞谱系；KRT1为角质形成细胞的典型marker；NEFL为神经元特异性标志基因；TPO（甲状腺过氧化物酶）与甲状腺细胞相关；ZP1（zona pellucida glycoprotein 1）为卵母细胞特异性基因；HLF为造血干/祖细胞及肝脏相关marker。这些基因横跨神经、上皮、生殖、造血及甲状腺等多个不相关谱系，在PBMC背景下生物学上无法合理解释为单一细胞类型。",
+        "subtype_refinement": "SNHG18为lncRNA，在多种细胞中均有表达，无特异性；ADAM23在神经组织中高表达，与NEFL共同指向神经元污染；KRT1高度特异于皮肤角质形成细胞；ZP1严格限于卵母细胞。在PBMC样本中出现如此广泛的跨组织、跨谱系marker组合，强烈提示该cluster为多细胞doublet或技术伪影，而非真实存在的单一细胞亚型。",
+        "functional_state": "由于该cluster同时携带来自神经细胞（NEFL、ADAM23）、上皮/角化细胞（KRT1）、卵母细胞（ZP1）、甲状腺细胞（TPO）及造血细胞（HLF）的特征基因，在人类PBMC组织来源中这一组合缺乏任何合理的生物学解释，判定为Doublet（双细胞伪聚类）。"
+    },
+    "model": "claude-sonnet-4-6"
+}

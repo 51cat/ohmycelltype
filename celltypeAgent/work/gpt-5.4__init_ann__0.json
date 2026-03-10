@@ -1,0 +1,11 @@
+{
+    "cluster_name": "0",
+    "cell_type": "T cells",
+    "cell_subtype": "Cytotoxic tissue-resident-like / activated CD8+ T cells",
+    "reasoning": {
+        "lineage_determination": "该 cluster 明显属于 T 细胞谱系，关键依据是 TRAJ61 和 TRAV23DV6 为 TCR α 链相关基因，提示其来源于 T lymphocyte。未见典型髓系、B 细胞或 NK 细胞核心 marker（如 LST1、S100A8/A9、MS4A1、CD79A、NKG7、KLRD1）占主导，因此首先判断为 T 细胞而非其他免疫谱系。",
+        "subtype_refinement": "进一步看，ZNF683（HOBIT）是组织驻留样/细胞毒性淋巴细胞的重要转录因子，GZMH 为典型细胞毒分子，B3GAT1（CD57）提示终末分化/成熟的细胞毒性淋巴细胞特征，PROK2 也可见于活化的细胞毒性淋巴细胞。结合 TCR 基因存在，较符合细胞毒性 T 细胞而非经典 NK 细胞。由于缺少 CCR7、IL7R、LTB、MALAT1 等初始/记忆 T 细胞特征，也缺少 FOXP3、IL7R、CXCR5 等其他 T 细胞亚群标志，因此更倾向注释为 cytotoxic tissue-resident-like / activated CD8+ T cells。",
+        "functional_state": "该群细胞表现出明显细胞毒效应状态，依据为 GZMH 高表达；同时 ZNF683 和 CD57（B3GAT1）支持其具有成熟、活化并偏驻留样/终末分化特征。在 PBMC 背景下，所谓“tissue-resident-like”更应保守理解为具有 TRM-like 转录特征的外周循环细胞，而非真正组织驻留细胞。未见细胞周期基因富集，不支持增殖状态；也无明显低质量或多谱系混合证据。"
+    },
+    "model": "gpt-5.4"
+}

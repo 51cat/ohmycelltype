@@ -1,0 +1,11 @@
+{
+    "cluster_name": "1",
+    "cell_type": "Doublet",
+    "cell_subtype": "Mixed lineage",
+    "reasoning": {
+        "lineage_determination": "该cluster缺乏PBMC中常见免疫细胞的canonical marker（如CD3D/E、MS4A1、NKG7、LYZ等），反而同时出现多种彼此不一致且不符合外周血单一细胞谱系的基因：KRT1为上皮角蛋白标记，NEFL为神经相关基因，TPO和ZP1为明显非PBMC来源基因，IL17RB/GATA3-AS1提示偏2型淋巴相关特征，但证据很弱且与其余marker不一致。因此该群体无法归入单一正常PBMC谱系，更符合混合来源信号。",
+        "subtype_refinement": "由于marker组合跨越上皮样（KRT1）、神经样（NEFL）及其他非血液组织相关基因（TPO、ZP1），同时仅有少量可能与淋巴细胞相关的IL17RB、GATA3-AS1，提示该cluster很可能由不同谱系细胞信号混杂构成，最合理注释为Doublet而非特定免疫细胞亚型。",
+        "functional_state": "该cluster未见明确细胞周期基因富集，不支持增殖细胞；也不以线粒体、核糖体或应激基因为主，不典型支持低质量/濒死细胞。结合PBMC背景下出现大量不合理异源marker，更倾向于技术性双细胞/混合捕获事件。"
+    },
+    "model": "gpt-5.4"
+}

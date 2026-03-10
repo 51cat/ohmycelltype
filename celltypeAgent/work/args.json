@@ -1,0 +1,57 @@
+{
+    "metadata": {
+        "spec": "Human",
+        "tissue": "pbmc",
+        "language": "中文"
+    },
+    "cluster": {
+        "0": [
+            "TRAJ61",
+            "CTB-91J4.1",
+            "ZNF683",
+            "TRAV23DV6",
+            "LINC00384",
+            "PROK2",
+            "B3GAT1",
+            "GZMH",
+            "RP11-9M16.2",
+            "RP11-305L7.3"
+        ],
+        "1": [
+            "SNHG18",
+            "RP11-379F12.3",
+            "KRT1",
+            "HLF",
+            "GATA3-AS1",
+            "TPO",
+            "ADAM23",
+            "IL17RB",
+            "ZP1",
+            "NEFL"
+        ],
+        "2": [
+            "CXCL1",
+            "CCL2",
+            "ZNF697",
+            "CLEC4E",
+            "SERPINB2",
+            "CTB-61M7.2",
+            "S100A12",
+            "S100A8",
+            "ALDH1A1",
+            "RP11-362F19.3"
+        ],
+        "3": [
+            "NOG",
+            "REG4",
+            "KRT73-AS1",
+            "LRRN3",
+            "ADTRP",
+            "ANKRD55",
+            "CA6",
+            "S100B",
+            "EPHX2",
+            "RP11-664D1.1"
+        ]
+    }
+}

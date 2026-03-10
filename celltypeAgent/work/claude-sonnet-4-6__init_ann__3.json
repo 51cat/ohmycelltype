@@ -1,0 +1,11 @@
+{
+    "cluster_name": "3",
+    "cell_type": "Unknown",
+    "cell_subtype": "Unresolved",
+    "reasoning": {
+        "lineage_determination": "该cluster的高表达基因组合在PBMC（外周血单个核细胞）背景下难以归属于明确的经典细胞谱系。S100B虽可见于神经胶质细胞、某些树突状细胞及黑色素瘤细胞，但在PBMC中特异性不强。LRRN3在部分T细胞亚群中有报道，但其余基因如REG4（肠道/胰腺上皮相关）、KRT73-AS1（角蛋白相关lncRNA）、NOG（骨形态发生蛋白拮抗剂）、CA6（碳酸酐酶，唾液腺/味觉相关）、ADTRP、ANKRD55、EPHX2等基因在经典PBMC细胞类型（T细胞、B细胞、NK细胞、单核细胞等）中均无典型富集表达的报道，这些基因更多与上皮组织或非造血细胞相关。",
+        "subtype_refinement": "基因组合中REG4高度特异于肠道上皮/杯状细胞，KRT73-AS1与角蛋白家族相关，CA6与唾液腺上皮相关，NOG与间充质/骨祖细胞相关，这些标志物均不符合PBMC中任何已知免疫细胞亚型的特征。整体marker组合呈现出上皮/非造血细胞的特征，与PBMC样本来源存在明显生物学矛盾，无法精细鉴定为任何已知PBMC细胞亚型。",
+        "functional_state": "由于marker基因组合来自多种不相关的组织类型（肠道上皮、角质层、唾液腺、间充质等），且与PBMC正常免疫细胞类型不符，该cluster最可能代表低质量细胞、环境RNA污染、或样本中混入的非血液来源细胞，也不排除是Doublet或技术伪影的可能。由于缺乏支持任何单一可信细胞类型的canonical marker证据，注释判定为Unknown/Unresolved。"
+    },
+    "model": "claude-sonnet-4-6"
+}
