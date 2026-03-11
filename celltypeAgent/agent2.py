@@ -21,7 +21,7 @@ ANNOTATION_MODEL   =  ['gpt-5.4', 'claude-sonnet-4-6']
 AUDIT_MODEL        = 'claude-sonnet-4-6'
 CONSENSUS_MODEL     = 'claude-sonnet-4-6'
 MAX_REFLECT_TIMES   = 5
-RELIABILITY_THRESHOLD = 70
+RELIABILITY_THRESHOLD = 80
 
 class CelltypeAgent:
     def __init__(self, marker_table, outdir, provider= 'n1n'):
@@ -130,11 +130,11 @@ class CelltypeAgent:
                     cluster_state.update_cell_subtype(model_name, f'(Unreliable)_{cell_type}')
                     cluster_state.update_cell_subtype(model_name, f'(Unreliable)_{cell_subtype}')
                     break
-            
-        print('\n\n\n\n')
-        print(cluster_state)
-        print('\n\n\n\n')
-
+        # 共识检验
+        connode = CelltypeConsensusNode(self.consensus_client, self.metadata_state, cluster_state)
+        connode.prep()
+        res_con = connode.run()
+        print(res_con)
 
                 
     @add_log
@@ -157,9 +157,12 @@ class CelltypeAgent:
 
 
 
-INPUT_DATA = f"{os.path.dirname(os.path.dirname(__file__))}/example_data/deg_all.csv"
+INPUT_DATA = f"{os.path.dirname(os.path.dirname(__file__))}/example_data/test.csv"
 
 runner = CelltypeAgent(INPUT_DATA, 'work2/')
 
 runner.collect_parms()
-runner._ann_single_cluster()
+runner._ann_single_cluster(0)
+runner._ann_single_cluster(1)
+runner._ann_single_cluster(2)
+runner._ann_single_cluster(30)

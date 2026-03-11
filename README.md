@@ -1,44 +1,120 @@
 # CelltypeAgent
 
-一个基于多模型细胞类型注释的多agent协作系统，用于单细胞RNA测序数据的自动细胞类型注释。
+一个基于多模型协作的细胞类型自动注释系统，用于单细胞RNA测序数据的自动细胞类型注释。
 
 ## 项目目的
 
 1. 开发一个基于多模型细胞类型注释的多agent协作系统
-2. 不调用任何框架，例如langchain，从零实现，主要目的是学习
-3. 长远目标，未来可以部署到自己的云服务器
+2. 不依赖任何框架（如LangChain），从零实现，主要目的是学习
 
 ## 功能特性
 
-- 多LLM模型支持（GPT、Claude、MiniMax、Qwen等）
-- 自动参数收集和细胞类型注释
-- 并行处理多个簇（clusters）
-- 支持多种物种和组织类型
-- 详细的推理过程记录
+- **多LLM模型支持**：GPT、Claude、MiniMax、Qwen等多种模型并行注释
+- **自动参数收集**：通过对话式交互自动识别数据结构并配置参数
+- **多模型共识机制**：整合多个模型的注释结果，提高准确性
+- **注释审核与反思**：自动评估注释可靠性，支持多轮反思修正
+- **详细的推理过程**：记录完整的细胞类型判定依据
+- **多物种/组织支持**：支持Human、Mouse等多种物种和组织类型
 
 ## 安装
 
-...
+```bash
+# 克隆仓库
+git clone https://github.com/your-repo/CelltypeAgent.git
+cd CelltypeAgent
+
+# 安装依赖
+pip install -e .
+```
 
 ## 项目结构
 
 ```
 celltypeAgent/
-├── agent.py              # 主程序入口
-├── config.json           # 配置文件
-├── llm/                  # LLM接口模块
-├── nodes/                # 节点模块（参数收集、注释、审核）
-├── prompt/               # 提示模板
-└── tools/                # 工具函数
+├── celltypeAgent/
+│   ├── __init__.py              # 包初始化，JSON工具函数
+│   ├── agent2.py                # 主agent类，工作流编排
+│   ├── config.json              # API配置
+│   ├── llm/                     # LLM接口层
+│   │   ├── base.py              # LLM抽象基类
+│   │   ├── n1n.py               # N1N API实现
+│   │   ├── openrouter.py        # OpenRouter实现
+│   │   ├── message.py           # 消息历史管理
+│   │   └── tool.py              # 工具文档提取
+│   ├── nodes/                   # 工作流节点
+│   │   ├── paramcollector_node.py   # 参数收集节点
+│   │   ├── anno_cluster_node.py     # 细胞类型注释节点
+│   │   ├── audit_ann_node.py        # 注释审核节点
+│   │   └── consensus_node.py        # 多模型共识节点
+│   ├── state/                   # 状态管理
+│   │   └── state.py             # 数据类定义
+│   ├── prompt/                  # 提示模板
+│   │   └── prompt.py            # 所有提示词
+│   └── tools/                   # 工具函数
+│       ├── utils.py             # 通用工具
+│       └── agent_tools.py       # Agent专用工具
+├── example_data/                # 示例数据
+├── work/                        # 输出目录
+└── setup.py                     # 包配置
+```
+
+## 工作流程
+
+```
+┌─────────────────┐
+│  参数收集节点    │  交互式收集物种、组织、列映射等参数
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  细胞类型注释    │  多个LLM模型并行注释
+│  (多个模型)      │  输出: cell_type, cell_subtype, reasoning
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  注释审核节点    │  评估注释可靠性 (0-100分)
+│                 │  检测: Gene Hallucination, 生物学合理性
+└────────┬────────┘
+         │
+         ▼ (若评分 < 80)
+┌─────────────────┐
+│  反思修正        │  最多5轮反思，优化注释结果
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  共识节点        │  整合多模型结果，输出最终注释
+└─────────────────┘
+```
+
+## 输出说明
+
+输出文件保存在 `outdir` 目录下：
+
+- `init/` - 初始注释结果，按模型和簇编号命名
+- `audit/` - 审核结果，包含可靠性评分和审核意见
+
+每个输出文件为JSON格式：
+
+```json
+{
+  "cluster_name": "0",
+  "cell_type": "T cell",
+  "cell_subtype": "CD4+ T cell",
+  "reasoning": {
+    "lineage_determination": "...",
+    "subtype_refinement": "...",
+    "functional_state": "..."
+  }
+}
 ```
 
 ## 依赖
 
-- requests
-- pandas
-- openai
-- openpyxl (可选，用于Excel文件处理)
+- `openai` - OpenAI API客户端
+- `pandas` - 数据处理
+- `requests` - HTTP请求
 
-## 参考
-
-- [DeepSearchAgent-Demo](https://github.com/666ghj/DeepSearchAgent-Demo)
+可选：
+- `openpyxl` - Excel文件处理

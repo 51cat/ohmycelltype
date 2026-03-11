@@ -17,8 +17,8 @@ class CelltypeConsensusNode:
             species = self.metadata_state.get_metadata_val('spec'),
             tissue  = self.metadata_state.get_metadata_val('tissue'),
             cluster_id = self.state.cluster_id,
-            ann_results = json.dump(self.state.ann_to_dict(), ensure_ascii=False),
-            audit_results = json.dump(self.state.audit_to_dict(), ensure_ascii=False),
+            ann_results = json.dumps(self.state.ann_to_dict(), ensure_ascii=False),
+            audit_results = json.dumps(self.state.audit_to_dict(), ensure_ascii=False),
             language=self.metadata_state.get_metadata_val('language')
         )
         self.message_input = Message(system_prompt=self.system_prompt)
