@@ -1,15 +1,15 @@
 {
     "cluster_name": "2",
-    "cell_type": "Monocyte",
-    "cell_subtype": "Classical Monocyte (Inflammatory)",
+    "cell_type": "T Cell",
+    "cell_subtype": "CD8+ Effector T Cell (NKT-like / Effector Memory)",
     "reasoning": {
-        "lineage_determination": "该cluster高表达S100A8和S100A12，这两个基因是髓系细胞（单核细胞/中性粒细胞）的经典marker基因，在人外周血中尤以经典单核细胞中高度表达。CLEC4E（也称为Mincle）是一种C型凝集素受体，主要表达于单核细胞和巨噬细胞，进一步支持髓系/单核细胞谱系的判断。CCL2（MCP-1）是单核细胞趋化蛋白，在经典单核细胞中高表达，亦是支持单核细胞谱系的重要依据。",
-        "subtype_refinement": "结合CXCL1（中性粒细胞趋化因子）、CCL2（单核细胞趋化因子）和SERPINB2（PAI-2，炎症激活标志）的共同高表达，提示该群细胞为处于炎症激活状态的经典单核细胞（CD14+）亚型。ALDH1A1在单核细胞亚群中有一定表达，ZNF697为锌指蛋白转录因子，在髓系细胞中有报道。整体基因表达谱与经典炎症型单核细胞（Classical/Inflammatory Monocyte）高度吻合，而非非经典单核细胞（CD16+）或树突状细胞亚型。",
-        "functional_state": "该cluster的功能状态呈现明显的促炎激活特征：CXCL1和CCL2的高表达提示细胞正积极分泌趋化因子，招募其他免疫细胞（中性粒细胞、单核细胞）至炎症部位；SERPINB2（PAI-2）的高表达与炎症应激及单核细胞活化密切相关；S100A8/S100A12是DAMP信号分子，在炎症环境下由激活的髓系细胞大量释放；CLEC4E参与病原体识别和炎症信号传导。综合来看，该群单核细胞处于高度炎症激活状态，具有强烈的趋化因子分泌和免疫应答功能。"
+        "lineage_determination": "该cluster高表达CD8A和CD8B，明确指向CD8+ T细胞谱系。同时TRGC2和TRG-AS1的表达提示该群细胞可能具有γδ T细胞或NKT样特征。NKG7、KLRD1、GZMA、GZMH、CST7等均为T/NK细胞的经典标志基因，进一步支持细胞毒性淋巴细胞谱系的判断。",
+        "subtype_refinement": "GZMA、GZMH（颗粒酶A/H）、NKG7（细胞毒性相关）、FGFBP2（效应CD8+ T细胞标志）、S1PR5（组织迁移相关，富集于效应记忆T细胞）、KLRD1（CD94，NK/NKT细胞标志）、CCL5（趋化因子，效应T细胞分泌）、ADGRG1（GPR56，终末效应T细胞标志）共同支持该群为高度细胞毒性的效应（记忆）CD8+ T细胞。TRGC2和TRG-AS1的共表达提示部分NKT样或γδ T细胞特征，SLAMF7（CS1/CRACC）进一步支持NK/NKT样表型。SAMD3、MATK、PYHIN1等基因也在效应CD8+ T细胞中有报道。整体而言，该cluster最符合CD8+ NKT样/终末效应记忆T细胞亚型。",
+        "functional_state": "该cluster整体处于高度活化的细胞毒性效应状态，富集多种细胞毒性分子（颗粒酶、NKG7）和趋化因子（CCL5），S1PR5和ADGRG1的表达提示具有较强的组织迁移和终末分化特征，推测为具有强杀伤功能的效应/效应记忆CD8+ T细胞群。"
     },
     "model": "claude-sonnet-4-6",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "CXCL1,CCL2,ZNF697,CLEC4E,SERPINB2,CTB-61M7.2,S100A12,S100A8,ALDH1A1,RP11-362F19.3",
+    "tissue": "PBMC",
+    "genes": "TRGC2,GZMH,CD8A,CCL5,FGFBP2,ADGRG1,NKG7,GZMA,CST7,S1PR5,CD8B,KLRD1,PATL2,C12orf75,SYNE1,TRG-AS1,PYHIN1,SLAMF7,SAMD3,MATK",
     "language": "中文"
 }

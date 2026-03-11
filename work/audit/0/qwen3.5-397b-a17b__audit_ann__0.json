@@ -1,21 +1,21 @@
 {
     "cluster_name": "0",
-    "cell_type": "CD8+ T 细胞",
-    "cell_subtype": "细胞毒性效应记忆 T 细胞",
+    "cell_type": "T 细胞",
+    "cell_subtype": "初始 T 细胞",
     "reasoning": {
-        "lineage_determination": "DEGs 中包含 TRAJ61 和 TRAV23DV6，这两个是 T 细胞受体（TCR）alpha 链的关键组分，明确指示该群细胞属于 T 细胞谱系。",
-        "subtype_refinement": "GZMH（颗粒酶 H）和 ZNF683 是细胞毒性淋巴细胞的特征基因。在 T 细胞谱系中，这些基因的组合表达强烈提示 CD8+ 细胞毒性亚型。B3GAT1 常与效应记忆表型相关，支持该亚型推断。",
-        "functional_state": "GZMH 的高表达表明细胞具有强烈的细胞毒性潜能。ZNF683 的表达提示细胞具有记忆性特征。基因表达谱主要富集于效应功能分子，表明细胞处于执行免疫杀伤功能的效应状态。"
+        "lineage_determination": "高表达 TRAT1、TCF7、LEF1 和 MAL 等基因，这些都是 T 细胞谱系的经典标志物，其中 TRAT1 具有高度 T 细胞特异性，TCF7 和 LEF1 是 T 细胞发育关键转录因子。",
+        "subtype_refinement": "CCR7 与 TCF7、LEF1 共表达强烈提示初始状态，CCR7 是初始 T 细胞和中央记忆 T 细胞的关键归巢受体，结合缺乏效应分子表达，支持初始 T 细胞注释。",
+        "functional_state": "未检测到细胞周期相关基因（如 MKI67）或线粒体应激基因，表明细胞处于静息状态而非增殖或低质量状态。"
     },
     "model": "qwen3.5-397b-a17b",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "TRAJ61,CTB-91J4.1,ZNF683,TRAV23DV6,LINC00384,PROK2,B3GAT1,GZMH,RP11-9M16.2,RP11-305L7.3",
+    "tissue": "PBMC",
+    "genes": "MAL,TRABD2A,LEF1,CCR7,COL18A1,ITGA6,TCF7,TRAT1,IL6ST,RCAN3,TBC1D4,OXNAD1,CAMK4,PRKCQ-AS1,RNF157,DGKA,TMEM204,APBB1,TESPA1,LDLRAP1",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 82,
-        "audit_reasoning": "模型推理所使用的证据均来自 Marker Gene List，未出现 gene hallucination。TRAJ61 和 TRAV23DV6 是 TCR alpha 链基因，明确支持 T 细胞谱系判断；GZMH 是细胞毒性颗粒酶，强烈支持 CD8+ 细胞毒性亚型；ZNF683 与组织驻留或效应记忆 T 细胞特征相关，B3GAT1（CD57 合成酶）与效应记忆/终末分化 T 细胞表型相符，均支持效应记忆亚型推断。然而，Marker Gene List 中缺乏经典 CD8+ T 细胞特异性 marker（如 CD8A/CD8B），且 B3GAT1 本身也可在 NK 细胞上表达，存在一定混淆可能，导致亚型细化置信度略有下降，整体注释可信度较高但不达顶级。"
+        "reliability_score": 92,
+        "audit_reasoning": "注释推理中使用的关键基因 TRAT1、TCF7、LEF1、MAL、CCR7 均来自 Marker Gene List，未发现 Gene Hallucination。TCF7 和 LEF1 是 T 细胞发育的核心转录因子，CCR7 是初始/中央记忆 T 细胞的重要归巢受体，TRAT1（TRIM）具有高度 T 细胞特异性，MAL 在初始 T 细胞中高表达，这些 marker 组合强烈支持初始 T 细胞注释。此外列表中 PRKCQ-AS1、CAMK4、DGKA 等基因在初始 T 细胞中也有报道，进一步增强了证据链。推理中提及 MKI67 缺失作为对照参考，符合规则允许范围。PBMC 中初始 T 细胞为主要细胞群之一，生物学合理性高，doublet 风险低。"
     }
 }

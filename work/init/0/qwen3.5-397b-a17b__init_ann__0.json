@@ -1,15 +1,15 @@
 {
     "cluster_name": "0",
-    "cell_type": "CD8+ T 细胞",
-    "cell_subtype": "细胞毒性效应记忆 T 细胞",
+    "cell_type": "T 细胞",
+    "cell_subtype": "初始 T 细胞",
     "reasoning": {
-        "lineage_determination": "DEGs 中包含 TRAJ61 和 TRAV23DV6，这两个是 T 细胞受体（TCR）alpha 链的关键组分，明确指示该群细胞属于 T 细胞谱系。",
-        "subtype_refinement": "GZMH（颗粒酶 H）和 ZNF683 是细胞毒性淋巴细胞的特征基因。在 T 细胞谱系中，这些基因的组合表达强烈提示 CD8+ 细胞毒性亚型。B3GAT1 常与效应记忆表型相关，支持该亚型推断。",
-        "functional_state": "GZMH 的高表达表明细胞具有强烈的细胞毒性潜能。ZNF683 的表达提示细胞具有记忆性特征。基因表达谱主要富集于效应功能分子，表明细胞处于执行免疫杀伤功能的效应状态。"
+        "lineage_determination": "高表达 TRAT1、TCF7、LEF1 和 MAL 等基因，这些都是 T 细胞谱系的经典标志物，其中 TRAT1 具有高度 T 细胞特异性，TCF7 和 LEF1 是 T 细胞发育关键转录因子。",
+        "subtype_refinement": "CCR7 与 TCF7、LEF1 共表达强烈提示初始状态，CCR7 是初始 T 细胞和中央记忆 T 细胞的关键归巢受体，结合缺乏效应分子表达，支持初始 T 细胞注释。",
+        "functional_state": "未检测到细胞周期相关基因（如 MKI67）或线粒体应激基因，表明细胞处于静息状态而非增殖或低质量状态。"
     },
     "model": "qwen3.5-397b-a17b",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "TRAJ61,CTB-91J4.1,ZNF683,TRAV23DV6,LINC00384,PROK2,B3GAT1,GZMH,RP11-9M16.2,RP11-305L7.3",
+    "tissue": "PBMC",
+    "genes": "MAL,TRABD2A,LEF1,CCR7,COL18A1,ITGA6,TCF7,TRAT1,IL6ST,RCAN3,TBC1D4,OXNAD1,CAMK4,PRKCQ-AS1,RNF157,DGKA,TMEM204,APBB1,TESPA1,LDLRAP1",
     "language": "中文"
 }

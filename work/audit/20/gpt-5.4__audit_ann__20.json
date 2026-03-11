@@ -1,0 +1,21 @@
+{
+    "cluster_name": "20",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "Conventional dendritic cells (cDC2-like)",
+    "reasoning": {
+        "lineage_determination": "该群细胞高表达大量 MHC II 抗原呈递相关基因，包括 HLA-DQA1、HLA-DQA2、HLA-DQB1、HLA-DPA1、HLA-DPB1、HLA-DRA、HLA-DRB1、HLA-DRB5、HLA-DMA、CD74 和 CIITA，提示其为专业抗原呈递细胞。与此同时，CST3、GSN 也支持髓系抗原呈递细胞特征，因此首先判定为髓系细胞谱系中的树突状细胞/单核来源抗原呈递细胞群。",
+        "subtype_refinement": "进一步看，HLA-DQ/HLA-DR/CD74/CIITA 组成了非常典型的树突状细胞样抗原呈递程序；NAPSB 是较有提示性的树突状细胞相关基因，在 PBMC 中常见于常规树突状细胞群。该群未表现为增殖型或混合谱系，整体更符合 conventional dendritic cells，且偏 cDC2-like 抗原呈递表型。IL13RA1 也可见于髓系/树突状细胞相关群体，进一步支持该判断。",
+        "functional_state": "该群细胞以强烈的 MHC II 抗原加工与呈递相关分子表达为主要特征，说明其处于明显的抗原呈递活跃状态。未见以细胞周期基因为主的增殖特征，也无明显低质量或应激模式，且不存在无法解释的多谱系 marker 混杂，因此不支持 Proliferating、Low-quality 或 Doublet。"
+    },
+    "model": "gpt-5.4",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "HLA-DQA1,HLA-DQA2,NAPSB,HLA-DQB1,HLA-DPA1,HLA-DRA,GSN,HLA-DPB1,IL13RA1,HLA-DRB5,HLA-DRB1,CST3,HLA-DRB6,CIITA,KCNK6,CD74,CCDC88A,HLA-DMA,PAK1,ST14",
+    "language": "中文",
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 82,
+        "audit_reasoning": "注释推理过程中所引用的证据基因均来自 Marker Gene List，未发现 Gene Hallucination。HLA-DQA1、HLA-DQA2、HLA-DQB1、HLA-DPA1、HLA-DPB1、HLA-DRA、HLA-DRB1、HLA-DRB5、HLA-DMA、CD74、CIITA 是强力的 MHC II 抗原呈递相关证据，足以支持专业抗原呈递细胞（树突状细胞/单核细胞）的判断。CST3 是髓系细胞标志物，在 PBMC 中 cDC 和单核细胞均有表达，对髓系谱系有辅助支持作用。NAPSB 和 IL13RA1 在 cDC 中有一定报道，可部分支持 cDC 方向，但特异性相对有限；此外，该 marker 组合与单核细胞（尤其是经典单核细胞）也存在一定重叠，cDC2 与单核细胞的鉴别需依赖 FCGR3A、CD14、CLEC10A 等进一步区分基因，当前证据尚不足以明确区分，因此评分未达到最高区间。"
+    }
+}

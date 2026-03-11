@@ -1,0 +1,15 @@
+{
+    "cluster_name": "30",
+    "cell_type": "B cells",
+    "cell_subtype": "Plasma cells",
+    "reasoning": {
+        "lineage_determination": "该 cluster 高度表达多种免疫球蛋白基因，包括 IGHA1 (IgA 重链)、IGLC2 (Igλ轻链)、IGKC (Igκ轻链) 和 IGHM (IgM 重链)。这些是 B 细胞分化发育过程中的标志性基因，特别是免疫球蛋白的表达是 B 细胞/浆细胞的核心特征。",
+        "subtype_refinement": "基于免疫球蛋白基因的高表达水平，该 cluster 属于浆细胞 (Plasma Cells)，即 B 细胞的终末分化状态。浆细胞是专门负责大量合成和分泌抗体的效应细胞。同时检测到多种内质网应激/蛋白质加工相关基因（HSP90B1、PDIA4、PPIB、FKBP11、MANF、LMAN1 等），这与浆细胞活跃的蛋白质折叠和分泌功能高度相关，因为浆细胞需要大量生产免疫球蛋白并通过内质网进行加工。",
+        "functional_state": "该 cluster 表现出典型的抗体分泌细胞功能状态，高表达免疫球蛋白基因和内质网应激相关基因，表明细胞处于活跃的抗体合成与分泌状态。未检测到明显的细胞应激或低质量细胞特征（如大量线粒体基因或核糖体蛋白基因泛表达），谱系 marker 一致，符合正常浆细胞的生物学特征。"
+    },
+    "model": "MiniMax-M2.5",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "IGHA1,IGLC2,IGKC,IGHM,SEC11C,HSP90B1,PDIA4,PPIB,FKBP11,MANF,LMAN1,SEL1L3,TXNDC11,SDF2L1,COL18A1,UBE2J1,PRDX4,MYDGF,SUB1,AQP3",
+    "language": "中文"
+}

@@ -1,0 +1,15 @@
+{
+    "cluster_name": "20",
+    "cell_type": "单核细胞",
+    "cell_subtype": "经典单核细胞",
+    "reasoning": {
+        "lineage_determination": "HLA-D 系列基因（如 HLA-DRA, HLA-DRB1）与 CD74、CIITA 的高表达确立了抗原提呈细胞（APC）谱系。CST3、GSN 和 NAPSB 的表达是单核细胞的特异性标志，支持单核细胞身份。",
+        "subtype_refinement": "CST3 和 GSN 是经典单核细胞的典型特征基因，其高表达支持将该群细胞注释为经典单核细胞亚型。",
+        "functional_state": "HLA-DR 分子及相关抗原提呈基因的高表达表明细胞处于活跃的抗原提呈状态，Marker 列表主要包含功能相关基因而非应激或周期基因。"
+    },
+    "model": "qwen3.5-397b-a17b",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "HLA-DQA1,HLA-DQA2,NAPSB,HLA-DQB1,HLA-DPA1,HLA-DRA,GSN,HLA-DPB1,IL13RA1,HLA-DRB5,HLA-DRB1,CST3,HLA-DRB6,CIITA,KCNK6,CD74,CCDC88A,HLA-DMA,PAK1,ST14",
+    "language": "中文"
+}

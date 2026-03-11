@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from celltypeAgent import load_json, write_json
 from celltypeAgent.tools.utils import add_log
+from celltypeAgent.state.state import SingleCluster, MetaData
 
 from celltypeAgent.llm.n1n import N1N_LLM
 
@@ -21,9 +22,36 @@ PARM_COLLECT_MODEL = 'gpt-5.4'
 ANNOTATION_MODEL   =  ['gpt-5.4', 'claude-sonnet-4-6', 'MiniMax-M2.5', 'qwen3.5-397b-a17b']
 AUDIT_MODEL = 'claude-sonnet-4-6'
 
+
+class CelltypeAgent:
+    def __init__(self, marker_table, outdir, provider= 'n1n'):
+        self.llm_config_dict = get_llm_config_value(provider)
+        self.marker_table = marker_table
+        self.outdir = outdir
+        self.metadata_state = MetaData()
+
+    def _initialize_metadata_state(self):
+        self.metadata_state.update_matadata('api', self.llm_config_dict['api'])
+        self.metadata_state.update_matadata('base_url', self.llm_config_dict['base_url'])
+        self.metadata_state.update_matadata('parm_collect_model', PARM_COLLECT_MODEL)
+        self.metadata_state.update_matadata('annotation_model', ANNOTATION_MODEL)
+        self.metadata_state.update_matadata('audit_model', AUDIT_MODEL)
+
+        self.metadata_state.update_matadata('outdir_ann', f"{self.outdir}/init/")
+        self.metadata_state.update_matadata('outdir_audit', f"{self.outdir}/audit/")
+
+    def _initialize_nodes(self):
+        pass
+
+
+
+
+
+
+
 # test data
 
-INPUT_DATA = f"{os.path.dirname(os.path.dirname(__file__))}/deg_all.csv"
+INPUT_DATA = f"{os.path.dirname(os.path.dirname(__file__))}/example_data/test.csv"
 
 @add_log
 def init_ann_single_cluster(llms, cluster, genes, spec, tissue, language, outdir):

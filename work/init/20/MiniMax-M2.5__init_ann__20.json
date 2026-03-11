@@ -1,0 +1,15 @@
+{
+    "cluster_name": "20",
+    "cell_type": "Dendritic cells",
+    "cell_subtype": "Monocyte-derived dendritic cells (Mo-DC)",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达HLA-D家族基因(HLA-DQA1, HLA-DQA2, HLA-DQB1, HLA-DPA1, HLA-DPB1, HLA-DRA, HLA-DRB1, HLA-DRB5, HLA-DRB6, HLA-DMA)、CD74、CIITA等MHC II类分子及抗原呈递相关基因，这是树突状细胞(Dendritic Cells)的经典标记，CIITA是MHC II表达的关键转录激活因子，CD74是MHC II分子的不变链，两者共同指示抗原呈递功能。",
+        "subtype_refinement": "该cluster表达NAPSB(淀粉样蛋白β前体蛋白)、GSN(Gelsolin)、CST3(Cystatin C)和ST14等基因，这些marker在单核细胞来源的树突状细胞(Mo-DC)中特异性表达。HLA-DRB6作为单核细胞来源DCs的特异性标记进一步支持该亚型判断。IL13RA1(白细胞介素13受体α1)的高表达也符合Mo-DC的分子特征。",
+        "functional_state": "该cluster呈现典型的抗原呈递细胞状态，高表达MHC II类分子和相关共刺激分子，表明这些细胞处于免疫激活状态，具备较强的抗原呈递能力。未检测到明显的应激或增殖相关marker。"
+    },
+    "model": "MiniMax-M2.5",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "HLA-DQA1,HLA-DQA2,NAPSB,HLA-DQB1,HLA-DPA1,HLA-DRA,GSN,HLA-DPB1,IL13RA1,HLA-DRB5,HLA-DRB1,CST3,HLA-DRB6,CIITA,KCNK6,CD74,CCDC88A,HLA-DMA,PAK1,ST14",
+    "language": "中文"
+}

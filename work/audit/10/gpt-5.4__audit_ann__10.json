@@ -1,0 +1,21 @@
+{
+    "cluster_name": "10",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "FCGR3A+ monocytes (non-classical / intermediate-like monocytes)",
+    "reasoning": {
+        "lineage_determination": "该群细胞明确属于髓系单核/巨噬细胞谱系。关键依据是 FCGR3A、MS4A7、CSF1R、LST1、LILRB2、SIGLEC10、MAFB 等典型髓系/单核细胞相关 marker 的共同高表达。其中 FCGR3A 和 LST1 是 PBMC 中 FCGR3A+ 单核细胞常见标志，CSF1R、MS4A7、MAFB、LILRB2 进一步支持其为单核-吞噬细胞系统细胞，而非淋巴细胞。",
+        "subtype_refinement": "在髓系细胞基础上，该群更符合 FCGR3A+ 单核细胞亚群。FCGR3A 是非经典单核细胞最具代表性的标志之一，伴随 MS4A7、LST1、SIGLEC10、CXCL16、IFITM3、SLC2A6、GPBAR1、PELATON 等基因，符合外周血中成熟 FCGR3A+ 单核细胞的表达特征。MAFB、CSF1R、LILRB2 提示其具有较强单核细胞分化和吞噬/免疫调节属性。综合来看，更适合注释为 FCGR3A+ monocytes，偏向 non-classical / intermediate-like 单核细胞，而不是树突细胞或其他髓系亚群。",
+        "functional_state": "HMOX1、IFITM3、CXCL16、SIGLEC10、LILRB2 提示该群细胞可能处于一定的激活、免疫调节及清道夫样功能状态，具有炎症应答和吞噬相关特征。但未见以细胞周期基因为主，不支持增殖细胞；也不存在明显跨多谱系 marker 混杂，不支持 doublet；整体 marker 组合清晰，不属于低质量细胞。"
+    },
+    "model": "gpt-5.4",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "FCGR3A,MS4A7,PELATON,SIGLEC10,CSF1R,TCF7L2,CDH23,HMOX1,RHOC,RRAS,SLC2A6,IFITM3,RHOB,LST1,GPBAR1,CAMK1,CXCL16,LRRC25,MAFB,LILRB2",
+    "language": "中文",
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 93,
+        "audit_reasoning": "注释推理所依据的基因均来自 Marker Gene List，未见 Gene Hallucination。FCGR3A、MS4A7、LST1 是 PBMC 中 FCGR3A+ 非经典单核细胞最具代表性的标志，证据强而有力。CSF1R、MAFB、LILRB2、SIGLEC10 进一步支持单核-吞噬细胞系统归属，CXCL16、HMOX1、IFITM3 提示相应的免疫调节/炎症功能状态，整体 marker 组合高度一致。RHOC、RHOB、RRAS、SLC2A6、PELATON、LRRC25、CAMK1、TCF7L2、CDH23、GPBAR1 等虽特异性相对较低，但在文献中均有在单核细胞尤其是非经典单核细胞中富集的记录，不构成矛盾信号，亦不支持 doublet 或其他谱系的可能性。综合来看，该注释为 FCGR3A+ 非经典/中间型单核细胞的结论生物学合理性高，在 PBMC 中亦属常见细胞亚群，注释结果高度可靠。"
+    }
+}

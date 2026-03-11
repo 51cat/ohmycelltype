@@ -1,0 +1,21 @@
+{
+    "cluster_name": "20",
+    "cell_type": "单核细胞",
+    "cell_subtype": "经典单核细胞",
+    "reasoning": {
+        "lineage_determination": "HLA-D 系列基因（如 HLA-DRA, HLA-DRB1）与 CD74、CIITA 的高表达确立了抗原提呈细胞（APC）谱系。CST3、GSN 和 NAPSB 的表达是单核细胞的特异性标志，支持单核细胞身份。",
+        "subtype_refinement": "CST3 和 GSN 是经典单核细胞的典型特征基因，其高表达支持将该群细胞注释为经典单核细胞亚型。",
+        "functional_state": "HLA-DR 分子及相关抗原提呈基因的高表达表明细胞处于活跃的抗原提呈状态，Marker 列表主要包含功能相关基因而非应激或周期基因。"
+    },
+    "model": "qwen3.5-397b-a17b",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "HLA-DQA1,HLA-DQA2,NAPSB,HLA-DQB1,HLA-DPA1,HLA-DRA,GSN,HLA-DPB1,IL13RA1,HLA-DRB5,HLA-DRB1,CST3,HLA-DRB6,CIITA,KCNK6,CD74,CCDC88A,HLA-DMA,PAK1,ST14",
+    "language": "中文",
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 78,
+        "audit_reasoning": "注释所引用的证据基因（HLA-DRA、HLA-DRB1、CD74、CIITA、CST3、GSN、NAPSB）均来自 Marker Gene List，未发现 Gene Hallucination。HLA-D 系列基因（HLA-DQA1、HLA-DQA2、HLA-DQB1、HLA-DPA1、HLA-DPB1、HLA-DRA、HLA-DRB1、HLA-DRB5、HLA-DRB6）及 CD74、CIITA 高度富集，支持抗原提呈细胞谱系，在 PBMC 中单核细胞确实是主要的 APC 群体之一。CST3 是单核细胞/树突状细胞的典型标志，GSN 和 NAPSB 在单核细胞中有表达，支持单核细胞方向。然而，HLA-II 基因如此密集地出现也是浆细胞样树突状细胞（pDC）或常规树突状细胞（cDC）的特征，加之 CIITA 在 DC 亚群中同样高表达，因此不能完全排除 DC 的可能性，将亚型细化为经典单核细胞的依据略显不足。综合来看，单核细胞注释具有合理生物学支持，但细胞亚型层面证据稍弱。"
+    }
+}

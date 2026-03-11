@@ -1,21 +1,21 @@
 {
     "cluster_name": "1",
-    "cell_type": "Doublet",
-    "cell_subtype": "Mixed lineage",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "Classical Monocytes",
     "reasoning": {
-        "lineage_determination": "该cluster的marker基因来自多个截然不同的细胞谱系，无法归属于单一细胞类型。HLF是造血干细胞/祖细胞的经典标志基因；GATA3-AS1与GATA3相关，提示T细胞或肥大细胞谱系；IL17RB是II型固有淋巴细胞（ILC2）或嗜碱性粒细胞的标志；TPO（甲状腺过氧化物酶）通常在甲状腺上皮细胞高表达；KRT1是角质形成细胞的角蛋白标志；NEFL是神经元特异性神经丝轻链蛋白；ZP1是卵母细胞特异性蛋白。这些基因跨越了造血、上皮、神经、生殖等多个完全不同的谱系，在血液样本中不可能合理地由单一细胞类型解释。",
-        "subtype_refinement": "基因组合涵盖：造血干细胞相关（HLF）、T/ILC相关（GATA3-AS1、IL17RB）、上皮/角质形成细胞相关（KRT1）、甲状腺细胞相关（TPO）、神经细胞相关（NEFL）、生殖细胞相关（ZP1），以及长链非编码RNA（SNHG18、RP11-379F12.3）。如此分散且跨系统的marker组合强烈提示该cluster为多种细胞类型的doublet或multiplet混合，而非真实存在的单一细胞群体。",
-        "functional_state": "由于marker基因来自多个生物学上相互独立的细胞谱系，该cluster最可能代表测序过程中产生的doublet（双联体），即两个或多个不同类型细胞被封装在同一液滴中共同测序的结果。在人血液样本中，同时表达神经元、卵母细胞、甲状腺上皮和造血细胞marker的单一细胞在生物学上不具合理性，建议在下游分析中将该cluster作为doublet过滤去除。"
+        "lineage_determination": "该cluster高表达多个经典髓系细胞marker基因，强烈支持单核/粒细胞谱系归属。CD14是经典单核细胞表面标志物，LYZ（溶菌酶）是髓系细胞的核心marker，S100A8/S100A9是髓系细胞高度特异性的钙结合蛋白，S100A12同属S100家族且在髓系细胞中高表达，VCAN（多功能蛋白聚糖）、MNDA（髓系核分化抗原）均为单核细胞谱系标志。CSF3R（G-CSF受体）和CLEC4E（Mincle）也是髓系/单核细胞的重要标记。上述多个canonical髓系marker共同确定该cluster属于髓系细胞大类。",
+        "subtype_refinement": "在髓系亚型鉴定中，CD14高表达直接指向经典单核细胞（Classical Monocytes，CD14++）。CD163作为清道夫受体在单核/巨噬细胞中高表达，ASGR2、PADI4、BST1、CYP27A1、RBP7、PLBD1、NLRP12、NFE2等基因进一步支持该群体为具有较强吞噬和炎症功能的经典单核细胞。OSCAR在髓系细胞中与免疫调控相关。整体基因表达谱与人外周血经典单核细胞（CD14+ Classical Monocytes）高度吻合，而非非经典单核细胞（CD16+）或中间型单核细胞。",
+        "functional_state": "该cluster的功能状态表现为具有显著的炎症激活特征。S100A8/S100A9/S100A12的高表达提示细胞处于促炎状态，NLRP12参与炎症小体调控，PADI4与NET（中性粒细胞胞外陷阱）及炎症反应相关，CDA和CYP27A1涉及代谢调控，整体提示该群经典单核细胞处于活化/炎症功能状态，具有较强的先天免疫应答能力。"
     },
     "model": "claude-sonnet-4-6",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "SNHG18,RP11-379F12.3,KRT1,HLF,GATA3-AS1,TPO,ADAM23,IL17RB,ZP1,NEFL",
+    "tissue": "PBMC",
+    "genes": "PADI4,S100A12,RBP7,S100A8,S100A9,CDA,PLBD1,NLRP12,CYP27A1,BST1,NFE2,VCAN,CLEC4E,MNDA,ASGR2,CD14,CD163,LYZ,CSF3R,OSCAR",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 85,
-        "audit_reasoning": "注释完全基于Marker Gene List中的基因作为证据，未出现Gene Hallucination。Marker基因确实跨越多个截然不同的生物学系统：HLF为造血干/祖细胞相关基因，IL17RB与ILC2/嗜碱性粒细胞相关，GATA3-AS1与T细胞/肥大细胞谱系相关，而KRT1（角质形成细胞角蛋白）、NEFL（神经元神经丝蛋白）、TPO（甲状腺过氧化物酶）、ZP1（卵母细胞蛋白）在血液样本中均属高度异位表达，生物学上无法由单一细胞类型合理解释。SNHG18和RP11-379F12.3为长链非编码RNA，缺乏足够谱系特异性，但不影响整体判断。如此分散且跨系统的marker组合在血液单细胞测序数据中强烈提示doublet/multiplet，注释结论具有充分的生物学合理性，评分略低于满分是因为doublet注释本质上属于质控判断而非细胞类型鉴定，存在一定不确定性。"
+        "reliability_score": 92,
+        "audit_reasoning": "注释推理所引用的基因均来自Marker Gene List，未发现Gene Hallucination问题。CD14、LYZ、S100A8、S100A9是经典单核细胞标志，MNDA、VCAN、CSF3R、CLEC4E进一步确认髓系/单核细胞谱系，CD163支持单核/巨噬细胞属性，整体基因组合高度吻合经典单核细胞（Classical Monocytes）表型。PADI4、S100A12、NLRP12、BST1等基因在经典单核细胞中均有文献报道，不存在明显混合信号。该细胞类型在PBMC中是最主要的髓系成分之一，生物学合理性充分。唯一轻微保留在于CSF3R通常在中性粒细胞中高表达，但在单核细胞中也有表达，结合CD14等强marker综合判断，经典单核细胞注释仍高度可信。"
     }
 }

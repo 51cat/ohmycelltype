@@ -1,21 +1,21 @@
 {
     "cluster_name": "2",
-    "cell_type": "Monocytes",
-    "cell_subtype": "Classical monocytes (CD14+ inflammatory monocytes)",
+    "cell_type": "CD8+ T cells",
+    "cell_subtype": "Effector/Cytotoxic T cells (CTL-like)",
     "reasoning": {
-        "lineage_determination": "该cluster的marker基因显著指向髓系细胞谱系。S100A8和S100A12是单核细胞/巨噬细胞的经典marker基因；CLEC4E是C型凝集素受体，主要在髓系细胞尤其是单核细胞和巨噬细胞上表达；CXCL1和CCL2是单核细胞/巨噬细胞产生的关键炎症趋化因子。",
-        "subtype_refinement": "S100A8和S100A12的高表达结合CLEC4E的存在，提示为经典单核细胞（classical monocytes）。S100A8/A12是单核细胞分化为巨噬细胞过程中的重要标志物，此cluster可能代表血液中处于激活或迁移前状态的单核细胞。ALDH1A1的表达可能与细胞代谢状态相关。",
-        "functional_state": "该cluster呈现明显的炎症状态：CXCL1和CCL2是经典的炎症趋化因子，SERPINB2参与炎症反应调控。结合组织来源为Human blood，推断这些细胞可能是血液循环中具有炎症表型的单核细胞，准备迁移至组织或处于激活状态。"
+        "lineage_determination": "该cluster高表达CD8A和CD8B，明确指向CD8+ T细胞谱系。同时表达T细胞受体基因TRGC2和TRG-AS1，确认其为T细胞来源。",
+        "subtype_refinement": "高表达多种细胞毒性效应分子(GZMH, GZMA, NKG7, CST7)以及KLRD1、SLAMF7等NK细胞相关标记，提示为活化/效应状态的CD8+细胞毒性T淋巴细胞(CTLs)。S1PR5和ADGRG1的表达提示可能包含部分NKT细胞或γδ T细胞亚群。CCL5的富集符合效应T细胞的趋化因子表达模式。",
+        "functional_state": "该cluster表达丰富的细胞毒性颗粒相关基因(GZMH/GZMA/NKG7/CST7)，处于活化并具有杀伤功能的效应状态，符合病毒感染或肿瘤免疫背景下出现的细胞毒性T细胞特征。"
     },
     "model": "MiniMax-M2.5",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "CXCL1,CCL2,ZNF697,CLEC4E,SERPINB2,CTB-61M7.2,S100A12,S100A8,ALDH1A1,RP11-362F19.3",
+    "tissue": "PBMC",
+    "genes": "TRGC2,GZMH,CD8A,CCL5,FGFBP2,ADGRG1,NKG7,GZMA,CST7,S1PR5,CD8B,KLRD1,PATL2,C12orf75,SYNE1,TRG-AS1,PYHIN1,SLAMF7,SAMD3,MATK",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 85,
-        "audit_reasoning": "注释推理主要依据Marker Gene List中的基因，未见明显的gene hallucination。S100A8和S100A12是经典单核细胞/巨噬细胞marker，在blood中高表达强烈支持单核细胞谱系判断；CLEC4E（Mincle）主要表达于髓系细胞尤其是单核细胞，与结论一致；CCL2和CXCL1作为单核细胞来源的趋化因子支持炎症表型的判断；SERPINB2在激活单核细胞中有表达，进一步佐证炎症状态。ALDH1A1在经典单核细胞中表达相对少见，更多见于树突状细胞亚群或特定免疫细胞，这一基因的存在略微降低注释的确定性，但整体marker组合仍以经典单核细胞信号为主，细胞类型判断可信度较高。"
+        "reliability_score": 88,
+        "audit_reasoning": "注释使用的证据均来自Marker Gene List，未发现Gene Hallucination。CD8A和CD8B明确支持CD8+ T细胞谱系，GZMH、GZMA、NKG7、CST7等多个细胞毒性效应分子高度支持CTL效应状态。TRGC2和TRG-AS1为γδ T细胞相关基因，在CD8+ CTL中出现需注意其可能代表NKT或γδ T亚群的混合信号，这是轻微扣分原因。S1PR5、KLRD1、ADGRG1、SLAMF7的表达符合效应/终末分化CD8+ T细胞特征，整体marker组合在PBMC中出现生物学合理，注释结论可信。"
     }
 }

@@ -1,0 +1,15 @@
+{
+    "cluster_name": "30",
+    "cell_type": "Plasma cells",
+    "cell_subtype": "IgA+ Plasma cells",
+    "reasoning": {
+        "lineage_determination": "DEGs 中包含 IGHA1、IGHM、IGKC 和 IGLC2 等免疫球蛋白恒定区基因，这是 B 细胞谱系的决定性 marker，明确将该 cluster 定位为 B 细胞来源。",
+        "subtype_refinement": "除了免疫球蛋白基因外，显著高表达内质网及分泌途径相关基因（HSP90B1、PDIA4、PPIB、SEC11C、FKBP11 等），这是浆细胞为了支持大量抗体合成而特有的内质网扩张特征，据此将其精细注释为浆细胞而非普通 B 细胞；IGHA1 的存在提示其为 IgA 亚型。",
+        "functional_state": "细胞表现出强烈的蛋白质折叠与分泌活性，处于活跃的抗体产生状态，未见明显的细胞周期或应激死亡特征。"
+    },
+    "model": "qwen3.5-397b-a17b",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "IGHA1,IGLC2,IGKC,IGHM,SEC11C,HSP90B1,PDIA4,PPIB,FKBP11,MANF,LMAN1,SEL1L3,TXNDC11,SDF2L1,COL18A1,UBE2J1,PRDX4,MYDGF,SUB1,AQP3",
+    "language": "中文"
+}

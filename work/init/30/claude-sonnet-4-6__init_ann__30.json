@@ -1,0 +1,15 @@
+{
+    "cluster_name": "30",
+    "cell_type": "B cells",
+    "cell_subtype": "Plasma cells / Plasmablasts",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达多种免疫球蛋白基因，包括IGHA1（IgA重链）、IGLC2（Igλ轻链）、IGKC（Igκ轻链）和IGHM（IgM重链），明确指向B细胞谱系，且提示该细胞正在大量分泌免疫球蛋白，符合浆细胞/浆母细胞的特征。",
+        "subtype_refinement": "除免疫球蛋白基因外，该cluster还高度富集内质网与蛋白质分泌相关基因，包括：HSP90B1（GRP94，内质网伴侣蛋白）、PDIA4（蛋白二硫键异构酶）、PPIB（肽脯氨酰异构酶B）、FKBP11（FK506结合蛋白）、SEC11C（信号肽酶复合物亚基）、LMAN1（ER-Golgi货物受体）、SEL1L3（ER相关降解通路）、TXNDC11（硫氧还蛋白结构域蛋白）、SDF2L1（内质网应激相关）、MANF（内质网应激应答因子）、PRDX4（内质网过氧化物还原酶）及MYDGF（分泌型生长因子）。上述基因共同反映高度活跃的内质网蛋白质折叠与分泌机器，是浆细胞/浆母细胞大量合成并分泌免疫球蛋白的标志性特征。IGHA1的高表达提示可能为IgA分泌型浆细胞，在PBMC中亦有报道。",
+        "functional_state": "该cluster处于高度活化的抗体分泌状态，内质网应激应答通路（UPR）被激活，表现为多种内质网伴侣蛋白和蛋白折叠酶的上调，这是浆细胞/浆母细胞为满足大规模免疫球蛋白分泌需求而呈现的典型功能状态。AQP3的表达可能与细胞体积调节相关，UBE2J1参与内质网相关蛋白降解（ERAD），进一步支持其高度活跃的蛋白质代谢状态。"
+    },
+    "model": "claude-sonnet-4-6",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "IGHA1,IGLC2,IGKC,IGHM,SEC11C,HSP90B1,PDIA4,PPIB,FKBP11,MANF,LMAN1,SEL1L3,TXNDC11,SDF2L1,COL18A1,UBE2J1,PRDX4,MYDGF,SUB1,AQP3",
+    "language": "中文"
+}

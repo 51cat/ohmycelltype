@@ -7,7 +7,7 @@ CONFIG = f"{os.path.dirname(celltypeAgent.__file__)}/config.json"
 
 def get_llm_config_value(provider ,config = CONFIG):
     data = load_json(config)
-    return data[provider]['base_url'], data[provider]['api']
+    return data[provider]
 
 
 def write_json(dict, out):

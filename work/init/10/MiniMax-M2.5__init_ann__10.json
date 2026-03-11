@@ -1,0 +1,15 @@
+{
+    "cluster_name": "10",
+    "cell_type": "Monocyte",
+    "cell_subtype": "Non-classical monocytes (CD16+ monocytes)",
+    "reasoning": {
+        "lineage_determination": "根据关键marker基因判定为髓系细胞（单核细胞/巨噬细胞）谱系。FCGR3A(CD16)是经典的外周血单核细胞亚型分型标记；CSF1R是单核细胞和巨噬细胞的特异性受体；MS4A7在单核细胞上高表达；LILRB2和LST1是髓系细胞相关的免疫球蛋白样受体；MAFB是单核细胞分化相关的转录因子。这些marker共同指向单核细胞系。",
+        "subtype_refinement": "该cluster高表达FCGR3A(CD16)而非高表达CD14(经典单核细胞marker)，符合非经典单核细胞(non-classical monocytes, CD16+ monocytes)的特征。非经典单核细胞在PBMC中约占5-10%，具有免疫监视和促炎功能。SIGLEC10、CXCL16等基因也支持这种亚型鉴定。",
+        "functional_state": "该cluster表达HMOX1（血红素加氧酶1，应激响应基因）、IFITM3（干扰素诱导跨膜蛋白，抗病毒响应）等基因，提示细胞处于活化或应激状态。CXCL16的高表达表明该细胞具有趋化活性。整体基因表达谱符合非经典单核细胞的活化功能状态。"
+    },
+    "model": "MiniMax-M2.5",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "FCGR3A,MS4A7,PELATON,SIGLEC10,CSF1R,TCF7L2,CDH23,HMOX1,RHOC,RRAS,SLC2A6,IFITM3,RHOB,LST1,GPBAR1,CAMK1,CXCL16,LRRC25,MAFB,LILRB2",
+    "language": "中文"
+}

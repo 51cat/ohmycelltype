@@ -1,15 +1,15 @@
 {
     "cluster_name": "0",
     "cell_type": "T cells",
-    "cell_subtype": "Cytotoxic tissue-resident-like T cells",
+    "cell_subtype": "Naive/central memory CD4+ T cells",
     "reasoning": {
-        "lineage_determination": "TRAJ61 和 TRAV23DV6 为 TCR 相关基因，明确支持该 cluster 属于 T 细胞谱系。GZMH 为典型细胞毒分子，提示这是一群具有杀伤功能的淋巴细胞；结合 TCR 基因，更符合细胞毒性 T 细胞而非其他谱系。",
-        "subtype_refinement": "ZNF683 是组织驻留淋巴细胞相关转录因子，常见于 tissue-resident memory T cells 或先天样细胞毒性 T 细胞。B3GAT1（CD57）提示终末分化/高细胞毒状态，GZMH 和 PROK2 进一步支持活化的细胞毒性程序。因此该群更符合细胞毒性、组织驻留样 T 细胞表型，可注释为 Cytotoxic tissue-resident-like T cells。",
-        "functional_state": "该 cluster 表达 GZMH、B3GAT1、PROK2，提示具有较强细胞毒效应和成熟/终末分化特征；ZNF683 提示其带有驻留样或长期适应性效应状态。在外周血样本中，这类细胞可理解为具有细胞毒功能的效应/记忆样 T 细胞，而非增殖或低质量细胞。"
+        "lineage_determination": "该群细胞高表达 TCF7、LEF1、TRAT1、TESPA1、CAMK4、DGKA、PRKCQ-AS1 等典型 T 细胞相关基因，明确支持其属于 T 细胞谱系。其中 TRAT1、TESPA1、DGKA 与 TCR 信号转导密切相关，TCF7 和 LEF1 为淋巴细胞尤其初始/静息 T 细胞常见转录因子，CCR7 进一步支持该群为淋巴细胞中的 T 细胞群体。",
+        "subtype_refinement": "在 T 细胞基础上，该群细胞高表达 CCR7、TCF7、LEF1、MAL、IL6ST、TRABD2A，呈现明显的初始/中心记忆样 T 细胞特征。CCR7 是淋巴归巢与初始/中心记忆 T 细胞的重要标志，TCF7 和 LEF1 常见于分化程度较低的初始样 T 细胞；MAL 也常见于初始 T 细胞群。结合 PBMC 背景，这一表达谱最符合 naive/central memory T 细胞，且更偏向 CD4+ T 细胞表型。",
+        "functional_state": "该群未见明显来自其他谱系的强特异 marker，不支持 Doublet；也未见以线粒体、核糖体或应激基因为主的模式，不支持低质量细胞；同时缺乏 MKI67、TOP2A、PCNA 等细胞周期基因，不属于增殖细胞。整体表现为静息、分化程度较低的初始/中心记忆样 T 细胞状态。"
     },
     "model": "gpt-5.4",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "TRAJ61,CTB-91J4.1,ZNF683,TRAV23DV6,LINC00384,PROK2,B3GAT1,GZMH,RP11-9M16.2,RP11-305L7.3",
+    "tissue": "PBMC",
+    "genes": "MAL,TRABD2A,LEF1,CCR7,COL18A1,ITGA6,TCF7,TRAT1,IL6ST,RCAN3,TBC1D4,OXNAD1,CAMK4,PRKCQ-AS1,RNF157,DGKA,TMEM204,APBB1,TESPA1,LDLRAP1",
     "language": "中文"
 }

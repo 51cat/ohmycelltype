@@ -1,21 +1,21 @@
 {
     "cluster_name": "0",
     "cell_type": "T cell",
-    "cell_subtype": "Effector Memory CD8+ T cell (Temra/NK-like)",
+    "cell_subtype": "Naive CD4+ T cell",
     "reasoning": {
-        "lineage_determination": "TRAJ61和TRAV23DV6是T细胞受体（TCR）α链的基因片段，明确指示该cluster属于T细胞谱系。TCR基因的重排和表达是T细胞的经典标志。",
-        "subtype_refinement": "ZNF683（又称HOBIT）是组织驻留记忆T细胞和效应记忆CD8+ T细胞（尤其是Temra亚群）的特异性转录因子；GZMH（颗粒酶H）是细胞毒性CD8+ T细胞的效应分子；B3GAT1（CD57）是终末分化效应记忆CD8+ T细胞（Temra）及NK样T细胞的表面标志，提示高度分化状态；PROK2（prokineticin 2）在NK/T细胞中有表达并与细胞毒功能相关。综合以上，该cluster高度提示为终末分化效应记忆CD8+ T细胞（Temra）或具有NK样特征的细胞毒性T细胞亚群。",
-        "functional_state": "该cluster表达细胞毒性相关基因（GZMH）、终末分化标志（B3GAT1/CD57）以及组织驻留/效应转录因子（ZNF683），提示细胞处于高度分化的效应状态，具有强细胞毒活性，增殖潜能较低，是外周血中典型的抗原经历性终末效应T细胞功能状态。"
+        "lineage_determination": "该cluster高表达多个经典T细胞marker基因，包括LEF1、CCR7、TCF7、TRAT1、PRKCQ-AS1和CAMK4，强烈支持T细胞谱系判定。LEF1和TCF7是T细胞发育和幼稚T细胞的核心转录因子；CCR7是初始/中央记忆T细胞的归巢受体；TRAT1（TRIM）参与TCR信号转导，是T细胞特异性分子；PRKCQ-AS1（PKCθ反义RNA）在T细胞信号中有重要作用，进一步确认T细胞谱系。",
+        "subtype_refinement": "在T细胞大类内，CCR7、LEF1、TCF7的共同高表达是Naive T细胞或中央记忆T细胞的典型特征。MAL和TRABD2A是已报道的Naive CD4+ T细胞特异性高表达基因；IL6ST（gp130）在Naive CD4+ T细胞中有表达；RCAN3参与钙调磷酸酶信号调节，与Naive T细胞的静息状态一致；DGKA（二酰甘油激酶α）在Naive T细胞中高表达并负调控TCR信号；ITGA6和TBC1D4也在Naive T细胞中有报道。综合MAL、TRABD2A与CCR7、LEF1、TCF7的共表达模式，推断为Naive CD4+ T细胞亚型。",
+        "functional_state": "该cluster整体基因表达谱呈现静息的Naive T细胞功能状态：高表达归巢受体CCR7、转录因子LEF1/TCF7维持幼稚T细胞特性，DGKA和RCAN3负向调控TCR下游信号，提示细胞处于未激活的稳态。无效应分子（如IFN-γ、颗粒酶）相关基因的高表达，符合PBMC中Naive CD4+ T细胞的生物学特征。"
     },
     "model": "claude-sonnet-4-6",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "TRAJ61,CTB-91J4.1,ZNF683,TRAV23DV6,LINC00384,PROK2,B3GAT1,GZMH,RP11-9M16.2,RP11-305L7.3",
+    "tissue": "PBMC",
+    "genes": "MAL,TRABD2A,LEF1,CCR7,COL18A1,ITGA6,TCF7,TRAT1,IL6ST,RCAN3,TBC1D4,OXNAD1,CAMK4,PRKCQ-AS1,RNF157,DGKA,TMEM204,APBB1,TESPA1,LDLRAP1",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 85,
-        "audit_reasoning": "注释推理完全基于Marker Gene List中的基因，未发现Gene Hallucination。TRAJ61和TRAV23DV6作为TCR α链基因片段明确支持T细胞谱系判断；ZNF683（HOBIT转录因子）、GZMH（颗粒酶H）和B3GAT1（CD57）三个基因联合支持终末分化效应记忆CD8+ T细胞（Temra）亚型的结论，证据链较为完整。PROK2虽与NK/T细胞细胞毒功能有一定关联，但特异性相对较弱，属于辅助证据。该细胞类型在血液中合理存在，整体注释结论可靠，仅因TCR基因片段本身无法区分CD4/CD8亚群，CD8+的亚型区分依赖GZMH和B3GAT1的间接推断，存在轻微不确定性，因此评分定于85。"
+        "reliability_score": 92,
+        "audit_reasoning": "模型注释所使用的所有关键证据基因均来自Marker Gene List，未发现Gene Hallucination。List中的LEF1、CCR7、TCF7是Naive/Central Memory T细胞的核心转录因子和归巢受体，强力支持T细胞谱系判定；MAL和TRABD2A是已明确报道的Naive CD4+ T细胞特异性高表达基因，进一步支持CD4+ Naive亚型的细分；TRAT1、PRKCQ-AS1、CAMK4参与TCR信号通路，与T细胞身份高度一致；DGKA和RCAN3在Naive T细胞静息状态中负向调控TCR信号，与功能状态描述吻合。Naive CD4+ T细胞是PBMC中的主要组分，生物学合理性充分，综合评分给予92分。"
     }
 }

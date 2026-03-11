@@ -1,0 +1,15 @@
+{
+    "cluster_name": "10",
+    "cell_type": "Monocyte",
+    "cell_subtype": "Non-classical Monocyte (CD14-low CD16+)",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达多个经典单核细胞标志基因：FCGR3A（CD16，非经典单核细胞的核心标志）、CSF1R（集落刺激因子1受体，单核/巨噬细胞系特征基因）、LST1（白细胞特异性转录本，髓系细胞标志）、MAFB（髓系转录因子）、MS4A7（非经典单核细胞高表达）、LILRB2（白细胞免疫球蛋白样受体，髓系细胞表达），强力支持该cluster属于髓系单核细胞谱系。",
+        "subtype_refinement": "FCGR3A（CD16）高表达是非经典单核细胞（CD14-low CD16+）的核心鉴定标志；MS4A7在非经典单核细胞中特异性富集；SIGLEC10（唾液酸结合免疫球蛋白凝集素10）在非经典单核细胞上高表达；TCF7L2在非经典单核细胞亚群中有报道；LRRC25参与髓系细胞分化调控；HMOX1（血红素加氧酶1）与单核细胞功能状态相关。上述基因组合高度符合人类PBMC中非经典单核细胞（patrolling monocyte）的分子特征。",
+        "functional_state": "HMOX1高表达提示该群细胞具有一定的氧化应激响应和抗炎功能；CXCL16参与细胞趋化与黏附；RHOC/RHOB（Rho GTPase家族）提示活跃的细胞迁移与细胞骨架重塑能力；IFITM3提示对病毒感染的天然免疫响应；CAMK1参与胞内信号转导；整体功能状态符合非经典单核细胞的巡逻（patrolling）和免疫监视功能。"
+    },
+    "model": "claude-sonnet-4-6",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "FCGR3A,MS4A7,PELATON,SIGLEC10,CSF1R,TCF7L2,CDH23,HMOX1,RHOC,RRAS,SLC2A6,IFITM3,RHOB,LST1,GPBAR1,CAMK1,CXCL16,LRRC25,MAFB,LILRB2",
+    "language": "中文"
+}

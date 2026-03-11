@@ -1,0 +1,21 @@
+{
+    "cluster_name": "30",
+    "cell_type": "B cells",
+    "cell_subtype": "Antibody-secreting plasmablasts / plasma cells",
+    "reasoning": {
+        "lineage_determination": "IGHA1、IGLC2、IGKC、IGHM 等免疫球蛋白重链和轻链基因高度表达，明确指向 B 细胞谱系，且属于强抗体分泌相关状态。该组细胞同时伴随 FKBP11、HSP90B1、PDIA4、PPIB、SEC11C、LMAN1、SEL1L3、SDF2L1、TXNDC11、PRDX4、UBE2J1 等内质网蛋白折叠与分泌通路基因上调，符合高水平免疫球蛋白合成细胞的特征。",
+        "subtype_refinement": "该 cluster 最符合抗体分泌型浆母细胞/浆细胞。核心依据是大量免疫球蛋白转录本（IGHA1、IGHM、IGKC、IGLC2）以及显著增强的内质网-分泌装置相关基因（FKBP11、PDIA4、HSP90B1、SEC11C、SDF2L1、LMAN1、SEL1L3），这是浆母细胞/浆细胞为适应高强度抗体分泌而形成的典型分子特征。在 PBMC 中该类细胞常以循环浆母细胞形式出现，因此注释为 antibody-secreting plasmablasts / plasma cells 最为合理。",
+        "functional_state": "该群细胞表现为明显的活跃抗体合成与分泌状态，主要特征是免疫球蛋白基因和内质网伴侣蛋白/折叠酶共同升高。未见明显多谱系混合 marker，不支持 Doublet；也不是以线粒体、核糖体或广泛应激基因为主，因此不属于低质量细胞；同时缺乏细胞周期相关基因，不支持增殖细胞。"
+    },
+    "model": "gpt-5.4",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "IGHA1,IGLC2,IGKC,IGHM,SEC11C,HSP90B1,PDIA4,PPIB,FKBP11,MANF,LMAN1,SEL1L3,TXNDC11,SDF2L1,COL18A1,UBE2J1,PRDX4,MYDGF,SUB1,AQP3",
+    "language": "中文",
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 96,
+        "audit_reasoning": "AI模型的推理完全基于Marker Gene List中的基因，未发现Gene Hallucination。IGHA1、IGLC2、IGKC、IGHM均为免疫球蛋白重链/轻链基因，直接支持B细胞谱系且指向高强度抗体分泌状态。HSP90B1、PDIA4、PPIB、FKBP11、SEC11C、LMAN1、SEL1L3、SDF2L1、TXNDC11、PRDX4等均为内质网蛋白折叠与分泌通路相关基因，是浆母细胞/浆细胞为适应大量免疫球蛋白合成而特异性上调的标志，与免疫球蛋白基因共同构成高特异性的浆母细胞/浆细胞分子特征。PBMC中循环浆母细胞的存在具有良好生物学合理性，marker组合无明显多谱系混合信号，不支持doublet。综合来看，注释结论高度可信，评分给予96分。"
+    }
+}

@@ -1,15 +1,15 @@
 {
     "cluster_name": "1",
-    "cell_type": "Doublet",
-    "cell_subtype": "Mixed lineage",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "Classical / inflammatory monocytes",
     "reasoning": {
-        "lineage_determination": "该cluster的高表达基因同时包含多个难以归属于同一血液细胞谱系的marker。IL17RB、GATA3-AS1可提示淋巴系/2型免疫相关特征；KRT1为上皮角蛋白标志；NEFL为神经相关结构蛋白；TPO、ZP1也分别更常见于非血液系统特异背景。上述marker组合无法用单一血液来源细胞谱系合理解释，因此更符合混合谱系信号。",
-        "subtype_refinement": "在血液样本背景下，IL17RB和GATA3-AS1提示可能混有少量淋巴细胞样信号，但同时伴随KRT1上皮信号、NEFL神经样信号及TPO/ZP1等异常异源表达，缺乏一致的单一亚群特征，因此应注释为Mixed lineage而非具体亚型。",
-        "functional_state": "该cluster并不以细胞周期基因、线粒体应激基因或核糖体基因为主，也不支持增殖或单纯低质量状态。更可能是技术性双细胞/多细胞捕获，导致来自不同谱系的转录本混合。"
+        "lineage_determination": "该群细胞高表达 CD14、LYZ、VCAN、MNDA、BST1、PLBD1、CDA、OSCAR、CLEC4E、CD163 等典型髓系/单核细胞相关基因，明确指向单核-髓系谱系。其中 CD14 和 LYZ 是PBMC中单核细胞的经典标志，VCAN、MNDA、BST1、PLBD1 进一步支持其为外周血单核细胞而非淋巴细胞。",
+        "subtype_refinement": "在髓系基础上，S100A8、S100A9、S100A12、PADI4、CSF3R、NLRP12、CLEC4E、OSCAR 等提示该群具有明显炎症性髓系特征；同时 CD14、VCAN、PLBD1、CDA 的组合更符合经典单核细胞/炎症性单核细胞特征，而不是其他PBMC常见髓系亚群。虽然存在 PADI4、CSF3R、S100A12 等偏中性粒细胞样炎症基因，但整体仍可被 CD14+ 单核细胞谱系合理解释，因此更倾向于 classical/inflammatory monocytes。",
+        "functional_state": "该群表现出显著炎症激活状态，S100A8/S100A9/S100A12、CLEC4E、OSCAR、NLRP12、CSF3R 提示其处于活化的先天免疫/炎症反应状态。未见以细胞周期基因为主的增殖特征，也不符合低质量细胞模式；虽然带有部分粒细胞样炎症marker，但整体未达到多谱系混合到需要判定Doublet的程度。"
     },
     "model": "gpt-5.4",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "SNHG18,RP11-379F12.3,KRT1,HLF,GATA3-AS1,TPO,ADAM23,IL17RB,ZP1,NEFL",
+    "tissue": "PBMC",
+    "genes": "PADI4,S100A12,RBP7,S100A8,S100A9,CDA,PLBD1,NLRP12,CYP27A1,BST1,NFE2,VCAN,CLEC4E,MNDA,ASGR2,CD14,CD163,LYZ,CSF3R,OSCAR",
     "language": "中文"
 }

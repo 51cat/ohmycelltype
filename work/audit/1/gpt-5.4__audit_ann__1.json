@@ -1,21 +1,21 @@
 {
     "cluster_name": "1",
-    "cell_type": "Doublet",
-    "cell_subtype": "Mixed lineage",
+    "cell_type": "Myeloid cells",
+    "cell_subtype": "Classical / inflammatory monocytes",
     "reasoning": {
-        "lineage_determination": "该cluster的高表达基因同时包含多个难以归属于同一血液细胞谱系的marker。IL17RB、GATA3-AS1可提示淋巴系/2型免疫相关特征；KRT1为上皮角蛋白标志；NEFL为神经相关结构蛋白；TPO、ZP1也分别更常见于非血液系统特异背景。上述marker组合无法用单一血液来源细胞谱系合理解释，因此更符合混合谱系信号。",
-        "subtype_refinement": "在血液样本背景下，IL17RB和GATA3-AS1提示可能混有少量淋巴细胞样信号，但同时伴随KRT1上皮信号、NEFL神经样信号及TPO/ZP1等异常异源表达，缺乏一致的单一亚群特征，因此应注释为Mixed lineage而非具体亚型。",
-        "functional_state": "该cluster并不以细胞周期基因、线粒体应激基因或核糖体基因为主，也不支持增殖或单纯低质量状态。更可能是技术性双细胞/多细胞捕获，导致来自不同谱系的转录本混合。"
+        "lineage_determination": "该群细胞高表达 CD14、LYZ、VCAN、MNDA、BST1、PLBD1、CDA、OSCAR、CLEC4E、CD163 等典型髓系/单核细胞相关基因，明确指向单核-髓系谱系。其中 CD14 和 LYZ 是PBMC中单核细胞的经典标志，VCAN、MNDA、BST1、PLBD1 进一步支持其为外周血单核细胞而非淋巴细胞。",
+        "subtype_refinement": "在髓系基础上，S100A8、S100A9、S100A12、PADI4、CSF3R、NLRP12、CLEC4E、OSCAR 等提示该群具有明显炎症性髓系特征；同时 CD14、VCAN、PLBD1、CDA 的组合更符合经典单核细胞/炎症性单核细胞特征，而不是其他PBMC常见髓系亚群。虽然存在 PADI4、CSF3R、S100A12 等偏中性粒细胞样炎症基因，但整体仍可被 CD14+ 单核细胞谱系合理解释，因此更倾向于 classical/inflammatory monocytes。",
+        "functional_state": "该群表现出显著炎症激活状态，S100A8/S100A9/S100A12、CLEC4E、OSCAR、NLRP12、CSF3R 提示其处于活化的先天免疫/炎症反应状态。未见以细胞周期基因为主的增殖特征，也不符合低质量细胞模式；虽然带有部分粒细胞样炎症marker，但整体未达到多谱系混合到需要判定Doublet的程度。"
     },
     "model": "gpt-5.4",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "SNHG18,RP11-379F12.3,KRT1,HLF,GATA3-AS1,TPO,ADAM23,IL17RB,ZP1,NEFL",
+    "tissue": "PBMC",
+    "genes": "PADI4,S100A12,RBP7,S100A8,S100A9,CDA,PLBD1,NLRP12,CYP27A1,BST1,NFE2,VCAN,CLEC4E,MNDA,ASGR2,CD14,CD163,LYZ,CSF3R,OSCAR",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 72,
-        "audit_reasoning": "模型推理主要依据Marker Gene List中的基因，未出现明显Gene Hallucination。KRT1（上皮角蛋白）、NEFL（神经结构蛋白）、TPO（甲状腺相关）、ZP1（卵细胞相关）均不属于血液细胞的典型marker，与GATA3-AS1、IL17RB等淋巴/免疫相关信号同时出现，提示多谱系混合信号。在血液样本背景下，来自上皮、神经、生殖系统的基因同时高表达，单一血液细胞谱系无法合理解释，注释为Doublet/Mixed lineage具有合理的生物学依据。需注意SNHG18、RP11-379F12.3、HLF、ADAM23等基因在推理中未被充分利用，HLF为造血干祖细胞相关转录因子，若进一步考量可能提示存在造血祖细胞成分，但整体而言Doublet注释仍是当前marker组合下最合理的解释。"
+        "reliability_score": 82,
+        "audit_reasoning": "注释所引用的证据基因均来自 Marker Gene List，未发现 gene hallucination。CD14、LYZ、VCAN、MNDA、BST1、PLBD1、CDA、CLEC4E、CD163 等基因是经典的经典单核细胞（CD14+ classical monocyte）标志，高度支持髓系/单核细胞谱系的判定。S100A8、S100A9、S100A12、PADI4、CSF3R 等基因具有一定粒细胞/低密度粒细胞（LDG）特征，模型虽已注意到这一混合信号并做出合理解释，但这些基因的存在仍留有一定不确定性，尤其是 PADI4 和 CSF3R 在中性粒细胞中表达更为突出。整体来看，marker 组合更倾向于炎症状态下的经典单核细胞，注释结论基本合理，但需警惕低密度粒细胞或炎症性单核细胞与中性粒细胞前体的混合可能，因此给予中高可信评分。"
     }
 }

@@ -1,15 +1,15 @@
 {
     "cluster_name": "1",
-    "cell_type": "Doublet",
-    "cell_subtype": "Mixed lineage",
+    "cell_type": "单核细胞",
+    "cell_subtype": "经典单核细胞",
     "reasoning": {
-        "lineage_determination": "DEGs 中包含上皮细胞特异性标记 KRT1、神经元特异性标记 NEFL、生殖细胞特异性标记 ZP1，以及造血/免疫相关标记 HLF、GATA3-AS1 和 IL17RB，显示多个截然不同细胞谱系的特征共存。",
-        "subtype_refinement": "由于血液样本中单一细胞无法同时表达上皮、神经及生殖细胞特异性基因，无法鉴定为具体亚型，符合不同细胞粘连形成的 Mixed lineage 特征。",
-        "functional_state": "标记基因组合违背血液组织的生物学合理性，表明该 Cluster 代表技术 artifact 而非真实的细胞功能状态。"
+        "lineage_determination": "CD14、CD163、LYZ、CSF3R 和 MNDA 是单核细胞谱系的经典标记基因，S100A8 和 S100A9 的高表达进一步确认了髓系来源，排除淋巴系或其他组织细胞可能。",
+        "subtype_refinement": "CD14 和 CD163 的强共表达是经典单核细胞的典型特征，S100A8/S100A9 通常在经典单核细胞中表达更高，且列表中未出现 FCGR3A 等非经典单核细胞特异性标记，支持经典单核细胞注释。",
+        "functional_state": "未检测到线粒体基因、核糖体蛋白或细胞周期相关基因，排除低质量或增殖细胞，PADI4 和 S100 家族基因的高表达提示细胞可能处于炎症或激活状态。"
     },
     "model": "qwen3.5-397b-a17b",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "SNHG18,RP11-379F12.3,KRT1,HLF,GATA3-AS1,TPO,ADAM23,IL17RB,ZP1,NEFL",
+    "tissue": "PBMC",
+    "genes": "PADI4,S100A12,RBP7,S100A8,S100A9,CDA,PLBD1,NLRP12,CYP27A1,BST1,NFE2,VCAN,CLEC4E,MNDA,ASGR2,CD14,CD163,LYZ,CSF3R,OSCAR",
     "language": "中文"
 }

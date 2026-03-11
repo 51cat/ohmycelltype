@@ -1,21 +1,21 @@
 {
     "cluster_name": "1",
-    "cell_type": "Doublet",
-    "cell_subtype": "Mixed lineage",
+    "cell_type": "Monocytes",
+    "cell_subtype": "Inflammatory monocytes",
     "reasoning": {
-        "lineage_determination": "该cluster的marker基因呈现典型的多谱系特征。KRT1和NEFL是典型的上皮细胞/神经元marker，HLF主要在淋巴造血组织表达，GATA3-AS1关联T细胞谱系，TPO是甲状腺滤泡细胞特异基因，ZP1主要在卵巢表达。这种多谱系marker共表达无法用单一细胞类型解释。",
-        "subtype_refinement": "该cluster高表达基因分属至少3个不同细胞谱系：上皮细胞谱系（KRT1）、神经细胞谱系（NEFL）、造血淋巴细胞谱系（HLF/GATA3-AS1/IL17RB）以及内分泌细胞谱系（TPO）。此外，ZP1和ADAM23分别指向生殖系统和神经系统。这种复杂的marker组合强烈提示存在双细胞或多细胞doublet。",
-        "functional_state": "从功能角度看，这些marker基因来自完全不同的细胞类型，缺乏统一的细胞功能特征。考虑到样本来源为Human blood tissue，在正常外周血中不应存在KRT1（角蛋白）、NEFL（神经丝）等组织特异性高表达基因。因此判定为技术性doublet，即两个或多个不同类型细胞在单细胞测序中被打包在一起。"
+        "lineage_determination": "该cluster表现出明确的髓系细胞特征。关键marker包括：CD14（经典单核细胞marker）、CD163（活化的单核细胞/巨噬细胞marker）、LYZ（溶菌酶，髓系细胞marker）、CSF3R（G-CSF受体，中性粒细胞和单核细胞marker）。这些基因是髓系细胞（Myeloid lineage）的核心marker，明确指向单核细胞/巨噬细胞谱系。",
+        "subtype_refinement": "该cluster为炎症性单核细胞。依据如下：1) 高表达S100A8和S100A9，这些是单核细胞和中性粒细胞的炎症相关钙结合蛋白；2) S100A12是嗜中性粒细胞特异性marker，在炎症单核细胞中也有表达；3) NLRP12参与炎症反应调控；4) VCAN（Versican）与炎症状态相关；5) CD14+CD163+双阳性表明是活化的炎症性单核细胞；6) CSF3R表达提示对G-CSF响应，属于炎症状态单核细胞。",
+        "functional_state": "该cluster处于炎症激活状态。多个S100蛋白（S100A8/9/12）高表达是炎症单核细胞的典型特征；NLRP12参与NLRP3炎症小体相关通路；VCAN和PLBD1与炎症反应和组织损伤修复相关。细胞高表达炎症相关基因，呈现典型的炎症性单核细胞功能状态。"
     },
     "model": "MiniMax-M2.5",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "SNHG18,RP11-379F12.3,KRT1,HLF,GATA3-AS1,TPO,ADAM23,IL17RB,ZP1,NEFL",
+    "tissue": "PBMC",
+    "genes": "PADI4,S100A12,RBP7,S100A8,S100A9,CDA,PLBD1,NLRP12,CYP27A1,BST1,NFE2,VCAN,CLEC4E,MNDA,ASGR2,CD14,CD163,LYZ,CSF3R,OSCAR",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 82,
-        "audit_reasoning": "模型使用了Marker Gene List中的基因作为主要证据，包括KRT1、NEFL、HLF、GATA3-AS1、TPO、ZP1、ADAM23、IL17RB等，未出现Gene Hallucination问题。从生物学角度看，这些基因确实来自截然不同的细胞谱系：KRT1属于上皮细胞marker，NEFL为神经元marker，TPO为甲状腺滤泡细胞marker，ZP1为卵巢特异性基因，HLF和GATA3-AS1关联造血/T细胞谱系。在blood组织中，同时出现上皮、神经元、甲状腺和生殖系统的特异性marker，确实无法用任何单一正常外周血细胞类型合理解释，doublet或技术性混合细胞的推断具有较强的生物学合理性。唯一需要注意的是，部分基因如SNHG18和RP11-379F12.3（long non-coding RNA）在模型推理中未被充分讨论，但这不影响整体结论的可靠性。"
+        "reliability_score": 88,
+        "audit_reasoning": "注释所使用的核心证据基因（CD14、CD163、LYZ、CSF3R、S100A8、S100A9、S100A12、NLRP12、VCAN、PLBD1）均来自Marker Gene List，未发现Gene Hallucination。CD14、LYZ、VCAN、MNDA、S100A8/A9等均为经典单核细胞marker，支持Monocytes的谱系判断。S100A8、S100A9、S100A12的高表达，以及NLRP12、PADI4、CLEC4E、CSF3R的出现，指向炎症激活状态，炎症性单核细胞的亚型注释具有合理的生物学依据。值得注意的是，CSF3R和PADI4也是中性粒细胞的标志基因，需排除中性粒细胞污染或doublet的可能性，但整体基因集以单核细胞标志为主导，混合信号风险较低。该细胞类型合理存在于PBMC，综合评分88分。"
     }
 }

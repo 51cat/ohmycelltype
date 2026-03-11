@@ -1,8 +1,8 @@
 
 from celltypeAgent.prompt.prompt import PARAM_COLLECTOR_PROMPT
-from celltypeAgent.llm.n1n import N1N_LLM
 from celltypeAgent.llm.message import Message
 from celltypeAgent.llm.tool import Tool
+from celltypeAgent.state.state import MetaData
 
 from celltypeAgent.tools.agent_tools import collect_parms
 from celltypeAgent.tools.utils import extract_and_validate_json, \
@@ -12,9 +12,9 @@ from celltypeAgent.tools.utils import extract_and_validate_json, \
 
 
 class ParamCollectorNode:
-    def __init__(self, LLM, marker_table = None) -> None:
+    def __init__(self, LLM, state: MetaData) -> None:
         self.llm = LLM
-        self.marker_table = marker_table
+        self.marker_table = state.get_metadata_val('marker_table')
     
     def prep(self):
         self.table_summary = get_table_context(self.marker_table)

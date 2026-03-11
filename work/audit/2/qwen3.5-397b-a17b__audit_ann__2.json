@@ -1,16 +1,21 @@
 {
     "cluster_name": "2",
-    "cell_type": "中性粒细胞",
-    "cell_subtype": "炎症性中性粒细胞",
+    "cell_type": "CD8+ T 细胞",
+    "cell_subtype": "效应/细胞毒性 T 细胞",
     "reasoning": {
-        "lineage_determination": "高表达 S100A8, S100A12, CLEC4E 等基因，明确指向髓系细胞谱系。",
-        "subtype_refinement": "CXCL1 和 S100A12 是中性粒细胞的强特异性标记，相较于单核细胞典型标记，本 cluster 更符合中性粒细胞特征。",
-        "functional_state": "高表达趋化因子 CXCL1, CCL2 及钙结合蛋白 S100A8/A12，提示细胞处于炎症激活状态，参与免疫招募和炎症反应。"
+        "lineage_determination": "CD8A 和 CD8B 是 CD8+ T 细胞的经典标志物，其中 CD8B 的表达有效排除了 NK 细胞的可能性（NK 细胞通常仅表达 CD8A 同源二聚体而不表达 CD8B）。尽管 TRGC2 存在，但结合 CD8B 及整体谱系特征，主要判定为 CD8+ T 细胞谱系。",
+        "subtype_refinement": "GZMA、GZMH、NKG7 和 CCL5 的高表达表明该群细胞具有强烈的细胞毒性效应功能。FGFBP2、KLRD1 和 SLAMF7 的表达进一步支持其为活化或效应记忆表型，而非 naive T 细胞。",
+        "functional_state": "细胞处于高度细胞毒性状态，富集了颗粒酶和穿孔素相关通路基因，提示为效应型或终末分化效应 CD8+ T 细胞。"
     },
     "model": "qwen3.5-397b-a17b",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "CXCL1,CCL2,ZNF697,CLEC4E,SERPINB2,CTB-61M7.2,S100A12,S100A8,ALDH1A1,RP11-362F19.3",
+    "tissue": "PBMC",
+    "genes": "TRGC2,GZMH,CD8A,CCL5,FGFBP2,ADGRG1,NKG7,GZMA,CST7,S1PR5,CD8B,KLRD1,PATL2,C12orf75,SYNE1,TRG-AS1,PYHIN1,SLAMF7,SAMD3,MATK",
     "language": "中文",
-    "audit": null
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 92,
+        "audit_reasoning": "注释推理严格依赖 Marker Gene List 中的基因作为证据，未发现 gene hallucination。CD8A 和 CD8B 共同表达是 CD8+ T 细胞的经典标志，CD8B 的存在有效排除了 NK 细胞可能性。GZMA、GZMH、NKG7、CCL5 的高表达强烈支持效应/细胞毒性表型，FGFBP2、KLRD1、SLAMF7 等进一步佐证活化效应状态。TRGC2 虽为 γδ T 细胞相关基因，但结合 CD8B 的存在及整体 marker 谱，此群体归类为 CD8+ 效应 T 细胞在生物学上合理，且该细胞类型在 PBMC 中正常存在。"
+    }
 }

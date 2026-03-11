@@ -1,21 +1,21 @@
 {
     "cluster_name": "2",
-    "cell_type": "Myeloid cells",
-    "cell_subtype": "Inflammatory monocytes / neutrophil-like myeloid cells",
+    "cell_type": "T cells",
+    "cell_subtype": "Cytotoxic gamma-delta T cells",
     "reasoning": {
-        "lineage_determination": "该群细胞高表达 S100A8、S100A12、CLEC4E、CCL2、CXCL1、SERPINB2，整体特征明确指向髓系细胞谱系。其中 S100A8 和 S100A12 是外周血炎症性髓系细胞常见标志，CLEC4E 为先天免疫受体，CCL2 与 CXCL1 反映髓系细胞的炎症趋化特征，因此可首先判定为髓系细胞。",
-        "subtype_refinement": "在髓系细胞内部，该 cluster 更接近炎症性单核细胞/中性粒细胞样髓系细胞。支持依据包括：S100A8、S100A12 为强炎症型髓系标志；CCL2、CXCL1 提示活化的促炎趋化因子分泌状态；CLEC4E 和 SERPINB2 常见于被炎症刺激激活的单核-巨噬细胞系统。由于该基因集同时具有明显的粒细胞炎症特征和单核细胞趋化/受体特征，更稳妥的注释应为 inflammatory monocytes / neutrophil-like myeloid cells，而非过度限定为单一终末亚群。",
-        "functional_state": "该群细胞处于明显的促炎激活状态。CXCL1、CCL2 表明其具有募集其他免疫细胞的能力，S100A8/S100A12 反映急性炎症和先天免疫激活，CLEC4E 指示病原体或损伤相关信号感知，SERPINB2 进一步支持炎症应答相关功能。在人外周血背景下，这类细胞很可能代表循环中的活化炎症性髓系细胞。"
+        "lineage_determination": "该群细胞高表达TRGC2、TRG-AS1，明确指向γδT细胞谱系；同时表达CD8A、CD8B、NKG7、KLRD1、CCL5、GZMA、GZMH、CST7、SLAMF7等，提示其属于具有明显杀伤功能的淋巴细胞群。TRGC2是TCR γ链常见标志，结合CD8A/CD8B支持T细胞属性，而NKG7、KLRD1、FGFBP2、CCL5、GZMH反映强细胞毒程序，因此可判定为细胞毒性T细胞中的γδT细胞群。",
+        "subtype_refinement": "在T细胞大类内，该群最符合细胞毒性γδT细胞亚型。关键依据为TRGC2和TRG-AS1定义γδT身份，同时FGFBP2、GZMH、GZMA、CCL5、CST7、S1PR5、ADGRG1、SLAMF7、NKG7、KLRD1共同提示成熟的效应/杀伤表型。这一组合在PBMC中常见于NK-like的细胞毒性γδT细胞，而非一般初始或辅助性T细胞。虽有部分NK相关杀伤分子，但TRGC2使其更合理解释为γδT细胞而非NK细胞，也不支持双细胞混合。",
+        "functional_state": "该群表现出显著细胞毒活化特征，依据为GZMH、GZMA、CCL5、FGFBP2、CST7、NKG7、KLRD1、SLAMF7等杀伤相关基因高表达。未见以细胞周期基因为主的增殖特征，也不符合低质量或应激细胞模式，因此功能状态应为活跃的效应型细胞毒性γδT细胞。"
     },
     "model": "gpt-5.4",
     "spec": "Human",
-    "tissue": "blood",
-    "genes": "CXCL1,CCL2,ZNF697,CLEC4E,SERPINB2,CTB-61M7.2,S100A12,S100A8,ALDH1A1,RP11-362F19.3",
+    "tissue": "PBMC",
+    "genes": "TRGC2,GZMH,CD8A,CCL5,FGFBP2,ADGRG1,NKG7,GZMA,CST7,S1PR5,CD8B,KLRD1,PATL2,C12orf75,SYNE1,TRG-AS1,PYHIN1,SLAMF7,SAMD3,MATK",
     "language": "中文",
     "audit": {
         "is_gene_faithful": true,
         "is_biologically_valid": true,
-        "reliability_score": 82,
-        "audit_reasoning": "注释推理严格依据Marker Gene List中的基因，未出现Gene Hallucination。S100A8、S100A12是人外周血炎症性髓系细胞（单核细胞/中性粒细胞）的经典标志，强力支持髓系谱系判定。CLEC4E（Mincle）高度富集于单核-巨噬细胞系统，SERPINB2在炎症激活的单核细胞中有显著表达，CCL2和CXCL1进一步支持活化促炎髓系细胞的功能状态。ZNF697和CTB-61M7.2特异性较低，贡献有限，且该marker组合在中性粒细胞与炎症性单核细胞之间存在一定重叠，难以精确区分两者，因此亚型注释采用'炎症性单核细胞/中性粒细胞样髓系细胞'的联合描述是合理且稳健的处理方式，但特异性有所折扣，评分扣除部分分值。"
+        "reliability_score": 88,
+        "audit_reasoning": "AI模型推理严格依据Marker Gene List中的基因，未见Gene Hallucination。TRGC2和TRG-AS1是列表中最关键的γδT细胞谱系标志，明确支持γδT细胞身份。GZMH、GZMA、NKG7、KLRD1、CCL5、CST7、FGFBP2、SLAMF7、ADGRG1、S1PR5共同支持成熟细胞毒性效应表型，与细胞毒性γδT细胞的生物学特征高度吻合。该细胞类型在PBMC中合理存在，不支持doublet解释，因为TRGC2/TRG-AS1可将其与NK细胞有效区分。扣分原因在于KLRD1、NKG7、FGFBP2等标志在NK细胞中同样高表达，存在一定的NK细胞混淆风险，但整体注释结论可信。"
     }
 }

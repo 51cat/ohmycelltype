@@ -1,0 +1,21 @@
+{
+    "cluster_name": "20",
+    "cell_type": "Dendritic Cells",
+    "cell_subtype": "Classical Dendritic Cells type 2 (cDC2)",
+    "reasoning": {
+        "lineage_determination": "该cluster高表达大量MHC II类分子相关基因，包括HLA-DQA1、HLA-DQA2、HLA-DQB1、HLA-DPA1、HLA-DPB1、HLA-DRA、HLA-DRB1、HLA-DRB5、HLA-DRB6、HLA-DMA以及MHC II类分子伴侣CD74，同时高表达CIITA（MHC II类基因的主调控转录因子）。此外，CST3为髓系细胞的经典marker。这些特征强烈支持该cluster为具有强抗原提呈能力的髓系来源专职抗原提呈细胞（APC），判定为树突状细胞（Dendritic Cells）谱系。",
+        "subtype_refinement": "在树突状细胞亚型鉴定中，该cluster高表达HLA-DR、HLA-DP、HLA-DQ等多种MHC II类基因，并表达CIITA、CD74，符合经典树突状细胞（cDC）特征。IL13RA1（IL-13受体α1链）是cDC2的特征性标志物，在人PBMC中cDC2高表达IL13RA1。CCDC88A（GIV/Girdin）参与细胞迁移与信号转导，在DC中有表达。PAK1参与细胞骨架重排，与DC迁移功能相关。GSN（Gelsolin）为肌动蛋白调节蛋白，在cDC2中有表达。综合IL13RA1的高表达及整体MHC II分子谱，该cluster最可能为cDC2亚型。",
+        "functional_state": "该cluster整体呈现出强抗原提呈功能状态：CIITA驱动MHC II类基因的广泛高表达，CD74参与MHC II类分子的装配与转运，提示细胞处于活跃的抗原加工与提呈状态。NAPSB（组织蛋白酶B相关蛋白酶）参与内体/溶酶体蛋白水解，与抗原加工通路一致。ST14（matriptase）为跨膜丝氨酸蛋白酶，参与细胞表面蛋白加工。KCNK6为钾通道，可能参与DC活化信号调节。整体功能状态为成熟/活化的经典树突状细胞，具有高效抗原提呈能力。"
+    },
+    "model": "claude-sonnet-4-6",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "HLA-DQA1,HLA-DQA2,NAPSB,HLA-DQB1,HLA-DPA1,HLA-DRA,GSN,HLA-DPB1,IL13RA1,HLA-DRB5,HLA-DRB1,CST3,HLA-DRB6,CIITA,KCNK6,CD74,CCDC88A,HLA-DMA,PAK1,ST14",
+    "language": "中文",
+    "audit": {
+        "is_gene_faithful": true,
+        "is_biologically_valid": true,
+        "reliability_score": 88,
+        "audit_reasoning": "模型使用的证据均来自Marker Gene List，未发现Gene Hallucination。Marker Gene List中大量MHC II类基因（HLA-DQA1、HLA-DQA2、HLA-DQB1、HLA-DPA1、HLA-DPB1、HLA-DRA、HLA-DRB1、HLA-DRB5、HLA-DRB6、HLA-DMA）及CIITA、CD74强烈支持专职抗原提呈细胞的树突状细胞谱系判定，CST3作为髓系标志物进一步支持髓系来源，生物学合理性高。细化亚型为cDC2主要依据IL13RA1，该基因确实是人PBMC中cDC2相对于cDC1的特征性标志物，证据有一定特异性。然而，cDC2的经典高特异性marker（如CD1c/FCER1A）未出现在列表中，IL13RA1对cDC2的特异性相对于单核细胞来说也存在一定重叠，部分基因（如NAPSB、KCNK6、ST14）在DC亚型区分中证据力度有限，因此亚型层面的确信度略有折扣，综合评分88分。"
+    }
+}

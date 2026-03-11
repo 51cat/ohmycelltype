@@ -1,0 +1,15 @@
+{
+    "cluster_name": "10",
+    "cell_type": "单核细胞",
+    "cell_subtype": "CD16+ 单核细胞",
+    "reasoning": {
+        "lineage_determination": "MS4A7、CSF1R 和 MAFB 是单核细胞谱系的经典且特异性 marker，明确指向髓系单核细胞。虽然 FCGR3A 也在 NK 细胞表达，但缺乏 NK 细胞特异性 marker（如 NCAM1、KLRD1），且伴随强单核系 marker，故排除 NK 细胞及淋巴细胞谱系。",
+        "subtype_refinement": "FCGR3A (CD16) 作为高表达基因，结合 SIGLEC10 和 CXCL16 的共表达，这是 CD16+ 单核细胞亚群（通常为非经典单核细胞）的典型特征，区别于经典 CD14+ 单核细胞。",
+        "functional_state": "HMOX1 和 IFITM3 的表达提示细胞可能处于一定的氧化应激或干扰素响应状态，这在循环血液单核细胞中常见，不影响主要细胞类型判定。"
+    },
+    "model": "qwen3.5-397b-a17b",
+    "spec": "Human",
+    "tissue": "PBMC",
+    "genes": "FCGR3A,MS4A7,PELATON,SIGLEC10,CSF1R,TCF7L2,CDH23,HMOX1,RHOC,RRAS,SLC2A6,IFITM3,RHOB,LST1,GPBAR1,CAMK1,CXCL16,LRRC25,MAFB,LILRB2",
+    "language": "中文"
+}
