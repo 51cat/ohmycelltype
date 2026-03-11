@@ -88,27 +88,34 @@ celltypeAgent/
 └─────────────────┘
 ```
 
-## 输出说明
+## 开发状态
 
-输出文件保存在 `outdir` 目录下：
+### 已完成
 
-- `init/` - 初始注释结果，按模型和簇编号命名
-- `audit/` - 审核结果，包含可靠性评分和审核意见
+- ✅ LLM基础接口层（BaseLLM抽象类）
+- ✅ N1N API集成
+- ✅ 消息历史管理（Message类）
+- ✅ 参数收集节点（交互式参数配置）
+- ✅ 细胞类型注释节点
+- ✅ 注释审核节点（可靠性评分、Gene Hallucination检测）
+- ✅ 共识节点（多模型结果整合）
+- ✅ 反思修正机制（最多5轮）
+- ✅ 状态管理（dataclass定义）
+- ✅ 提示模板设计
 
-每个输出文件为JSON格式：
+### 开发中
 
-```json
-{
-  "cluster_name": "0",
-  "cell_type": "T cell",
-  "cell_subtype": "CD4+ T cell",
-  "reasoning": {
-    "lineage_determination": "...",
-    "subtype_refinement": "...",
-    "functional_state": "..."
-  }
-}
-```
+- ⌛️ 并行处理多个簇
+- ⌛️ 完整的错误处理和重试机制
+- ⌛️ 日志系统完善
+- ⌛️ 单元测试
+
+### 计划中
+
+- ⌛️ 支持更多LLM提供商
+- ⌛️ Web界面
+- ⌛️ 结果可视化
+- ⌛️ 批量处理优化
 
 ## 依赖
 
