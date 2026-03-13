@@ -1,7 +1,7 @@
-from celltypeAgent.prompt.prompt import CLUSTER_REPORT_PROMPT
-from celltypeAgent.llm.message import Message
-from celltypeAgent.state.state import SingleCluster, MetaData
-from celltypeAgent.tools.utils import clean_markdown_format
+from ohmycelltype.prompt.prompt import CLUSTER_REPORT_PROMPT
+from ohmycelltype.llm.message import Message
+from ohmycelltype.state.state import SingleCluster, MetaData
+from ohmycelltype.tools.utils import clean_markdown_format
 import json
 
 

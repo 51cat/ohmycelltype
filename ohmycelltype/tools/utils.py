@@ -118,4 +118,4 @@ def get_table_context(file_path):
 
 
 
-from celltypeAgent.tools.logger import rich_log as add_log
+from ohmycelltype.tools.logger import rich_log as add_log

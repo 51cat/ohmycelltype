@@ -1,10 +1,10 @@
 # AGENTS.md
 
-Guide for AI coding agents working in the CelltypeAgent repository.
+Guide for AI coding agents working in the ohmycelltype repository.
 
 ## Project Overview
 
-CelltypeAgent is a multi-agent cell type annotation system for single-cell RNA sequencing data. It uses multiple LLM models in parallel to annotate cell types and reaches consensus through expert review.
+ohmycelltype is a multi-agent cell type annotation system for single-cell RNA sequencing data. It uses multiple LLM models in parallel to annotate cell types and reaches consensus through expert review.
 
 **Tech Stack**: Python 3.10+, OpenAI SDK, Click (CLI), Rich (console), pandas
 
@@ -15,8 +15,8 @@ CelltypeAgent is a multi-agent cell type annotation system for single-cell RNA s
 pip install -e .
 
 # Run the CLI
-celltype-agent annotate <input_file> -o <output_dir>
-celltype-agent version
+ohmycelltype annotate <input_file> -o <output_dir>
+ohmycelltype version
 ```
 
 ## Testing
@@ -34,7 +34,7 @@ pytest tests/test_module.py
 pytest tests/test_module.py::test_function_name -v
 
 # Run with coverage
-pytest --cov=celltypeAgent
+pytest --cov=ohmycelltype
 ```
 
 ## Linting & Type Checking
@@ -52,7 +52,7 @@ ruff check .
 ruff format .
 
 # Run type checker
-mypy celltypeAgent/
+mypy ohmycelltype/
 ```
 
 ## Code Style Guidelines
@@ -73,8 +73,8 @@ from typing import Dict, List, Optional
 from openai import OpenAI
 from rich.console import Console
 
-from celltypeAgent.llm.base import BaseLLM
-from celltypeAgent.tools.logger import log_error, log_success
+from ohmycelltype.llm.base import BaseLLM
+from ohmycelltype.tools.logger import log_error, log_success
 ```
 
 ### Naming Conventions
@@ -140,7 +140,7 @@ class BaseLLM(ABC):
 Use specific exception types. Log errors with the logger module:
 
 ```python
-from celltypeAgent.tools.logger import log_error
+from ohmycelltype.tools.logger import log_error
 
 try:
     result = func(**params)
@@ -154,7 +154,7 @@ except Exception as e:
 Use the `logger.py` module for console output. Do NOT use `print()` directly.
 
 ```python
-from celltypeAgent.tools.logger import (
+from ohmycelltype.tools.logger import (
     log_info, log_warning, log_error, log_success
 )
 
@@ -167,7 +167,7 @@ log_success("Annotation complete")
 Use the `@add_log` decorator for automatic function timing:
 
 ```python
-from celltypeAgent.tools.utils import add_log
+from ohmycelltype.tools.utils import add_log
 
 @add_log
 def process_cluster(self, cluster_id: int):
@@ -197,7 +197,7 @@ def annotate(input_file, output):
 ### Project Structure
 
 ```
-celltypeAgent/
+ohmycelltype/
 ├── llm/           # LLM provider implementations (inherit from BaseLLM)
 ├── nodes/         # Workflow nodes (each node is a processing step)
 ├── state/         # Dataclass state management
@@ -219,7 +219,7 @@ celltypeAgent/
 Use the helper functions from `__init__.py`:
 
 ```python
-from celltypeAgent import load_json, write_json
+from ohmycelltype import load_json, write_json
 
 data = load_json('config.json')
 write_json(data, 'output.json')
@@ -254,4 +254,4 @@ formatted = INIT_CELLTYPE.format(species="Human", tissue="Liver")
 
 ## Configuration
 
-API credentials are stored in `celltypeAgent/config.json`. Do NOT commit real API keys.
+API credentials are stored in `~/.ohmycelltype.json`. Do NOT commit real API keys.

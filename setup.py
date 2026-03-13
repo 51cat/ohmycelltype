@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="celltypeAgent",
+    name="ohmycelltype",
     packages=find_packages(),
     install_requires=[
         "openai",
@@ -12,7 +12,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'ohmycelltype=celltypeAgent.cli:main',
+            'ohmycelltype=ohmycelltype.cli:main',
         ],
     },
 )

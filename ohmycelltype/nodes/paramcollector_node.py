@@ -1,14 +1,14 @@
 
-from celltypeAgent.prompt.prompt import PARAM_COLLECTOR_PROMPT
-from celltypeAgent.llm.message import Message
-from celltypeAgent.llm.tool import Tool
-from celltypeAgent.state.state import MetaData
-from celltypeAgent.tools.logger import (
+from ohmycelltype.prompt.prompt import PARAM_COLLECTOR_PROMPT
+from ohmycelltype.llm.message import Message
+from ohmycelltype.llm.tool import Tool
+from ohmycelltype.state.state import MetaData
+from ohmycelltype.tools.logger import (
     chat_session_header, chat_user_input, chat_ai_chunk
 )
 
-from celltypeAgent.tools.agent_tools import collect_parms
-from celltypeAgent.tools.utils import extract_and_validate_json, \
+from ohmycelltype.tools.agent_tools import collect_parms
+from ohmycelltype.tools.utils import extract_and_validate_json, \
     get_table_context, \
         parse_response,\
             execute_task

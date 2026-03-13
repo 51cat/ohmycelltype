@@ -1,7 +1,7 @@
 import click
 import time
-from celltypeAgent.workflow import CelltypeWorkflow
-from celltypeAgent.tools.logger import (
+from ohmycelltype.workflow import CelltypeWorkflow
+from ohmycelltype.tools.logger import (
     console, log_error, log_success, display_status_panel
 )
 
@@ -20,7 +20,7 @@ def init_config():
     """初始化配置文件"""
     console.print("[bold magenta]✨ 初始化配置文件...[/bold magenta]")
     
-    from celltypeAgent.config import Config
+    from ohmycelltype.config import Config
     config = Config()
     config.init()
     
@@ -92,7 +92,7 @@ def version():
 @cli.command()
 def show():
     """显示当前配置"""
-    from celltypeAgent.config import Config
+    from ohmycelltype.config import Config
     config = Config()
     
     try:

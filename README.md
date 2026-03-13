@@ -1,4 +1,4 @@
-# CelltypeAgent
+# ohmycelltype
 
 基于多智能体协作的细胞类型自动注释系统，用于单细胞 RNA 测序数据的细胞类型注释。
 
@@ -14,32 +14,89 @@
 ## 安装
 
 ```bash
-git clone https://github.com/your-repo/CelltypeAgent.git
-cd CelltypeAgent
+git clone https://github.com/your-repo/ohmycelltype.git
+cd ohmycelltype
 pip install -e .
 ```
 
 ## 配置
 
-编辑 `celltypeAgent/config.json`：
+### 快速初始化
+
+```bash
+# 初始化配置文件（创建 ~/.ohmycelltype.json）
+ohmycelltype init-config
+
+# 设置 API Key（交互式）
+# 会提示输入 provider 名称（默认 n1n）和 API Key
+```
+
+### 手动配置
+
+编辑 `~/.ohmycelltype.json`：
 
 ```json
 {
     "n1n": {
         "base_url": "https://api.n1n.ai/v1",
-        "api": "your-api-key-here"
+        "api": "your-api-key-here",
+        "parm_collect_model": "gpt-5.4",
+        "report_model": "claude-sonnet-4-6",
+        "annotation_model": [
+            "gpt-5.4",
+            "claude-sonnet-4-6",
+            "qwen3.5-397b-a17b",
+            "deepseek-v3.2"
+        ],
+        "audit_model": "claude-sonnet-4-6",
+        "consensus_model": "claude-sonnet-4-6",
+        "max_reflect_times": 5,
+        "reliability_threshold": 70,
+        "max_retry": 3
     }
 }
+```
+
+### 配置字段说明
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|:----:|------|
+| `base_url` | string | ✅ | API 基础地址，如 `https://api.n1n.ai/v1` |
+| `api` | string | ✅ | API 密钥，从服务商获取 |
+| `parm_collect_model` | string | ✅ | 参数收集模型，用于交互式参数映射 |
+| `annotation_model` | array | ✅ | 注释模型列表，多模型并行注释提高准确性 |
+| `audit_model` | string | ✅ | 审核模型，用于检测基因幻觉和生物学合理性 |
+| `consensus_model` | string | ✅ | 共识模型，用于整合多模型预测结果 |
+| `report_model` | string | ✅ | 报告生成模型，输出 Markdown 分析报告 |
+| `max_reflect_times` | integer | ❌ | 最大反思次数，默认 5（评分低于阈值时触发） |
+| `reliability_threshold` | integer | ❌ | 可靠性阈值，默认 70（低于此值触发反思） |
+| `max_retry` | integer | ❌ | API 调用最大重试次数，默认 3 |
+
+**提示**：
+- `annotation_model` 支持多个模型，会并行运行并取共识
+- 反思机制：当评分 < `reliability_threshold` 时，自动重新注释（最多 `max_reflect_times` 次）
+
+### 查看配置
+
+```bash
+# 显示当前配置（API Key 会脱敏显示）
+ohmycelltype show
 ```
 
 ## 使用
 
 ```bash
 # 注释
-celltype-agent annotate your_marker_genes.csv -o ./results
+ohmycelltype annotate your_marker_genes.csv -o ./results
 
 # 查看版本
-celltype-agent version
+ohmycelltype version
+
+# 初始化配置
+ohmycelltype init-config
+
+# 查看配置
+ohmycelltype show
 ```
 
 ## 输入格式
@@ -77,7 +134,7 @@ results/
 ## 项目结构
 
 ```
-celltypeAgent/
+ohmycelltype/
 ├── llm/           # LLM 提供商实现
 ├── nodes/         # 工作流节点
 ├── state/         # 状态管理

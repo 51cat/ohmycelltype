@@ -2,22 +2,22 @@ import os
 import glob
 from concurrent.futures import ThreadPoolExecutor
 
-from celltypeAgent import load_json, write_json
-from celltypeAgent.tools.utils import add_log
-from celltypeAgent.tools.logger import (
+from ohmycelltype import load_json, write_json
+from ohmycelltype.tools.utils import add_log
+from ohmycelltype.tools.logger import (
     log_info, log_warning, log_success, 
     display_annotation_table, display_section_header
 )
-from celltypeAgent.state.state import SingleCluster, MetaData, ClusterInfo
+from ohmycelltype.state.state import SingleCluster, MetaData, ClusterInfo
 
-from celltypeAgent.llm.n1n import N1N_LLM
+from ohmycelltype.llm.n1n import N1N_LLM
 
-from celltypeAgent.nodes.paramcollector_node import ParamCollectorNode 
-from celltypeAgent.nodes.anno_cluster_node import CelltypeAnnoNode
-from celltypeAgent.nodes.audit_ann_node import CelltypeAnnAuditNode
-from celltypeAgent.nodes.consensus_node import CelltypeConsensusNode
-from celltypeAgent.nodes.report_node import CelltypeReportNode
-from celltypeAgent import get_llm_config_value
+from ohmycelltype.nodes.paramcollector_node import ParamCollectorNode 
+from ohmycelltype.nodes.anno_cluster_node import CelltypeAnnoNode
+from ohmycelltype.nodes.audit_ann_node import CelltypeAnnAuditNode
+from ohmycelltype.nodes.consensus_node import CelltypeConsensusNode
+from ohmycelltype.nodes.report_node import CelltypeReportNode
+from ohmycelltype import get_llm_config_value
 
 
 class CelltypeWorkflow:

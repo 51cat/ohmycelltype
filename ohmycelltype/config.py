@@ -1,4 +1,4 @@
-from celltypeAgent import write_json,load_json
+from ohmycelltype import write_json,load_json
 import os
 
 BASE_CONFIG = {

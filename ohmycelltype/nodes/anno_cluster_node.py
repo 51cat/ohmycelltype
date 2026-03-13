@@ -1,7 +1,7 @@
-from celltypeAgent.prompt.prompt import INIT_CELLTYPE
-from celltypeAgent.llm.message import Message
-from celltypeAgent.state.state import SingleCluster,MetaData
-from celltypeAgent.tools.utils import extract_and_validate_json
+from ohmycelltype.prompt.prompt import INIT_CELLTYPE
+from ohmycelltype.llm.message import Message
+from ohmycelltype.state.state import SingleCluster,MetaData
+from ohmycelltype.tools.utils import extract_and_validate_json
 import json
 
 def validate_keys(data):

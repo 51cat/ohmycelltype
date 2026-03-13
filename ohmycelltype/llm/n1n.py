@@ -1,9 +1,9 @@
 import time
 from typing import Dict, Any
 from openai import OpenAI
-from celltypeAgent.llm.base import BaseLLM
-from celltypeAgent.llm.message import Message
-from celltypeAgent.tools.logger import (
+from ohmycelltype.llm.base import BaseLLM
+from ohmycelltype.llm.message import Message
+from ohmycelltype.tools.logger import (
     console, print_stream_header, print_stream_footer, 
     wait_animation, is_valid_response, log_retry, log_error
 )
