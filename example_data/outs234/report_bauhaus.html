@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Type Annotation Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal-blue: #264653;
+            --verdigris: #2a9d8f;
+            --tuscan-sun: #e9c46a;
+            --sandy-brown: #f4a261;
+            --burnt-peach: #e76f51;
+            
+            --casing-bg: #E3E4DF;
+            --casing-highlight: rgba(255,255,255,0.7);
+            --casing-shadow: rgba(0,0,0,0.08);
+            --panel-gap-dark: rgba(0,0,0,0.15);
+            --panel-gap-light: rgba(255,255,255,0.8);
+            
+            --text-main: #264653;
+            --text-muted: #555555;
+            --text-label: #6A6B66;
+            --hole-fill: #1C1C1A;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: #C8C9C4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--text-main);
+            padding: 40px 20px;
+        }
+
+        .device-panel {
+            background-color: var(--casing-bg);
+            width: 100%;
+            max-width: 920px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.15),
+                0 5px 15px rgba(0,0,0,0.05),
+                inset 1px 1px 2px var(--casing-highlight),
+                inset -1px -1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 40px 0;
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .model-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .hero-section {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0 10px;
+        }
+
+        .grille-svg {
+            width: 280px;
+            height: 280px;
+            overflow: visible;
+        }
+
+        .grille-hole {
+            fill: var(--hole-fill);
+        }
+
+        .grille-block {
+            filter: drop-shadow(0px 4px 3px rgba(0,0,0,0.25));
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .controls-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 0 40px;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hardware-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-well {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #DADBD4;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0,0,0,0.1),
+                inset -2px -2px 4px rgba(255,255,255,0.7);
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-cap {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            top: -2px;
+            background-color: var(--btn-color);
+            box-shadow: 
+                inset 0 2px 2px rgba(255,255,255,0.4),
+                inset 0 -1px 3px rgba(0,0,0,0.2),
+                0 5px 0 var(--btn-shade),
+                0 8px 8px rgba(0,0,0,0.25);
+            transition: all 0.08s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hardware-btn:active .btn-cap,
+        .hardware-btn.is-active .btn-cap {
+            top: 3px;
+            box-shadow: 
+                inset 0 1px 2px rgba(255,255,255,0.3),
+                inset 0 -1px 2px rgba(0,0,0,0.3),
+                0 0px 0 var(--btn-shade),
+                0 2px 3px rgba(0,0,0,0.1);
+        }
+
+        .btn-charcoal  { --btn-color: var(--charcoal-blue); --btn-shade: #1A3540; }
+        .btn-verdigris { --btn-color: var(--verdigris);     --btn-shade: #1E7A70; }
+        .btn-tuscan    { --btn-color: var(--tuscan-sun);    --btn-shade: #B88000; }
+        .btn-sandy     { --btn-color: var(--sandy-brown);   --btn-shade: #C07A30; }
+        .btn-peach     { --btn-color: var(--burnt-peach);   --btn-shade: #B54535; }
+
+        .panel-divider {
+            height: 2px;
+            width: 100%;
+            background: var(--panel-gap-dark);
+            border-bottom: 1px solid var(--panel-gap-light);
+        }
+
+        .inventory-section {
+            padding: 30px 40px 40px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--panel-gap-dark);
+            box-shadow: 0 1px 0 var(--panel-gap-light);
+        }
+
+        .subsection-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 24px 0 12px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .stat-icon-1 { background: rgba(233, 196, 106, 0.3); }
+        .stat-icon-2 { background: rgba(244, 162, 97, 0.3); }
+        .stat-icon-3 { background: rgba(231, 111, 81, 0.3); }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--verdigris);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .table-container {
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-label);
+            font-weight: 500;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--panel-gap-dark);
+            box-shadow: 0 1px 0 var(--panel-gap-light);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(42, 157, 143, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .markdown-body {
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .markdown-body h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--panel-gap-dark);
+            box-shadow: 0 1px 0 var(--panel-gap-light);
+        }
+
+        .markdown-body h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 20px 0 12px;
+        }
+
+        .markdown-body h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 16px 0 8px;
+        }
+
+        .markdown-body p {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .markdown-body ul, .markdown-body ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .markdown-body li {
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .markdown-body code {
+            background: rgba(42, 157, 143, 0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--verdigris);
+        }
+
+        .markdown-body pre {
+            background: #1C1C1A;
+            color: #E8E8E6;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        .markdown-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        .markdown-body blockquote {
+            border-left: 4px solid var(--burnt-peach);
+            padding-left: 16px;
+            margin: 16px 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .markdown-body th, .markdown-body td {
+            border: 1px solid var(--panel-gap-dark);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .markdown-body th {
+            background: rgba(0,0,0,0.03);
+            font-weight: 600;
+        }
+
+        .panel-footer {
+            padding: 0 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .footer-text {
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        @media (max-width: 600px) {
+            .device-panel { border-radius: 0; }
+            body { padding: 0; background: var(--casing-bg); }
+            .panel-header, .inventory-section, .panel-footer { padding-left: 16px; padding-right: 16px; }
+            .controls-section { gap: 12px; }
+            .grille-svg { transform: scale(0.8); }
+            .btn-well { transform: scale(0.85); }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="device-panel">
+        <header class="panel-header">
+            <div class="brand">OHMYCELLTYPE</div>
+            <div class="model-number">v1.0.0</div>
+        </header>
+
+        <section class="hero-section">
+            <svg class="grille-svg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="block-light" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="rgba(255,255,255,0.5)"></stop>
+                        <stop offset="100%" stop-color="rgba(0,0,0,0)"></stop>
+                    </radialGradient>
+                </defs>
+                <g id="grille-pattern"><g class="grille-block" style="transform-origin: -254.0px 130.0px"><circle cx="-254.0" cy="130.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="-254.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="-242.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-230.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-266.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-218.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-266.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-218.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-266.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-218.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-254.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="-242.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><g class="grille-block" style="transform-origin: -230.0px 178.0px"><circle cx="-230.0" cy="178.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="-230.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: -194.0px 130.0px"><circle cx="-194.0" cy="130.0" r="6.5" fill="var(--verdigris)" /><circle cx="-194.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="-194.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-194.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-182.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-170.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-158.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-194.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-146.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="-194.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><g class="grille-block" style="transform-origin: -146.0px 178.0px"><circle cx="-146.0" cy="178.0" r="6.5" fill="var(--verdigris)" /><circle cx="-146.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: -122.0px 130.0px"><circle cx="-122.0" cy="130.0" r="6.5" fill="var(--tuscan-sun)" /><circle cx="-122.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="-74.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-122.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-110.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-86.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-74.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-122.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-98.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-74.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-122.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-74.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="-122.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><g class="grille-block" style="transform-origin: -74.0px 178.0px"><circle cx="-74.0" cy="178.0" r="6.5" fill="var(--tuscan-sun)" /><circle cx="-74.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: -50.0px 130.0px"><circle cx="-50.0" cy="130.0" r="6.5" fill="var(--sandy-brown)" /><circle cx="-50.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="-2.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="-38.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="-14.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="-26.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="-26.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><g class="grille-block" style="transform-origin: -26.0px 178.0px"><circle cx="-26.0" cy="178.0" r="6.5" fill="var(--sandy-brown)" /><circle cx="-26.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 34.0px 130.0px"><circle cx="34.0" cy="130.0" r="6.5" fill="var(--burnt-peach)" /><circle cx="34.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="46.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="58.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="22.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="22.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="22.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="34.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="46.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><g class="grille-block" style="transform-origin: 58.0px 178.0px"><circle cx="58.0" cy="178.0" r="6.5" fill="var(--burnt-peach)" /><circle cx="58.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 94.0px 130.0px"><circle cx="94.0" cy="130.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="94.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="106.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="118.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="130.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="94.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="94.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="106.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="118.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="94.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="94.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="106.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="118.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><g class="grille-block" style="transform-origin: 130.0px 178.0px"><circle cx="130.0" cy="178.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="130.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 166.0px 130.0px"><circle cx="166.0" cy="130.0" r="6.5" fill="var(--verdigris)" /><circle cx="166.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="166.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="166.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="166.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="166.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="178.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="190.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><g class="grille-block" style="transform-origin: 202.0px 178.0px"><circle cx="202.0" cy="178.0" r="6.5" fill="var(--verdigris)" /><circle cx="202.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 238.0px 130.0px"><circle cx="238.0" cy="130.0" r="6.5" fill="var(--tuscan-sun)" /><circle cx="238.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="238.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="238.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="238.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="238.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="250.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><circle cx="262.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--tuscan-sun)" /><g class="grille-block" style="transform-origin: 274.0px 178.0px"><circle cx="274.0" cy="178.0" r="6.5" fill="var(--tuscan-sun)" /><circle cx="274.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 310.0px 130.0px"><circle cx="310.0" cy="130.0" r="6.5" fill="var(--sandy-brown)" /><circle cx="310.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="322.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="334.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="346.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="358.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="334.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="334.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><circle cx="334.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--sandy-brown)" /><g class="grille-block" style="transform-origin: 334.0px 178.0px"><circle cx="334.0" cy="178.0" r="6.5" fill="var(--sandy-brown)" /><circle cx="334.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 382.0px 130.0px"><circle cx="382.0" cy="130.0" r="6.5" fill="var(--burnt-peach)" /><circle cx="382.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="430.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="394.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="418.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="406.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><circle cx="406.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--burnt-peach)" /><g class="grille-block" style="transform-origin: 406.0px 178.0px"><circle cx="406.0" cy="178.0" r="6.5" fill="var(--burnt-peach)" /><circle cx="406.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 454.0px 130.0px"><circle cx="454.0" cy="130.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="454.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="466.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="478.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="490.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="454.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="502.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="454.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="466.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="478.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="490.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><circle cx="454.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--charcoal-blue)" /><g class="grille-block" style="transform-origin: 454.0px 178.0px"><circle cx="454.0" cy="178.0" r="6.5" fill="var(--charcoal-blue)" /><circle cx="454.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g><g class="grille-block" style="transform-origin: 526.0px 130.0px"><circle cx="526.0" cy="130.0" r="6.5" fill="var(--verdigris)" /><circle cx="526.0" cy="130.0" r="6.5" fill="url(#block-light)" /></g><circle cx="538.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="550.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="562.0" cy="130.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="526.0" cy="142.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="526.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="538.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="550.0" cy="154.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="526.0" cy="166.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="526.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="538.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><circle cx="550.0" cy="178.0" r="5.5" class="grille-hole" fill="var(--verdigris)" /><g class="grille-block" style="transform-origin: 562.0px 178.0px"><circle cx="562.0" cy="178.0" r="6.5" fill="var(--verdigris)" /><circle cx="562.0" cy="178.0" r="6.5" fill="url(#block-light)" /></g></g>
+            </svg>
+        </section>
+
+        <section class="controls-section">
+            
+        <div class="control-group">
+            <span class="control-label">ALL</span>
+            <button class="hardware-btn btn-verdigris is-active" data-tab="overview" aria-label="Overview">
+                <div class="btn-well"><div class="btn-cap"></div></div>
+            </button>
+        </div>
+        
+            <div class="control-group">
+                <span class="control-label">C-2</span>
+                <button class="hardware-btn btn-verdigris" data-tab="Cluster_2" aria-label="Cluster 2">
+                    <div class="btn-well"><div class="btn-cap"></div></div>
+                </button>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">C-30</span>
+                <button class="hardware-btn btn-charcoal" data-tab="Cluster_30" aria-label="Cluster 30">
+                    <div class="btn-well"><div class="btn-cap"></div></div>
+                </button>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">C-20</span>
+                <button class="hardware-btn btn-tuscan" data-tab="Cluster_20" aria-label="Cluster 20">
+                    <div class="btn-well"><div class="btn-cap"></div></div>
+                </button>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">C-1</span>
+                <button class="hardware-btn btn-sandy" data-tab="Cluster_1" aria-label="Cluster 1">
+                    <div class="btn-well"><div class="btn-cap"></div></div>
+                </button>
+            </div>
+            
+            <div class="control-group">
+                <span class="control-label">C-0</span>
+                <button class="hardware-btn btn-peach" data-tab="Cluster_0" aria-label="Cluster 0">
+                    <div class="btn-well"><div class="btn-cap"></div></div>
+                </button>
+            </div>
+            
+        </section>
+
+        <div class="panel-divider"></div>
+
+        <section class="inventory-section">
+            
+        <div class="tab-content active" id="overview">
+            <h2 class="section-title">注释结果总览</h2>
+            
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-1">📊</div>
+                <div class="stat-content">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Cluster 数量</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-2">🧬</div>
+                <div class="stat-content">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">细胞大类数量</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-3">🔬</div>
+                <div class="stat-content">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">细胞亚型数量</div>
+                </div>
+            </div>
+        </div>
+        
+            <h3 class="subsection-title">详细数据表格</h3>
+            
+        <div class="table-container">
+            <table class="data-table">
+                <thead><tr><th>cluster_id</th><th>celltype</th><th>subtype</th></tr></thead>
+                <tbody><tr class="even"><td>0</td><td>T cells</td><td>Naive T cells</td></tr><tr class="odd"><td>1</td><td>Myeloid cells</td><td>CD14+ Classical Monocytes</td></tr><tr class="even"><td>2</td><td>CD8+ T cells</td><td>CD8+ TEMRA cells</td></tr><tr class="odd"><td>20</td><td>Dendritic cells</td><td>Conventional dendritic cells (cDC)</td></tr></tbody>
+            </table>
+        </div>
+        
+        </div>
+        
+
+            <div class="tab-content" id="Cluster_2">
+                <div class="markdown-body">
+                    <h1 id="cluster-2">📊 细胞聚类自动注释分析报告 (Cluster 2)</h1>
+<h2 id="1">1. 基本信息与共识结果</h2>
+<blockquote>
+<p>本部分概述该聚类在多模型分析下的身份认同感及结论可靠性。</p>
+</blockquote>
+<ul>
+<li><strong>Cluster ID</strong>: 2</li>
+<li><strong>主要细胞类型 (Cell Type)</strong>: CD8+ T cells</li>
+<li><strong>细胞亚型 (Subcelltype)</strong>: CD8+ TEMRA cells</li>
+<li><strong>共识达成情况</strong>: ✅ 已达成共识 (比例: 0.67)</li>
+<li><strong>信息熵 (Entropy)</strong>: 0.92 (数值越低一致性越高)</li>
+<li><strong>可靠性评估</strong>: 均分 88 (模型 openai/gpt-5.4: 85, 模型 z-ai/glm-5: 88, 模型 google/gemini-3.1-pro-preview: 88)</li>
+</ul>
+<hr />
+<h2 id="2-marker-genes">2. 关键特征基因 (Marker Genes)</h2>
+<blockquote>
+<p>基于高表达基因列表的生物学功能划分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">基因分类</th>
+<th style="text-align: left;">标志性基因</th>
+<th style="text-align: left;">生物学意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>谱系/定义 Marker</strong></td>
+<td style="text-align: left;"><code>CD8A</code></td>
+<td style="text-align: left;">明确支持 CD8+ T 细胞谱系归属，提示细胞具有细胞毒性</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>亚型特异 Marker</strong></td>
+<td style="text-align: left;"><code>FGFBP2</code>, <code>ADGRG1</code>, <code>S1PR5</code></td>
+<td style="text-align: left;">三者共同出现是 CD8+ TEMRA 细胞的强力证据</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>功能/状态标志</strong></td>
+<td style="text-align: left;"><code>GZMA</code>, <code>GZMH</code>, <code>NKG7</code>, <code>CCL5</code></td>
+<td style="text-align: left;">表明该群体处于活跃的细胞毒性效应状态，具备强大的杀伤功能</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 模型推理核心观点对比</h2>
+<blockquote>
+<p>展现不同 AI 模型在逻辑推演上的异同点。</p>
+</blockquote>
+<h3 id="openaigpt-54">🤖 openai/gpt-5.4</h3>
+<ul>
+<li><strong>核心定义</strong>: Gamma-delta cytotoxic T cells</li>
+<li><strong>逻辑</strong>: 该模型主要依据 TRGC2 的表达来推断该细胞群体为 γδT细胞，并认为其具有细胞毒性特征。尽管 CD8A 的存在存在一定争议，但模型认为其支持细胞毒效应表型。</li>
+</ul>
+<h3 id="z-aiglm-5">🎨 z-ai/glm-5</h3>
+<ul>
+<li><strong>核心定义</strong>: CD8+ Effector Memory T cells (Temra)</li>
+<li><strong>逻辑</strong>: 该模型利用 CD8A 明确支持了 CD8+ T 细胞谱系，并通过对 FGFBP2、ADGRG1 和 S1PR5 的解释进一步理由该群体为 CD8+ Temra。模型合理推测 TRGC2 的存在并不影响最终的细胞类型判定。</li>
+</ul>
+<h3 id="googlegemini-31-pro-preview">🪙 google/gemini-3.1-pro-preview</h3>
+<ul>
+<li><strong>核心定义</strong>: CD8+ TEMRA cells</li>
+<li><strong>逻辑</strong>: 该模型的推论与 z-ai/glm-5 类似，以 CD8A、FGFBP2、ADGRG1 和 S1PR5 为支撑结论，确认细胞含有高细胞毒性特征。TRGC2 提示了少量 γδ T 细胞信号，但整体表达谱高度契合 CD8+ TEMRA。</li>
+</ul>
+<hr />
+<h2 id="4-audit-consensus">4. 审核意见与最终结论 (Audit Consensus)</h2>
+<blockquote>
+<p>结合顶级专家审核意见，对组织背景和模型偏倚进行最终校正。</p>
+<p>[!IMPORTANT]<br />
+<strong>最终鉴定结论：CD8+ TEMRA cells + 处于活跃细胞毒性状态</strong></p>
+</blockquote>
+<h3 id="_1">核心判定依据：</h3>
+<ol>
+<li><strong>基因保真度校核结果</strong>: 所有模型均基于 Marker Gene List 中的基因，没有出现基因幻觉。</li>
+<li><strong>结合组织背景对特定 Marker 的重新解读</strong>: 模型虽依据 CD8A 及 TRGC2 的表达有所分歧，但最终确认为 CD8+ T 细胞群体，结合 FGFBP2、ADGRG1 和 S1PR5 的高表达证明其为 TEMRA 亚型。</li>
+<li><strong>结论建议</strong>: 建议针对 CD8+ TEMRA 细胞群体的功能进行深入研究，考察其在不同病理情况下的表现和潜在应用。</li>
+</ol>
+                </div>
+            </div>
+            
+
+            <div class="tab-content" id="Cluster_30">
+                <div class="markdown-body">
+                    <h1 id="cluster-30">📊 细胞聚类自动注释分析报告 (Cluster 30)</h1>
+<h2 id="1">1. 基本信息与共识结果</h2>
+<blockquote>
+<p>本部分概述该聚类在多模型分析下的身份认同感及结论可靠性。</p>
+</blockquote>
+<ul>
+<li><strong>Cluster ID</strong>: 30</li>
+<li><strong>主要细胞类型 (Cell Type)</strong>: B cells</li>
+<li><strong>细胞亚型 (Subcelltype)</strong>: Plasma cells</li>
+<li><strong>共识达成情况</strong>: ✅ 已达成共识 (比例: 1.0)</li>
+<li><strong>信息熵 (Entropy)</strong>: 0.0</li>
+<li><strong>可靠性评估</strong>: 均分 92.33 (模型 openai/gpt-5.4: 92, 模型 z-ai/glm-5: 95, 模型 google/gemini-3.1-pro-preview: 92)</li>
+</ul>
+<hr />
+<h2 id="2-marker-genes">2. 关键特征基因 (Marker Genes)</h2>
+<blockquote>
+<p>基于高表达基因列表的生物学功能划分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">基因分类</th>
+<th style="text-align: left;">标志性基因</th>
+<th style="text-align: left;">生物学意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>谱系/定义 Marker</strong></td>
+<td style="text-align: left;"><code>IGHA1</code>, <code>IGKC</code>, <code>IGHM</code>, <code>IGLC2</code></td>
+<td style="text-align: left;">这些基因的高表达明确指向 B 细胞谱系，支持其作为抗体分泌细胞的身份。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>亚型特异 Marker</strong></td>
+<td style="text-align: left;"><code>SEC11C</code>, <code>HSP90B1</code>, <code>PDIA4</code>, <code>PPIB</code>, <code>FKBP11</code>, <code>MANF</code></td>
+<td style="text-align: left;">这些基因与内质网功能及蛋白质折叠密切相关，符合浆细胞的发达内质网特征。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>功能/状态标志</strong></td>
+<td style="text-align: left;"><code>HSP90B1</code>, <code>SEC11C</code></td>
+<td style="text-align: left;">显示该细胞群正处于高活跃的抗体合成与分泌状态。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 模型推理核心观点对比</h2>
+<blockquote>
+<p>展现不同 AI 模型在逻辑推演上的异同点。</p>
+</blockquote>
+<h3 id="openaigpt-54">🤖 openai/gpt-5.4</h3>
+<ul>
+<li><strong>核心定义</strong>: B cells, Antibody-secreting plasmablast / plasma cell-like B cells</li>
+<li><strong>逻辑</strong>: 该模型注重于高表达的免疫球蛋白基因以及与蛋白分泌相关的基因，强调其对应的生物学特征，并通过详细的基因描述来支持对浆母细胞的判定。</li>
+</ul>
+<h3 id="z-aiglm-5">🎨 z-ai/glm-5</h3>
+<ul>
+<li><strong>核心定义</strong>: Plasma cells</li>
+<li><strong>逻辑</strong>: 该模型将注意力集中在内质网伴侣蛋白的高表达，与抗体分泌的需要相符，强调浆细胞独特的基因表达谱，支持其作为活跃免疫细胞的身份。</li>
+</ul>
+<h3 id="googlegemini-31-pro-preview">✨ google/gemini-3.1-pro-preview</h3>
+<ul>
+<li><strong>核心定义</strong>: Plasmablasts</li>
+<li><strong>逻辑</strong>: 该模型侧重于对抗体分泌细胞的描述，认为其具有发达的内质网，是抗体生产的主要细胞，支持其在免疫反应中扮演重要角色。</li>
+</ul>
+<hr />
+<h2 id="4-audit-consensus">4. 审核意见与最终结论 (Audit Consensus)</h2>
+<blockquote>
+<p>结合顶级专家审核意见，对组织背景和模型偏倚进行最终校正。</p>
+<p>[!IMPORTANT]<br />
+<strong>最终鉴定结论：Plasma cells (高度活跃的抗体分泌细胞)</strong></p>
+</blockquote>
+<h3 id="_1">核心判定依据：</h3>
+<ol>
+<li><strong>基因保真度校核结果</strong>: 所有模型均无 gene hallucination，依据明确且一致。</li>
+<li><strong>结合组织背景对特定 Marker 的重新解读</strong>: 免疫球蛋白基因与内质网伴侣蛋白的共同高表达是确定为浆细胞的重要依据。</li>
+<li><strong>结论建议</strong>: 针对浆细胞的进一步生物功能研究可考虑针对特定基因的表达调控机制的实验设计。</li>
+</ol>
+                </div>
+            </div>
+            
+
+            <div class="tab-content" id="Cluster_20">
+                <div class="markdown-body">
+                    <h1 id="cluster-20">📊 细胞聚类自动注释分析报告 (Cluster 20)</h1>
+<h2 id="1">1. 基本信息与共识结果</h2>
+<blockquote>
+<p>本部分概述该聚类在多模型分析下的身份认同感及结论可靠性。</p>
+</blockquote>
+<ul>
+<li><strong>Cluster ID</strong>: 20</li>
+<li><strong>主要细胞类型 (Cell Type)</strong>: Dendritic cells</li>
+<li><strong>细胞亚型 (Subcelltype)</strong>: Conventional dendritic cells (cDC)</li>
+<li><strong>共识达成情况</strong>: ✅ 已达成共识 (比例: 0.67)</li>
+<li><strong>信息熵 (Entropy)</strong>: 0.92</li>
+<li><strong>可靠性评估</strong>: 均分 74 (模型 openai/gpt-5.4: 72, 模型 google/gemini-3.1-pro-preview: 82)</li>
+</ul>
+<hr />
+<h2 id="2-marker-genes">2. 关键特征基因 (Marker Genes)</h2>
+<blockquote>
+<p>基于高表达基因列表的生物学功能划分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">基因分类</th>
+<th style="text-align: left;">标志性基因</th>
+<th style="text-align: left;">生物学意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>谱系/定义 Marker</strong></td>
+<td style="text-align: left;"><code>HLA-DQA1</code>, <code>HLA-DPA1</code>, <code>HLA-DRB5</code></td>
+<td style="text-align: left;">高表达的 MHC-II 类分子基因是专业抗原呈递细胞（APC）的典型特征，表明该 cluster 具有髓系来源。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>亚型特异 Marker</strong></td>
+<td style="text-align: left;"><code>NAPSB</code>, <code>IL13RA1</code></td>
+<td style="text-align: left;">虽然在 cDC 亚群中有表达，但特异性不足以单独区分亚型。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>功能/状态标志</strong></td>
+<td style="text-align: left;"><code>GSN</code>, <code>HLA-DQA2</code></td>
+<td style="text-align: left;">显示该细胞处于活跃的抗原呈递功能状态，参与细胞重塑和抗原加工。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 模型推理核心观点对比</h2>
+<blockquote>
+<p>展现不同 AI 模型在逻辑推演上的异同点。</p>
+</blockquote>
+<h3 id="openaigpt-54">🤖 openai/gpt-5.4</h3>
+<ul>
+<li><strong>核心定义</strong>: Myeloid cells</li>
+<li><strong>逻辑</strong>: 该模型视为髓系抗原呈递细胞，基于高表达的多种 MHC-II 相关基因进行推理，支持其为传统树突状细胞（cDC2）的身份，结合 PBMC 的组织背景，得出结论具有合理性。</li>
+</ul>
+<h3 id="googlegemini-31-pro-preview">🎨 google/gemini-3.1-pro-preview</h3>
+<ul>
+<li><strong>核心定义</strong>: Conventional dendritic cell</li>
+<li><strong>逻辑</strong>: 该模型强调多种 MHC-II 类分子的高表达，同时结合 GSN 和 IL13RA1 的髓系特征，表明该 cluster 符合常规树突状细胞的转录组特征，认为该细胞具备强烈的抗原呈递能力。</li>
+</ul>
+<hr />
+<h2 id="4-audit-consensus">4. 审核意见与最终结论 (Audit Consensus)</h2>
+<blockquote>
+<p>结合顶级专家审核意见，对组织背景和模型偏倚进行最终校正。</p>
+<p>[!IMPORTANT]<br />
+<strong>最终鉴定结论：Conventional dendritic cells (cDC) + 处于活跃抗原呈递状态</strong></p>
+</blockquote>
+<h3 id="_1">核心判定依据：</h3>
+<ol>
+<li><strong>基因保真度校核结果</strong>: 所有模型均未发现 gene hallucination，使用的基因均来自 Marker Gene List，保证了结果的可信性。</li>
+<li><strong>结合组织背景对特定 Marker 的重新解读</strong>: 尽管 MHC-II 类分子同样高表达于其它细胞类型，但结合 NAPSB 等 marker 仍指向此 cluster 为髓系来源的传统树突状细胞。</li>
+<li><strong>结论建议</strong>: 建议后续研究进一步结合细胞表面特征以明确 cDC 的亚群，特别是关键 marker CLEC9A/CD1C 的活跃性检测。</li>
+</ol>
+                </div>
+            </div>
+            
+
+            <div class="tab-content" id="Cluster_1">
+                <div class="markdown-body">
+                    <h1 id="cluster-1">📊 细胞聚类自动注释分析报告 (Cluster 1)</h1>
+<h2 id="1">1. 基本信息与共识结果</h2>
+<blockquote>
+<p>本部分概述该聚类在多模型分析下的身份认同感及结论可靠性。</p>
+</blockquote>
+<ul>
+<li><strong>Cluster ID</strong>: 1</li>
+<li><strong>主要细胞类型 (Cell Type)</strong>: Myeloid cells</li>
+<li><strong>细胞亚型 (Subcelltype)</strong>: CD14+ Classical Monocytes</li>
+<li><strong>共识达成情况</strong>: ✅ 已达成共识 (比例: 1.0)</li>
+<li><strong>信息熵 (Entropy)</strong>: 0.0</li>
+<li><strong>可靠性评估</strong>: 均分 85.0 (openai/gpt-5.4: 85, z-ai/glm-5: 82, google/gemini-3.1-pro-preview: 88)</li>
+</ul>
+<hr />
+<h2 id="2-marker-genes">2. 关键特征基因 (Marker Genes)</h2>
+<blockquote>
+<p>基于高表达基因列表的生物学功能划分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">基因分类</th>
+<th style="text-align: left;">标志性基因</th>
+<th style="text-align: left;">生物学意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>谱系/定义 Marker</strong></td>
+<td style="text-align: left;"><code>S100A8</code>, <code>S100A9</code>, <code>S100A12</code>, <code>BST1</code></td>
+<td style="text-align: left;">明确指向髓系细胞及单核细胞谱系，基因在PBMC中高度特异性。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>亚型特异 Marker</strong></td>
+<td style="text-align: left;"><code>RBP7</code>, <code>PLBD1</code></td>
+<td style="text-align: left;">强表达与CD14+经典单核细胞的确认相关，区分非经典单核细胞。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>功能/状态标志</strong></td>
+<td style="text-align: left;"><code>PADI4</code>, <code>NLRP12</code>, <code>CDA</code>, <code>CYP27A1</code></td>
+<td style="text-align: left;">指示该类细胞具有强烈的抗炎、吞噬功能和代谢调控能力。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 模型推理核心观点对比</h2>
+<blockquote>
+<p>展现不同 AI 模型在逻辑推演上的异同点。</p>
+</blockquote>
+<h3 id="openaigpt-54">🤖 openai/gpt-5.4</h3>
+<ul>
+<li><strong>核心定义</strong>: Classical / inflammatory monocytes</li>
+<li><strong>逻辑</strong>: 高表达S100A8、S100A9和S100A12等典型炎症性髓系细胞标志，结合PLBD1和BST1的支持，指向经典单核细胞的身份。</li>
+</ul>
+<h3 id="z-aiglm-5">🎨 z-ai/glm-5</h3>
+<ul>
+<li><strong>核心定义</strong>: Neutrophils</li>
+<li><strong>逻辑</strong>: 认为该群细胞是中性粒细胞，基于S100A8、S100A9和PADI4的表达，然而考虑到低密度粒细胞的生物学合理性，推理存在一定的混淆可能。</li>
+</ul>
+<h3 id="googlegemini-31-pro-preview">🧬 google/gemini-3.1-pro-preview</h3>
+<ul>
+<li><strong>核心定义</strong>: CD14+ Classical Monocytes</li>
+<li><strong>逻辑</strong>: 强调经典单核细胞的标志，基于S100A8、S100A9、S100A12和RBP7的联合表达，具备合理的支持力度，强调细胞在PBMC中的存在。</li>
+</ul>
+<hr />
+<h2 id="4-audit-consensus">4. 审核意见与最终结论 (Audit Consensus)</h2>
+<blockquote>
+<p>结合顶级专家审核意见，对组织背景和模型偏倚进行最终校正。</p>
+<p>[!IMPORTANT]<br />
+<strong>最终鉴定结论：CD14+ Classical Monocytes + 细胞具备炎症活跃状态</strong></p>
+</blockquote>
+<h3 id="_1">核心判定依据：</h3>
+<ol>
+<li><strong>基因保真度校核结果</strong>: 所有模型根据Marker Gene List的基因评估，未发现Gene Hallucination，基因选择合理。</li>
+<li><strong>结合组织背景对特定 Marker 的重新解读</strong>: 在PBMC背景下，S100A8/S100A9/S100A12组合对CD14+经典单核细胞的支持力度更强，降低了中性粒细胞的混淆可能。</li>
+<li><strong>结论建议</strong>: 推荐在后续实验中优先关注经典单核细胞特征的验证，以确认细胞的功能状态和响应机制。</li>
+</ol>
+                </div>
+            </div>
+            
+
+            <div class="tab-content" id="Cluster_0">
+                <div class="markdown-body">
+                    <h1 id="cluster-0">📊 细胞聚类自动注释分析报告 (Cluster 0)</h1>
+<h2 id="1">1. 基本信息与共识结果</h2>
+<blockquote>
+<p>本部分概述该聚类在多模型分析下的身份认同感及结论可靠性。</p>
+</blockquote>
+<ul>
+<li><strong>Cluster ID</strong>: 0</li>
+<li><strong>主要细胞类型 (Cell Type)</strong>: T cells</li>
+<li><strong>细胞亚型 (Subcelltype)</strong>: Naive T cells</li>
+<li><strong>共识达成情况</strong>: ✅ 已达成共识 (比例: 1.0)</li>
+<li><strong>信息熵 (Entropy)</strong>: 0.0 (数值越低一致性越高)</li>
+<li><strong>可靠性评估</strong>: 均分 88 (模型 openai/gpt-5.4: 88, 模型 z-ai/glm-5: 88, 模型 google/gemini-3.1-pro-preview: 88)</li>
+</ul>
+<hr />
+<h2 id="2-marker-genes">2. 关键特征基因 (Marker Genes)</h2>
+<blockquote>
+<p>基于高表达基因列表的生物学功能划分。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">基因分类</th>
+<th style="text-align: left;">标志性基因</th>
+<th style="text-align: left;">生物学意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>谱系/定义 Marker</strong></td>
+<td style="text-align: left;"><code>TRAT1</code>, <code>TCF7</code>, <code>LEF1</code></td>
+<td style="text-align: left;">指示T细胞谱系，支持T细胞身份确认</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>亚型特异 Marker</strong></td>
+<td style="text-align: left;"><code>CCR7</code>, <code>MAL</code></td>
+<td style="text-align: left;">分别为淋巴结归巢受体及初始T细胞标志，区分Naive T cells</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>功能/状态标志</strong></td>
+<td style="text-align: left;"><code>TCR相关蛋白</code></td>
+<td style="text-align: left;">维持细胞处于静息和未充分激活的状态</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3">3. 模型推理核心观点对比</h2>
+<blockquote>
+<p>展现不同 AI 模型在逻辑推演上的异同点。</p>
+</blockquote>
+<h3 id="openaigpt-54">🤖 openai/gpt-5.4</h3>
+<ul>
+<li><strong>核心定义</strong>: Naive / central memory T cells</li>
+<li><strong>逻辑</strong>: 该模型依赖高表达的T细胞特征基因来推理细胞类型，认为这个cluster中含有Naive及central memory T细胞。支持的理由包括TRAT1、CCR7和TCF7等标志基因的联合表达，符合T细胞的初始和中心记忆特点。</li>
+</ul>
+<h3 id="z-aiglm-5">🎨 z-ai/glm-5</h3>
+<ul>
+<li><strong>核心定义</strong>: Naive T cells</li>
+<li><strong>逻辑</strong>: 此模型侧重于初始T细胞的标志，如CCR7、LEF1和TCF7，表明该cluster似乎主要由未激活的Naive T细胞组成。认为该群体正在保持静息状态，未准备好去激活。</li>
+</ul>
+<h3 id="googlegemini-31-pro-preview">🌌 google/gemini-3.1-pro-preview</h3>
+<ul>
+<li><strong>核心定义</strong>: Naive T cells</li>
+<li><strong>逻辑</strong>: 强调CCR7和LEF1、TCF7的澄清作用，认为这些是Naive T细胞的关键特征。该模型同样支持细胞在静息状态下，具备高度的分化与增殖潜能。</li>
+</ul>
+<hr />
+<h2 id="4-audit-consensus">4. 审核意见与最终结论 (Audit Consensus)</h2>
+<blockquote>
+<p>结合顶级专家审核意见，对组织背景和模型偏倚进行最终校正。</p>
+<p>[!IMPORTANT]<br />
+<strong>最终鉴定结论：Naive T cells</strong></p>
+</blockquote>
+<h3 id="_1">核心判定依据：</h3>
+<ol>
+<li><strong>基因保真度校核结果</strong>: 各模型均未发现Gene Hallucination，确立了基因表达的真实性和准确性。</li>
+<li><strong>结合组织背景对特定 Marker 的重新解读</strong>: 多模型分析一致指向Naive T细胞，认为该细胞类型与PBMC背景下的生物学特性密切相关。</li>
+<li><strong>结论建议</strong>: 建议在后续实验中关注该群体的激活状态及其对免疫反应的潜在影响，以进一步验证其生物学功能。</li>
+</ol>
+                </div>
+            </div>
+            
+        </section>
+
+        <footer class="panel-footer">
+            <div class="footer-text">Cell Type Annotation</div>
+            <div class="model-number">2026-03-17 01:29:36</div>
+        </footer>
+    </main>
+
+    <script>
+        (function() {
+            var tabBtns = document.querySelectorAll('.hardware-btn');
+            var tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var tabId = this.getAttribute('data-tab');
+                    if (!tabId) return;
+
+                    tabBtns.forEach(function(b) {
+                        b.classList.remove('is-active');
+                    });
+                    tabContents.forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+
+                    this.classList.add('is-active');
+                    var targetContent = document.getElementById(tabId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
