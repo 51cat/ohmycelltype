@@ -14,3 +14,4 @@ from .utils import (
     clean_markdown_format,
     get_table_context
 )
+from .render import HTMLRenderer

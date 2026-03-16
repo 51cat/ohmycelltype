@@ -1,257 +1,298 @@
 # AGENTS.md
 
-Guide for AI coding agents working in the ohmycelltype repository.
+Guidelines for agentic coding agents working on the ohmycelltype codebase.
 
 ## Project Overview
 
-ohmycelltype is a multi-agent cell type annotation system for single-cell RNA sequencing data. It uses multiple LLM models in parallel to annotate cell types and reaches consensus through expert review.
+ohmycelltype is a multi-agent cell type annotation system for single-cell RNA-seq data. It uses multiple LLM models in parallel for annotation, with consensus mechanisms, automatic auditing, and self-reflection capabilities.
 
-**Tech Stack**: Python 3.10+, OpenAI SDK, Click (CLI), Rich (console), pandas
+## Build/Lint/Test Commands
 
-## Build & Installation
+### Installation
 
 ```bash
-# Install in editable mode
+# Install in development mode
 pip install -e .
 
-# Run the CLI
-ohmycelltype annotate <input_file> -o <output_dir>
+# Or install dependencies directly
+pip install openai pandas requests rich click markdown
+```
+
+### Running the CLI
+
+```bash
+# Initialize configuration
+ohmycelltype init-config
+
+# Set API key
+ohmycelltype set-api
+
+# Run annotation
+ohmycelltype annotate input.csv -o ./results
+
+# View configuration
+ohmycelltype show
+
+# View version
 ohmycelltype version
 ```
 
-## Testing
-
-No test framework is currently configured. When tests are added:
+### Testing
 
 ```bash
-# Run all tests
-pytest
+# No test suite exists yet. When adding tests, use pytest:
+pytest tests/
 
 # Run a single test file
-pytest tests/test_module.py
+pytest tests/test_workflow.py
 
 # Run a single test function
-pytest tests/test_module.py::test_function_name -v
-
-# Run with coverage
-pytest --cov=ohmycelltype
+pytest tests/test_workflow.py::test_celltype_annotation -v
 ```
 
-## Linting & Type Checking
-
-No linter is currently configured. Recommended setup:
+### Linting and Type Checking
 
 ```bash
-# Install dev dependencies
-pip install ruff mypy
+# Recommended linting (when tools are set up)
+ruff check ohmycelltype/
 
-# Run ruff linter
-ruff check .
-
-# Run ruff formatter
-ruff format .
-
-# Run type checker
+# Type checking (when mypy is configured)
 mypy ohmycelltype/
+
+# Format code
+ruff format ohmycelltype/
+```
+
+## Project Structure
+
+```
+ohmycelltype/
+├── ohmycelltype/           # Main package
+│   ├── __init__.py         # Package init, JSON utilities
+│   ├── cli.py              # CLI entry point (click)
+│   ├── config.py           # Configuration management
+│   ├── workflow.py         # Main annotation workflow
+│   ├── llm/                # LLM provider implementations
+│   │   ├── base.py         # Abstract base class
+│   │   ├── message.py      # Message handling
+│   │   ├── n1n.py          # N1N provider
+│   │   └── openrouter.py   # OpenRouter provider
+│   ├── nodes/              # Workflow nodes
+│   │   ├── paramcollector_node.py
+│   │   ├── anno_cluster_node.py
+│   │   ├── audit_ann_node.py
+│   │   ├── consensus_node.py
+│   │   └── report_node.py
+│   ├── state/              # State management (dataclasses)
+│   │   └── state.py
+│   ├── prompt/             # Prompt templates
+│   │   └── prompt.py
+│   └── tools/              # Utility functions
+│       ├── logger.py       # Rich-based logging
+│       └── utils.py        # Helper functions
+├── setup.py                # Package setup
+└── README.md               # Documentation (Chinese)
 ```
 
 ## Code Style Guidelines
 
 ### Imports
 
-Group imports in this order, separated by blank lines:
-
-1. Standard library (alphabetical)
-2. Third-party packages (alphabetical)
-3. Local imports (alphabetical)
-
 ```python
+# 1. Standard library (alphabetical)
 import json
 import os
-from typing import Dict, List, Optional
+import time
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Any
 
+# 2. Third-party packages (alphabetical)
+import pandas as pd
 from openai import OpenAI
 from rich.console import Console
 
+# 3. Local imports (alphabetical)
 from ohmycelltype.llm.base import BaseLLM
-from ohmycelltype.tools.logger import log_error, log_success
+from ohmycelltype.llm.message import Message
+from ohmycelltype.state.state import SingleCluster, MetaData
 ```
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Classes | PascalCase | `CelltypeAnnoNode`, `N1N_LLM` |
-| Functions/Methods | snake_case | `collect_parms`, `get_celltype` |
-| Variables | snake_case | `cluster_id`, `model_name` |
-| Constants | UPPER_SNAKE_CASE | `MAX_RETRIES`, `INIT_CELLTYPE` |
-| Private methods | _leading_underscore | `_initialize_client` |
-| Module-level dunder | __dunder__ | `__init__.py` |
+- **Classes**: PascalCase (e.g., `CelltypeWorkflow`, `SingleCluster`, `N1N_LLM`)
+- **Functions/Methods**: snake_case (e.g., `get_celltype`, `update_metadata`, `extract_and_validate_json`)
+- **Private Methods**: Prefix with underscore (e.g., `_initialize_nodes`, `_ann_single_cluster`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `BASE_CONFIG`, `INIT_CELLTYPE`)
+- **Module-level variables**: snake_case (e.g., `custom_theme`, `console`)
 
 ### Type Hints
 
-Use type hints for function signatures. Use `Optional` for optional parameters.
+Use type hints for function signatures. Prefer modern Python syntax:
 
 ```python
+# Good
 def invoke(self, message_input: Message, **kwargs) -> str:
     ...
 
-def __init__(self, api_key: str, model_name: Optional[str] = None):
+def get_metadata_val(self, key: str) -> Any:
+    return self.metadata[key]
+
+# Union types (Python 3.10+)
+def validate_response(self, response: str | None) -> str:
     ...
+
+# Generic types
+from typing import Dict, List, Optional, Any
+
+def update_ann_results(self, model_name: str, res: dict) -> None:
+    self.ann_results[model_name] = res
 ```
 
-For Python 3.10+, prefer union syntax:
+### Dataclasses for State Management
 
-```python
-def validate(self, data: dict | None) -> bool:
-    ...
-```
-
-### Dataclasses
-
-Use `@dataclass` for state management classes:
+Use `@dataclass` for state and data containers:
 
 ```python
 from dataclasses import dataclass, field
-from typing import List, Dict
+from typing import Dict, List
 
 @dataclass
 class SingleCluster:
     cluster_id: str = ''
     cluster_genes: List[str] = field(default_factory=list)
-    ann_results: dict = field(default_factory=dict)
-```
-
-### Abstract Base Classes
-
-Use `ABC` and `@abstractmethod` for interfaces:
-
-```python
-from abc import ABC, abstractmethod
-
-class BaseLLM(ABC):
-    @abstractmethod
-    def invoke(self, system_prompt: str, user_prompt: str, **kwargs) -> str:
-        pass
+    ann_results: Dict = field(default_factory=dict)
+    
+    def get_celltype(self, model_name: str) -> str:
+        return self.ann_results[model_name]['cell_type']
 ```
 
 ### Error Handling
 
-Use specific exception types. Log errors with the logger module:
+- Raise specific exceptions with clear messages
+- Use try/except for external API calls
+- Log errors using the rich-based logger
 
 ```python
-from ohmycelltype.tools.logger import log_error
+from ohmycelltype.tools.logger import log_error, log_warning
 
-try:
-    result = func(**params)
-except Exception as e:
-    log_error(f"执行失败: {str(e)}")
-    raise
+# API retry pattern with exponential backoff
+for attempt in range(1, self.max_retry + 1):
+    try:
+        response = self.client.chat.completions.create(...)
+        return response
+    except Exception as e:
+        if attempt < self.max_retry:
+            delay = 2 ** (attempt - 1)
+            time.sleep(delay)
+        else:
+            log_error(f"重试 {self.max_retry} 次后仍失败")
+            raise
+
+# Validation with clear errors
+if provider not in self.config:
+    raise ValueError(f"Unsupported provider: {provider}")
 ```
 
-### Logging & Output
+### Decorators
 
-Use the `logger.py` module for console output. Do NOT use `print()` directly.
+Use `@property` for getters, `functools.wraps` for decorators:
+
+```python
+from functools import wraps
+
+def rich_log(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
+        log_start(func.__name__)
+        result = func(*args, **kwargs)
+        return result
+    return wrapper
+
+class Message:
+    @property
+    def message(self):
+        return self._message
+```
+
+### Logging
+
+Use the rich-based logger from `tools/logger.py`:
 
 ```python
 from ohmycelltype.tools.logger import (
-    log_info, log_warning, log_error, log_success
+    log_info, log_warning, log_error, log_success,
+    display_annotation_table, display_section_header
 )
 
-log_info("Processing cluster...")
-log_warning("Low reliability score")
-log_error("API call failed")
+log_info("Processing cluster", highlight=True)
 log_success("Annotation complete")
+log_warning("Low reliability score detected")
+log_error("API call failed")
 ```
-
-Use the `@add_log` decorator for automatic function timing:
-
-```python
-from ohmycelltype.tools.utils import add_log
-
-@add_log
-def process_cluster(self, cluster_id: int):
-    ...
-```
-
-### CLI Commands
-
-Use Click decorators for CLI:
-
-```python
-import click
-
-@click.group()
-def cli():
-    """Description"""
-    pass
-
-@cli.command()
-@click.argument('input_file', type=click.Path(exists=True))
-@click.option('-o', '--output', required=True, help='Output directory')
-def annotate(input_file, output):
-    """Command description"""
-    ...
-```
-
-### Project Structure
-
-```
-ohmycelltype/
-├── llm/           # LLM provider implementations (inherit from BaseLLM)
-├── nodes/         # Workflow nodes (each node is a processing step)
-├── state/         # Dataclass state management
-├── tools/         # Utility functions and tools
-├── prompt/        # Prompt templates (uppercase constants)
-├── cli.py         # CLI entry point
-└── workflow.py    # Main workflow orchestration
-```
-
-### Adding a New LLM Provider
-
-1. Create new file in `llm/` directory
-2. Inherit from `BaseLLM`
-3. Implement `invoke()` and `get_default_model()`
-4. Add configuration to `config.json`
 
 ### JSON Handling
 
-Use the helper functions from `__init__.py`:
+Use utilities from `__init__.py`:
 
 ```python
 from ohmycelltype import load_json, write_json
 
-data = load_json('config.json')
-write_json(data, 'output.json')
+# Write with UTF-8 encoding and indentation
+write_json(data, "output.json")
+
+# Load with UTF-8 encoding
+data = load_json("input.json")
 ```
 
-Always use `ensure_ascii=False` for Chinese text support.
+### Prompt Templates
 
-### Prompts
-
-Store all prompts as uppercase module-level constants in `prompt/prompt.py`. Use `.format()` for variable substitution:
+Store prompts as module-level constants in `prompt/prompt.py`. Use `.format()` for variable substitution:
 
 ```python
 INIT_CELLTYPE = """
-You are an expert...
-Species: {species}
-Tissue: {tissue}
+你是一位资深的单细胞生物信息学专家...
+物种: {species}
+组织: {tissue}
+Cluster: {cluster_id}
+基因: {gene_list}
 """
 
-formatted = INIT_CELLTYPE.format(species="Human", tissue="Liver")
+# Usage
+system_prompt = INIT_CELLTYPE.format(
+    species="human",
+    tissue="blood",
+    cluster_id="0",
+    gene_list="CD3D,CD3E,CD4"
+)
 ```
 
-## Key Files
+### Node Classes Pattern
 
-| File | Purpose |
-|------|---------|
-| `workflow.py` | Main orchestration, entry point for annotation pipeline |
-| `cli.py` | Command-line interface definitions |
-| `llm/base.py` | Abstract base class for LLM implementations |
-| `state/state.py` | Dataclasses for state management |
-| `tools/logger.py` | Rich-based logging and console output |
-| `prompt/prompt.py` | All prompt templates |
+Follow the standard node pattern:
 
-## Configuration
+```python
+class SomeNode:
+    def __init__(self, llm, metadata_state: MetaData, state: SingleCluster) -> None:
+        self.llm = llm
+        self.state = state
+        self.metadata_state = metadata_state
+    
+    def prep(self):
+        """Prepare inputs (prompts, messages)."""
+        self.system_prompt = PROMPT_TEMPLATE.format(...)
+        self.message_input = Message(system_prompt=self.system_prompt)
+    
+    def run(self) -> dict:
+        """Execute the node's main logic."""
+        self.message_input.add_user_message("Task instruction")
+        response = self.llm.invoke(self.message_input)
+        return extract_and_validate_json(response)
+```
 
-API credentials are stored in `~/.ohmycelltype.json`. Do NOT commit real API keys.
+## Notes
+
+- The project uses Chinese for prompts and user-facing messages, but code comments and docstrings can be in either language
+- LLM responses are expected in JSON format; use `extract_and_validate_json()` for parsing
+- Multi-model parallel annotation is handled via `ThreadPoolExecutor`
+- Configuration is stored in `~/ohmycelltype.json`
