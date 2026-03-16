@@ -1,0 +1,32 @@
+{
+    "openai/gpt-5.4": {
+        "cluster_name": "30",
+        "cell_type": "B cells",
+        "cell_subtype": "Antibody-secreting plasmablast / plasma cell-like B cells",
+        "reasoning": {
+            "lineage_determination": "该群细胞高表达免疫球蛋白相关基因 IGHA1、IGLC2、IGKC、IGHM，明确指向 B 细胞/浆细胞谱系。其中 IGKC、IGLC2 为轻链常数区基因，IGHA1、IGHM 为重链常数区基因，提示该群细胞以抗体产生为主要特征，因此可确定为 B 细胞谱系中的抗体分泌相关群体。",
+            "subtype_refinement": "除大量免疫球蛋白基因外，SEC11C、HSP90B1、PDIA4、PPIB、FKBP11、MANF 均与蛋白分泌、内质网折叠及分泌负荷适应相关，符合活跃抗体合成细胞的特征。这类分子特征在 PBMC 中最符合浆母细胞/浆细胞样 B 细胞，而不是静息常规 B 细胞。",
+            "functional_state": "该群细胞表现出显著的分泌程序和内质网伴侣蛋白上调，提示处于高水平免疫球蛋白合成与分泌状态。未见明显跨谱系 marker，故不支持 Doublet；虽然存在应激/蛋白折叠相关基因，但其与抗体分泌程序一致，更符合浆母细胞的高分泌生理状态而非低质量细胞。"
+        }
+    },
+    "z-ai/glm-5": {
+        "cluster_name": "30",
+        "cell_type": "B cells",
+        "cell_subtype": "Plasma cells",
+        "reasoning": {
+            "lineage_determination": "该 cluster 高表达免疫球蛋白基因 IGHA1, IGHM, IGKC 和 IGLC2，这些是 B 淋巴细胞谱系的典型标记基因，明确指示该群体来源于 B 细胞系。",
+            "subtype_refinement": "除了免疫球蛋白的高表达外，该 cluster 显著富集内质网应激与蛋白折叠相关基因（HSP90B1, PDIA4, PPIB, FKBP11, MANF, SEC11C）。这种独特的基因表达谱（免疫球蛋白 + 高丰度内质网伴侣蛋白）是浆细胞的标志性特征，反映了其分化后具有发达的内质网系统以支持大规模抗体合成与分泌的功能需求。IGHA1 的高表达进一步提示其为 IgA 型浆细胞。",
+            "functional_state": "细胞处于活跃的抗体分泌状态，具有高度发达的内质网以应对蛋白质合成需求。"
+        }
+    },
+    "google/gemini-3.1-pro-preview": {
+        "cluster_name": "30",
+        "cell_type": "Plasma cells",
+        "cell_subtype": "Plasmablasts",
+        "reasoning": {
+            "lineage_determination": "显著高表达的免疫球蛋白基因（IGHA1, IGLC2, IGKC, IGHM）明确指示该cluster属于B细胞谱系，特别是负责分泌抗体的细胞。",
+            "subtype_refinement": "该类群高度表达与内质网功能、蛋白质折叠及分泌途径密切相关的分子伴侣和酶类基因（SEC11C, HSP90B1, PDIA4, PPIB, FKBP11, MANF）。在外周血（PBMC）中，这种为大量合成免疫球蛋白而扩张内质网功能的转录组特征是典型的浆母细胞（Plasmablasts）或循环浆细胞（Plasma cells）的标志。",
+            "functional_state": "细胞处于高度活跃的蛋白质合成和分泌状态，内质网折叠机制上调，完全符合大量产生并释放抗体的浆细胞/浆母细胞的功能特征。"
+        }
+    }
+}

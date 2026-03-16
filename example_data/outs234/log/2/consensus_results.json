@@ -1,0 +1,16 @@
+{
+    "clister_id": "2",
+    "celltype": "CD8+ T cells",
+    "subcelltype": "CD8+ TEMRA cells",
+    "is_consensus_reached": true,
+    "consensus_proportion": 0.67,
+    "entropy_value": 0.92,
+    "supporting_models": [
+        "z-ai/glm-5",
+        "google/gemini-3.1-pro-preview"
+    ],
+    "conflicting_models": [
+        "openai/gpt-5.4"
+    ],
+    "reasoning": "三个模型均属于T细胞谱系，主谱系层面基本一致。其中 z-ai/glm-5 和 google/gemini-3.1-pro-preview 均将细胞类型判定为 CD8+ T cells，且亚型高度一致（Temra/TEMRA），两者可靠性评分均为 88，高于 openai/gpt-5.4 的 85 分。openai/gpt-5.4 将其注释为 Gamma-delta cytotoxic T cells，主要依据 TRGC2 的表达，但其审核意见也指出 CD8A 共表达使区分依赖 TRGC2 置信度，存在一定争议，且其可靠性评分相对较低。两个高评分模型均认为 FGFBP2、ADGRG1（GPR56）、S1PR5 三者联合出现是 CD8+ TEMRA 的强力证据，并合理解释 TRGC2 的存在可能反映少量 γδT 细胞信号混入，但整体表达谱仍高度契合 CD8+ TEMRA。因此最终共识确定为 CD8+ TEMRA cells。entropy_value 基于 cell_type 标签（T cells / CD8+ T cells / CD8+ T cells）多样性估算，两模型一致、一模型不同，熵值约为 0.92。"
+}

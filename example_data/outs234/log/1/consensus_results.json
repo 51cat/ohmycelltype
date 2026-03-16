@@ -1,0 +1,15 @@
+{
+    "clister_id": "1",
+    "celltype": "Myeloid cells",
+    "subcelltype": "CD14+ Classical Monocytes",
+    "is_consensus_reached": true,
+    "consensus_proportion": 1.0,
+    "entropy_value": 0.0,
+    "supporting_models": [
+        "openai/gpt-5.4",
+        "z-ai/glm-5",
+        "google/gemini-3.1-pro-preview"
+    ],
+    "conflicting_models": [],
+    "reasoning": "三个模型在主谱系层面完全一致，均将该cluster归入髓系细胞（Myeloid cells），共识比例为1.0，信息熵为0.0。亚型层面存在分歧：openai/gpt-5.4倾向于'经典/炎症性单核细胞'，z-ai/glm-5倾向于'中性粒细胞/低密度粒细胞'，google/gemini-3.1-pro-preview倾向于'CD14+经典单核细胞'。综合可信度评分，google/gemini-3.1-pro-preview（88分）最高，openai/gpt-5.4（85分）次之，z-ai/glm-5（82分）最低。两个高分模型均支持经典单核细胞亚型，专家审核也指出在PBMC背景下S100A8/S100A9/S100A12组合对CD14+经典单核细胞支持力度更强，中性粒细胞/LDG在PBMC中仅为少数且特异性较弱。因此最终共识亚型定为'CD14+ Classical Monocytes'，以可信度最高的模型结论为准。"
+}

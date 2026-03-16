@@ -11,7 +11,6 @@ BASE_CONFIG = {
         
         "annotation_model": [
             "gpt-5.4",
-            "claude-sonnet-4-6",
             "qwen3.5-397b-a17b",
             "grok-4.2",
             "glm-5",
@@ -21,7 +20,28 @@ BASE_CONFIG = {
         "audit_model": "claude-sonnet-4-6",
         "consensus_model": "claude-sonnet-4-6",
         
-        "max_reflect_times": 5,
+        "max_reflect_times": 3,
+        "reliability_threshold": 70,
+
+        "max_retry": 3
+    },
+    "openrouter": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "api": "",
+        
+        "parm_collect_model": "openai/gpt-4o-mini",
+        "report_model": "openai/gpt-4o-mini",
+        
+        "annotation_model": [
+            "openai/gpt-5.4",
+            "z-ai/glm-5",
+            "google/gemini-3.1-pro-preview"
+        ],
+        
+        "audit_model": "anthropic/claude-sonnet-4.6",
+        "consensus_model": "anthropic/claude-sonnet-4.6",
+        
+        "max_reflect_times": 3,
         "reliability_threshold": 70,
 
         "max_retry": 3
@@ -53,6 +73,9 @@ class Config:
         else:
             print(f"Provider {provider} not found in config.")
     
+    def get_path(self):
+        return f"{self.home_dir}/ohmycelltype.json"
+
     def show(self):
         if os.path.exists(f"{self.home_dir}/ohmycelltype.json"):
             config = self.load_config()

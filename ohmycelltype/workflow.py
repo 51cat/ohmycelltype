@@ -1,5 +1,6 @@
 import os
 import glob
+import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 
 from ohmycelltype import load_json, write_json
@@ -11,6 +12,7 @@ from ohmycelltype.tools.logger import (
 from ohmycelltype.state.state import SingleCluster, MetaData, ClusterInfo
 
 from ohmycelltype.llm.n1n import N1N_LLM
+from ohmycelltype.llm.openrouter import OpenRouter_LLM
 
 from ohmycelltype.nodes.paramcollector_node import ParamCollectorNode 
 from ohmycelltype.nodes.anno_cluster_node import CelltypeAnnoNode
@@ -18,11 +20,13 @@ from ohmycelltype.nodes.audit_ann_node import CelltypeAnnAuditNode
 from ohmycelltype.nodes.consensus_node import CelltypeConsensusNode
 from ohmycelltype.nodes.report_node import CelltypeReportNode
 from ohmycelltype import get_llm_config_value
+from ohmycelltype.tools.render import HTMLRenderer
 
 
 class CelltypeWorkflow:
-    def __init__(self, marker_table, outdir, provider= 'n1n'):
+    def __init__(self, marker_table, outdir, provider= 'openrouter'):
         self.llm_config_dict = get_llm_config_value(provider)
+        self.provider = provider
         self.marker_table = marker_table
         self.outdir = outdir
         self.metadata_state = MetaData()
@@ -60,11 +64,18 @@ class CelltypeWorkflow:
     
     def _initialize_client(self):
 
+        if self.provider == 'n1n':
+            self.client_class = N1N_LLM
+        elif self.provider == 'openrouter':
+            self.client_class = OpenRouter_LLM
+        else:
+            raise ValueError(f"Unsupported provider: {self.provider}")
+
         max_retry = self.metadata_state.get_metadata_val('max_retry')
         api = self.metadata_state.get_metadata_val('api')
         base_url = self.metadata_state.get_metadata_val('base_url')
 
-        self.parm_collect_client = N1N_LLM(
+        self.parm_collect_client = self.client_class(
             api_key = api,
             model_name = self.metadata_state.get_metadata_val('parm_collect_model'),
             base_url = self.metadata_state.get_metadata_val('base_url')
@@ -73,7 +84,7 @@ class CelltypeWorkflow:
         self.parm_collect_client.set_max_retry(max_retry)
 
         self.annotation_clients = [
-             N1N_LLM(api_key = api, 
+             self.client_class(api_key = api, 
                 model_name = model_name, base_url = base_url) 
              for model_name in self.metadata_state.get_metadata_val('annotation_model')
         ]
@@ -82,19 +93,19 @@ class CelltypeWorkflow:
             client.set_max_retry(max_retry)
 
         
-        self.audit_client = N1N_LLM(
+        self.audit_client = self.client_class(
             api_key = api,
             model_name = self.metadata_state.get_metadata_val('audit_model'),
             base_url = base_url)
         self.audit_client.set_max_retry(max_retry)
 
         
-        self.consensus_client = N1N_LLM(api_key = api,
+        self.consensus_client = self.client_class(api_key = api,
             model_name = self.metadata_state.get_metadata_val('consensus_model'),
             base_url = base_url)
         self.consensus_client.set_max_retry(max_retry)
         
-        self.report_client = N1N_LLM(api_key = api,
+        self.report_client = self.client_class(api_key = api,
             model_name = self.metadata_state.get_metadata_val('report_model'),
             base_url = base_url)
         self.report_client.set_max_retry(max_retry)
@@ -185,22 +196,26 @@ class CelltypeWorkflow:
 
         outdir = self.metadata_state.get_metadata_val('outdir')
         log_outdir = f"{outdir}/log/{cluster_id}/"
-        report_dir = f"{outdir}/report/"
+        self.report_dir = f"{outdir}/report/"
 
         if not os.path.exists(log_outdir):
             os.makedirs(log_outdir, exist_ok=True)
         
-        if not os.path.exists(report_dir):
-            os.makedirs(report_dir, exist_ok=True)
+        if not os.path.exists(self.report_dir):
+            os.makedirs(self.report_dir, exist_ok=True)
         
         write_json(cluster_state.ann_to_dict(), f"{log_outdir}/ann_results.json")
         write_json(cluster_state.audit_to_dict(), f"{log_outdir}/audit_results.json")
         write_json(cluster_state.consensus_to_dict(), f"{log_outdir}/consensus_results.json")
         write_json(MetaData.to_dict(self.metadata_state), f"{log_outdir}/metadata.json")
 
-        with open(f"{report_dir}/report_{cluster_id}.md", 'w', encoding='utf-8') as f:
+        with open(f"{self.report_dir}/report_{cluster_id}.md", 'w', encoding='utf-8') as f:
             f.write(res_report)
         
+        final_df = pd.DataFrame({'cluster_id': [cluster_id],
+                                 'celltype':[cluster_state.consensus_to_dict()['celltype']],
+                                 'subtype': [cluster_state.consensus_to_dict()['subcelltype']]})
+        final_df.to_csv(f"{self.report_dir}/final_annotation_{cluster_id}.csv", index=False)
         log_success(f"Cluster {cluster_id} 处理完成，结果已保存")
         
                 
@@ -219,7 +234,34 @@ class CelltypeWorkflow:
         self.cluster_gene_state = ClusterInfo(results['cluster'])
     
     def multi_cluster_annotation(self):
-        cluster_ids = self.cluster_gene_state.get_all_cluster()
+        #cluster_ids = self.cluster_gene_state.get_all_cluster()
 
-        for cluster_id in cluster_ids:
-            self._ann_single_cluster(cluster_id)
+        #for cluster_id in cluster_ids:
+        #    self._ann_single_cluster(cluster_id)
+        cluster_ids = self.cluster_gene_state.get_all_cluster()
+        
+        
+        with ThreadPoolExecutor(max_workers=min(8, len(cluster_ids))) as executor:
+            executor.map(self._ann_single_cluster, cluster_ids)
+        
+        results_file =glob.glob(f"{self.report_dir}/final_annotation_*.csv")
+        all_results = []
+        for file in results_file:
+            df = pd.read_csv(file)
+            all_results.append(df)
+        final_results_df = pd.concat(all_results, ignore_index=True)
+        final_results_df.to_csv(f"{self.report_dir}/final_annotation_all_clusters.csv", index=False)
+
+        # report dict
+        all_report = glob.glob(f"{self.report_dir}/report_*.md")
+        all_report_dict = {}
+        for file in all_report:
+            cluster_id = os.path.basename(file).split('_')[1].split('.')[0]
+            with open(file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                all_report_dict[cluster_id] = content
+
+        log_success(f"所有 Cluster 注释完成，最终结果已保存")
+
+        render = HTMLRenderer(final_results_df, all_report_dict)
+        render.save_to_file(f"{self.report_dir}/final_report.html")

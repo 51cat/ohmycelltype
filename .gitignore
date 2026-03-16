@@ -21,6 +21,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+*opencode*
+
 # --- 2. 虚拟环境 (强烈建议排除) ---
 .venv/
 venv/

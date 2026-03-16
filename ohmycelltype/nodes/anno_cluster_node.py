@@ -45,7 +45,6 @@ class CelltypeAnnoNode:
         self.message_input = Message(system_prompt=self.system_prompt)
         self.message_input.add_user_message('请开始进行注释任务！务必严格遵守我的要求！')
         response = self.llm.invoke(self.message_input)
-        print(response)
         self.message_input.add_ai_message(response)
 
         res = extract_and_validate_json(response)

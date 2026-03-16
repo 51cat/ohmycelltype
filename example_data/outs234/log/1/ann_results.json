@@ -1,0 +1,32 @@
+{
+    "openai/gpt-5.4": {
+        "cluster_name": "1",
+        "cell_type": "Myeloid cells",
+        "cell_subtype": "Classical / inflammatory monocytes",
+        "reasoning": {
+            "lineage_determination": "该cluster高表达S100A8、S100A9、S100A12、PLBD1、BST1、CDA、NLRP12和CYP27A1，整体特征明确指向PBMC中的髓系细胞谱系。其中S100A8/S100A9/S100A12是典型炎症性髓系细胞标志，PLBD1、BST1、CDA也常见于单核细胞/髓系细胞，因此可判定为Myeloid cells。",
+            "subtype_refinement": "在髓系细胞中，该cluster最符合经典/炎症性单核细胞。关键依据是S100A8、S100A9、S100A12的强烈表达，这组基因在人外周血经典单核细胞及炎症活化单核细胞中非常典型；PLBD1、BST1、CDA进一步支持单核细胞身份。PADI4虽也可见于中性粒细胞相关程序，但结合PBMC背景以及整体marker组合，更符合具有炎症特征的经典单核细胞，而非其他淋巴细胞或混合谱系细胞。",
+            "functional_state": "该群细胞呈现明显炎症活化特征，体现为S100A8/S100A9/S100A12和NLRP12高表达，提示先天免疫应答和炎症相关状态。未见以线粒体、核糖体或广泛应激基因为主的模式，也不存在无法解释的多谱系混合标志，因此不支持Low-quality cells或Doublet。"
+        }
+    },
+    "z-ai/glm-5": {
+        "cluster_name": "1",
+        "cell_type": "Myeloid cells",
+        "cell_subtype": "Neutrophils",
+        "reasoning": {
+            "lineage_determination": "该 cluster 高表达 S100A8, S100A9, S100A12 和 BST1，这些均为典型的髓系细胞标记基因，明确指示了其髓系细胞谱系来源。",
+            "subtype_refinement": "S100A8 和 S100A9 组成的钙卫蛋白复合物与 PADI4（中性粒细胞胞外诱捕网形成关键酶）的高表达是中性粒细胞的典型特征。此外，CDA 和 PLBD1 也支持其为中性粒细胞。尽管 PBMC 样本通常去除粒细胞，但这群细胞符合低密度粒细胞特征。",
+            "functional_state": "细胞表达 NLRP12 和 S100A12，提示其可能处于炎症活跃状态，具备潜在的免疫防御或病原体清除功能。"
+        }
+    },
+    "google/gemini-3.1-pro-preview": {
+        "cluster_name": "1",
+        "cell_type": "Monocytes",
+        "cell_subtype": "CD14+ Classical Monocytes",
+        "reasoning": {
+            "lineage_determination": "高表达 S100A8、S100A9、S100A12 以及 BST1 (CD157)，这些基因是高度典型的髓系细胞 (Myeloid cells) 标志物，在人外周血单个核细胞 (PBMC) 样本中明确指向单核细胞谱系。",
+            "subtype_refinement": "S100A8、S100A9、S100A12 的强表达，结合靶基因 RBP7、PLBD1的共表达，是鉴别人外周血经典单核细胞 (CD14+ Classical Monocytes) 的核心基因组合，从而不仅可确认为单核细胞，且将其与其它的非经典单核细胞 (CD16+) 区分开来。",
+            "functional_state": "同时表达 PADI4、CDA、NLRP12 和 CYP27A1，提示该类细胞具有强烈的吞噬、天然免疫应答、抗菌以及活跃的代谢调控功能特征，符合外周血循环经典单核细胞的炎症警觉状态。"
+        }
+    }
+}

@@ -24,13 +24,25 @@ def init_config():
     config = Config()
     config.init()
     
-    log_success("配置文件已创建！请填入API Key等信息。")
+    log_success("配置文件已创建！请执行 ohmycelltype set-api 命令填入 API Key等信息。")
 
-    console.print("[bold magenta]✨ 设置API Key...[/bold magenta]")
-
-    provider = click.prompt("请输入API提供商名称，不填则使用默认值", default="n1n")
-    api_key = click.prompt("请输入API Key", hide_input=False)
     
+@cli.command()
+def set_api():
+    """设置API Key"""
+    console.print("[bold magenta]✨ 设置API Key...[/bold magenta]")
+    
+    from ohmycelltype.config import Config
+    config = Config()
+    
+    is_correct_provider = False
+    while not is_correct_provider:
+        provider = click.prompt("请输入API提供商名称（可选：openrouter、n1n），不填则使用默认值", default="openrouter")
+        if provider in config.config:
+            is_correct_provider = True
+        else:
+            log_error(f"提供商 {provider} 不受支持，请重新输入。")
+    api_key = click.prompt("请输入API Key", hide_input=False)
     
     try:
         config.set_api(provider, api_key)
@@ -38,14 +50,12 @@ def init_config():
     except Exception as e:
         log_error(f"设置API Key失败: {str(e)}")
         raise click.Abort()
-    
-    
 
 
 @cli.command()
 @click.argument('input_file', type=click.Path(exists=True))
 @click.option('-o', '--output', required=True, help='输出目录')
-@click.option('-p', '--provider', default='n1n', help='API provider (默认: n1n)')
+@click.option('-p', '--provider', default='openrouter', help='API provider (默认: openrouter)')
 def annotate(input_file, output, provider):
     """执行完整的细胞类型注释流程
     
@@ -64,7 +74,7 @@ def annotate(input_file, output, provider):
         console.print("[bold magenta]✨ 初始化工作流...[/bold magenta]")
         
         runner = CelltypeWorkflow(input_file, output, provider)
-        time.sleep(10) 
+        time.sleep(3) 
         console.print()
         console.print("[bold magenta]✨ 开始参数收集...[/bold magenta]")
         
@@ -94,6 +104,8 @@ def show():
     """显示当前配置"""
     from ohmycelltype.config import Config
     config = Config()
+
+    console.print(f"\n配置文件路径: {config.get_path()}\n")
     
     try:
         console.print()

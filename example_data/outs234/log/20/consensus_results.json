@@ -1,0 +1,16 @@
+{
+    "clister_id": "20",
+    "celltype": "Dendritic cells",
+    "subcelltype": "Conventional dendritic cells (cDC)",
+    "is_consensus_reached": true,
+    "consensus_proportion": 0.67,
+    "entropy_value": 0.92,
+    "supporting_models": [
+        "openai/gpt-5.4",
+        "google/gemini-3.1-pro-preview"
+    ],
+    "conflicting_models": [
+        "z-ai/glm-5"
+    ],
+    "reasoning": "三个模型均认同该 cluster 属于高度表达 MHC-II 类分子的专业抗原提呈细胞谱系。其中 openai/gpt-5.4（reliability_score=72）和 google/gemini-3.1-pro-preview（reliability_score=82）均将该 cluster 注释为树突状细胞（cDC），两者在主谱系和亚型层面高度一致；z-ai/glm-5（reliability_score=72）将其注释为 B 细胞，但其审核意见也明确指出 MHC-II 标志物对 B 细胞的特异性不足，存在与 DC/单核细胞混淆的风险。综合来看，可信度最高的 google/gemini-3.1-pro-preview 和 openai/gpt-5.4 均支持树突状细胞谱系，z-ai/glm-5 的 B 细胞注释证据特异性偏弱，属于冲突模型。因此最终共识为 Conventional dendritic cells（cDC），由于缺乏 CLEC9A/CD1C 等关键亚型 marker，不进一步细化至 cDC1 或 cDC2。"
+}

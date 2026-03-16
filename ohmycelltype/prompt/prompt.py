@@ -193,12 +193,6 @@ Low-quality / Stressed cells
 cell_type = "Low-quality cells"  
 cell_subtype = "Stressed / Dying cells"
 
-Proliferating cells  
-如果 marker 主要富集于细胞周期或 DNA 复制相关基因，则判定为：
-
-cell_type = "Proliferating cells"  
-cell_subtype = "Cycling cells"
-
 Marker 不足  
 如果 marker 无法支持可靠注释：
 
@@ -543,12 +537,11 @@ CLUSTER_REPORT_PROMPT = """
 
 ### 🤖 [模型 A 名称]
 * **核心定义**: [该模型的注释名称]
-* **逻辑**: [描述该模型如何解读 Marker，偏向哪种生物学解释]
+* **逻辑**: [描述该模型如何解读 Marker，偏向哪种生物学解释,为什么支持该结论]
 
 ### 🎨 [模型 B 名称]
 * **核心定义**: [该模型的注释名称]
-* **逻辑**: [描述该模型捕捉到的独特特征或不同的解释角度]
-
+* **逻辑**: [描述该模型如何解读 Marker，偏向哪种生物学解释,为什么支持该结论]
 ---
 
 ## 4. 审核意见与最终结论 (Audit Consensus)

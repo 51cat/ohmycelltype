@@ -1,0 +1,32 @@
+{
+    "openai/gpt-5.4": {
+        "cluster_name": "2",
+        "cell_type": "T cells",
+        "cell_subtype": "Gamma-delta cytotoxic T cells",
+        "reasoning": {
+            "lineage_determination": "该 cluster 表达 TRGC2 和 CD8A，提示其属于 T 细胞谱系；同时高表达 NKG7、CCL5、GZMA、GZMH、CST7、FGFBP2、S1PR5，显示出明显的细胞毒性淋巴细胞特征。在 PBMC 中，TRGC2 是γδT细胞的重要标志，结合细胞毒分子表达，支持其为细胞毒性 T 细胞群体中的γδT细胞。",
+            "subtype_refinement": "TRGC2 直接支持 γδT 细胞身份；GZMH、GZMA、CCL5、CST7、FGFBP2、NKG7 和 ADGRG1 表明该群体具有强细胞毒效应特征。CD8A 也符合一部分外周血 γδT 细胞的表型。因此该 cluster 最合理注释为 Gamma-delta cytotoxic T cells。",
+            "functional_state": "该群体高表达 GZMH、GZMA、CCL5、FGFBP2、CST7、NKG7、S1PR5，提示其处于活跃的细胞毒/效应状态，具有迁移和杀伤功能特征；未见以线粒体、核糖体或广泛应激基因为主，不支持低质量细胞；marker 组合可被单一 γδ细胞毒性 T 细胞类型合理解释，不支持 Doublet。"
+        }
+    },
+    "z-ai/glm-5": {
+        "cluster_name": "2",
+        "cell_type": "CD8+ T cells",
+        "cell_subtype": "CD8+ Effector Memory T cells (Temra)",
+        "reasoning": {
+            "lineage_determination": "该 cluster 高表达 CD8A，这是 CD8+ T 细胞的典型标志基因。同时，GZMA, GZMH, NKG7, CCL5 等细胞毒性相关基因的高表达进一步证实了其属于细胞毒性 T 淋巴细胞（CTL）谱系。虽然 TRGC2 通常与 Gamma Delta T 细胞相关，但在 PBMC 中，CD8A 的明确表达将其主要归类为 CD8+ T 细胞系。",
+            "subtype_refinement": "该群体特异性高表达 FGFBP2 和 GZMH，这两个基因是终末分化效应记忆 T 细胞（Temra/TERMIN）的特征性标志物。此外，ADGRG1 (GPR56) 和 S1PR5 也是 CD8+ Temra 细胞的已知标志物。FGFBP2 的存在强烈提示该群体为具有强细胞毒性的 CD8+ Temra 细胞亚群。",
+            "functional_state": "高表达 PRF1, GZMA, GZMH, NKG7 和 CCL5，表明该群体处于活跃的细胞毒性效应状态，具备强大的杀伤功能。"
+        }
+    },
+    "google/gemini-3.1-pro-preview": {
+        "cluster_name": "2",
+        "cell_type": "CD8+ T cells",
+        "cell_subtype": "CD8+ TEMRA cells",
+        "reasoning": {
+            "lineage_determination": "根据经典的细胞毒性分化抗原 CD8A 的表达，结合 NK/T 细胞共用的高表达细胞毒性相关基因（NKG7, CCL5），可明确判定该 cluster 属于具有细胞杀伤功能的 CD8+ T 细胞谱系。",
+            "subtype_refinement": "该 cluster 特异性高表达 FGFBP2, ADGRG1 (GPR56) 和 S1PR5，这三个基因是外周血中典型的终末分化效应记忆 T 细胞（TEMRA）的经典标志物组合。此外，极高表达的颗粒酶（GZMH, GZMA）和 CST7 进一步证实了其晚期分化及高细胞毒性特征。同时检测到的 TRGC2 提示存在部分具有相似效应分化轨迹的 γδ T 细胞，但整体表达谱高度契合 CD8+ TEMRA 细胞。",
+            "functional_state": "细胞处于终末分化的强效应状态（Terminally differentiated effector state），具备极高的细胞毒颗粒组装与释放能力，属于静息外周血中能迅速执行免疫杀伤功能的细胞群。"
+        }
+    }
+}
