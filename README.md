@@ -189,28 +189,6 @@ results/
         └── metadata.json              # 运行元数据
 ```
 
-### HTML 可视化报告
-
-使用 `HTMLRenderer` 生成交互式 HTML 报告：
-
-```python
-from ohmycelltype.tools.render import HTMLRenderer
-import pandas as pd
-
-# 读取注释结果
-df = pd.read_csv('results/report/final_annotation_all_clusters.csv')
-
-# 读取 Markdown 报告
-md_dict = {
-    'Cluster 0': open('results/report/report_0.md').read(),
-    'Cluster 1': open('results/report/report_1.md').read()
-}
-
-# 生成 HTML
-renderer = HTMLRenderer(df, md_dict)
-renderer.save_to_file('report.html')
-```
-
 ## 工作流程
 
 ```
